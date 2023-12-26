@@ -58,7 +58,7 @@ importers:
         version: 3.3.13(typescript@5.3.3)
       zsdesign:
         specifier: workspace:^
-        version: link:../packages/zsdesign
+        version: link:../packages/zsui
     devDependencies:
       eslint-import-resolver-typescript:
         specifier: ^3.6.1

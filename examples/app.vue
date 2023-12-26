@@ -13,5 +13,5 @@
 </template>
 
 <script lang="ts" setup>
-import { Button, EllipsisText } from 'zsdesign';
+import { Button, EllipsisText } from 'zsui';
 </script>
