@@ -1,0 +1,37 @@
+{
+  "name": "zsdesign",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "build": "vite build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "ant-design-vue": "^4.0.8",
+    "sass": "^1.69.5",
+    "vue": "^3.3.13"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-interactions": "^7.6.6",
+    "@storybook/addon-links": "^7.6.6",
+    "@storybook/blocks": "^7.6.6",
+    "@storybook/test": "^7.6.6",
+    "@storybook/vue3": "^7.6.6",
+    "@storybook/vue3-vite": "^7.6.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.6"
+  }
+}
