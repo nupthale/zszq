@@ -1,35 +1,12 @@
 
-.zsui-user[data-v-f7f13e1a] {
-  display: inline-flex;
-  align-items: center;
-
-  height: 22px;
-}
-.zsui-user__avatar[data-v-f7f13e1a] {
-  font-size: 12px !important;
-  display: inline-flex;
-  align-items: center;
-  color: #fff;
-}
-.zsui-user__namewrap[data-v-f7f13e1a] {
-  display: flex;
-  margin-left: 4px;
-  max-width: 100px;
-}
-.zsui-user__name[data-v-f7f13e1a] {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.zsui-text-button[data-v-1a0ac4d8] {
+.zsui-text-button {
   display: inline-flex;
   align-items: center;
 
   padding: 2px 4px;
   height: 26px;
 }
-.zsui-text-button.ant-btn-sm[data-v-1a0ac4d8] {
+.zsui-text-button.ant-btn-sm {
   display: inline-flex;
   align-items: center;
 
@@ -37,29 +14,99 @@
   height: 20px;
   font-size: 12px;
 }
-.zsui-text-button--primary[data-v-1a0ac4d8] {
+.zsui-text-button--primary {
   color: #3370ff;
-&[data-v-1a0ac4d8]:hover {
+&:hover {
     color: #3370ff;
     background-color: rgba(51, 112, 255, 0.08);
 }
-&[data-v-1a0ac4d8]:active {
+&:active {
     color: #3370ff;
     background-color: rgba(51, 112, 255, 0.2);
 }
 }
-.zsui-text-button--warning[data-v-1a0ac4d8] {
+.zsui-text-button--warning {
   color: #f54a45;
-&[data-v-1a0ac4d8]:hover {
+&:hover {
     color: #f54a45;
     background-color: rgba(245, 74, 69, 0.08);
 }
-&[data-v-1a0ac4d8]:active {
+&:active {
     color: #f54a45;
     background-color: rgba(245, 74, 69, 0.2);
 }
 }
-.zsui-ellipsis-text[data-v-5ae26728] {
+
+.zsui-user {
+  display: inline-flex;
+  align-items: center;
+
+  height: 22px;
+}
+.zsui-user__avatar {
+  font-size: 12px !important;
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+}
+.zsui-user__namewrap {
+  display: flex;
+  margin-left: 4px;
+  max-width: 100px;
+}
+.zsui-user__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zsui-ellipsis-text {
+  display: inline-flex;
+  position: relative;
+}
+.zsui-ellipsis-text__fold {
+  display: flex;
+  overflow: hidden;
+}
+.zsui-ellipsis-text__foldWrap {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  word-break: break-all;
+}
+.zsui-ellipsis-text__foldWrap:before {
+  content: " ";
+  height: var(--bbbe8a0e);
+  float: right;
+}
+.zsui-ellipsis-text__foldWrap:after {
+  position: absolute;
+  content: "";
+  width: 999vw;
+  height: 999vw;
+  box-shadow: var(--e38c4282);
+  margin-left: -100px;
+  z-index: 2;
+}
+.zsui-ellipsis-text__foldAction {
+  position: relative;
+  float: right;
+  clear: both;
+  display: inline-flex;
+  z-index: 1;
+}
+.zsui-ellipsis-text__foldButton {
+  margin: 0 0 0 4px;
+  display: flex;
+  align-items: center;
+}
+.zsui-ellipsis-text__unfold {
+  text-align: justify;
+  text-justify: inter-ideograph;
+  word-break: break-all;
+  line-break: anywhere;
+}.zsui-ellipsis-text {
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-all;
@@ -67,51 +114,4 @@
   display: -moz-box;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
-}.zsui-ellipsis-text[data-v-75038f27] {
-  display: inline-flex;
-  position: relative;
-}
-.zsui-ellipsis-text__fold[data-v-75038f27] {
-  display: flex;
-  overflow: hidden;
-}
-.zsui-ellipsis-text__foldWrap[data-v-75038f27] {
-  position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: justify;
-  text-justify: inter-ideograph;
-  word-break: break-all;
-}
-.zsui-ellipsis-text__foldWrap[data-v-75038f27]:before {
-  content: " ";
-  height: var(--6e6f5e68);
-  float: right;
-}
-.zsui-ellipsis-text__foldWrap[data-v-75038f27]:after {
-  position: absolute;
-  content: "";
-  width: 999vw;
-  height: 999vw;
-  box-shadow: var(--0176d0f0);
-  margin-left: -100px;
-  z-index: 2;
-}
-.zsui-ellipsis-text__foldAction[data-v-75038f27] {
-  position: relative;
-  float: right;
-  clear: both;
-  display: inline-flex;
-  z-index: 1;
-}
-.zsui-ellipsis-text__foldButton[data-v-75038f27] {
-  margin: 0 0 0 4px;
-  display: flex;
-  align-items: center;
-}
-.zsui-ellipsis-text__unfold[data-v-75038f27] {
-  text-align: justify;
-  text-justify: inter-ideograph;
-  word-break: break-all;
-  line-break: anywhere;
 }

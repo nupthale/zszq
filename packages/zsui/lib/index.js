@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
-const index = require("./TextButton/index.vue.js");
-const index_vue_vue_type_script_setup_true_lang = require("./EllipsisText/index.vue.js");
-const index$1 = require("./User/index.vue.js");
-exports.TextButton = index;
-exports.EllipsisText = index_vue_vue_type_script_setup_true_lang;
-exports.User = index$1;
+const index_vue_vue_type_script_setup_true_lang = require("./TextButton/index.vue.js");
+require("./TextButton/index.vue2.js");
+const index_vue_vue_type_script_setup_true_lang$1 = require("./EllipsisText/index.vue.js");
+const index_vue_vue_type_script_setup_true_lang$2 = require("./User/index.vue.js");
+require("./User/index.vue2.js");
+exports.TextButton = index_vue_vue_type_script_setup_true_lang;
+exports.EllipsisText = index_vue_vue_type_script_setup_true_lang$1;
+exports.User = index_vue_vue_type_script_setup_true_lang$2;
