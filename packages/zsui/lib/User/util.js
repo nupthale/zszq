@@ -42,10 +42,10 @@ const colors = [
   "#d136d1"
 ];
 const nameToColor = (name) => {
-  const index = parseInt(name.charCodeAt(0), 10) % colors.length;
+  const index = parseInt(String(name.charCodeAt(name.length - 1)), 10) % colors.length;
   const hexColor = colors[index];
   const rgbColor = hex2rgb(`${hexColor}`);
-  const startColor = `rgba(${rgbColor}, 0.8)`;
+  const startColor = `rgba(${rgbColor}, 0.6)`;
   const endColor = `rgba(${rgbColor}, 1)`;
   return `radial-gradient(circle at 18.7% 37.8%, ${startColor} 0%, ${endColor} 90%)`;
 };
