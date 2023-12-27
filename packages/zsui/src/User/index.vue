@@ -42,7 +42,7 @@ const avatarStyle = computed(() => ({
 }));
 </script>
 
-<style scoped>
+<style>
 .zsui-user {
   display: inline-flex;
   align-items: center;

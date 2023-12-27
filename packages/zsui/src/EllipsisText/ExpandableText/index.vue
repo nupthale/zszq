@@ -123,7 +123,7 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .zsui-ellipsis-text {
   display: inline-flex;
   position: relative;

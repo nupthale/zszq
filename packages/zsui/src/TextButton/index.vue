@@ -16,7 +16,7 @@ const props = defineProps(propsDef);
 const className = computed(() => `zsui-text-button--${props.type}`);
 </script>
 
-<style scoped>
+<style>
 .zsui-text-button {
   display: inline-flex;
   align-items: center;
