@@ -1,10 +1,9 @@
 "use strict";
 const vue = require("vue");
+const antDesignVue = require("ant-design-vue");
 const util = require("./util.js");
 const props = require("./props.js");
 const _interface = require("./interface.js");
-require("../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/avatar/index.js");
-const Avatar = require("../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/avatar/Avatar.js");
 const _hoisted_1 = { class: "zsui-user" };
 const _hoisted_2 = { class: "zsui-user__name" };
 const _sfc_main = /* @__PURE__ */ vue.defineComponent({
@@ -30,7 +29,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     }));
     return (_ctx, _cache) => {
       return vue.openBlock(), vue.createElementBlock("span", _hoisted_1, [
-        vue.createVNode(vue.unref(Avatar.default), {
+        vue.createVNode(vue.unref(antDesignVue.Avatar), {
           size: avatarSize.value,
           class: "zsui-user__avatar",
           style: vue.normalizeStyle(avatarStyle.value)

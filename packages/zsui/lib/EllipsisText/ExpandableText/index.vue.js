@@ -13,8 +13,8 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
   props,
   setup(__props) {
     vue.useCssVars((_ctx) => ({
-      "bbbe8a0e": beforeStyle.value,
-      "e38c4282": boxShadowStyle.value
+      "5dca648b": beforeStyle.value,
+      "1305f3ed": boxShadowStyle.value
     }));
     const lineHeightMap = {
       12: 20,
@@ -66,7 +66,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     );
     return (_ctx, _cache) => {
       return vue.openBlock(), vue.createElementBlock("div", {
-        class: "zsui-ellipsis-text",
+        class: "zsui-ellipsis-text--expandable",
         style: vue.normalizeStyle(containerStyle.value)
       }, [
         hasOverflowChildren.value ? (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 0 }, [

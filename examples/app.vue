@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Button />
+    <TextButton>test</TextButton>
     <div style="display: inline-block; width: 80px">
       <EllipsisText
         title="123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf"
-        line-clamp="2"
+        :line-clamp="2"
       >
         123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf123123123asdfdsafdsaf
       </EllipsisText>
@@ -13,5 +13,5 @@
 </template>
 
 <script lang="ts" setup>
-import { Button, EllipsisText } from 'zsui';
+import { TextButton, EllipsisText } from '@zsfe/zsui';
 </script>

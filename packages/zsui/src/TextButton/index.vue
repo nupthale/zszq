@@ -16,49 +16,52 @@ const props = defineProps(propsDef);
 const className = computed(() => `zsui-text-button--${props.type}`);
 </script>
 
-<style>
-.zsui-text-button {
-  display: inline-flex;
-  align-items: center;
+<style lang="less">
+.ant-btn {
+  &.zsui-text-button {
+    display: inline-flex;
+    align-items: center;
 
-  padding: 2px 4px;
-  height: 26px;
+    padding: 2px 4px;
+    height: auto;
+    border-radius: 6px;
+  }
 }
 
 .zsui-text-button.ant-btn-sm {
   display: inline-flex;
   align-items: center;
 
-  padding: 2px 4px;
-  height: 20px;
   font-size: 12px;
 }
 
-.zsui-text-button--primary {
-  color: #3370ff;
-
-  &:hover {
+.zsui-text-button {
+  &.zsui-text-button--primary {
     color: #3370ff;
-    background-color: rgba(51, 112, 255, 0.08);
+
+    &:hover {
+      color: #3370ff;
+      background-color: rgba(51, 112, 255, 0.08);
+    }
+
+    &:active {
+      color: #3370ff;
+      background-color: rgba(51, 112, 255, 0.2);
+    }
   }
 
-  &:active {
-    color: #3370ff;
-    background-color: rgba(51, 112, 255, 0.2);
-  }
-}
-
-.zsui-text-button--warning {
-  color: #f54a45;
-
-  &:hover {
+  &.zsui-text-button--warning {
     color: #f54a45;
-    background-color: rgba(245, 74, 69, 0.08);
-  }
 
-  &:active {
-    color: #f54a45;
-    background-color: rgba(245, 74, 69, 0.2);
+    &:hover {
+      color: #f54a45;
+      background-color: rgba(245, 74, 69, 0.08);
+    }
+
+    &:active {
+      color: #f54a45;
+      background-color: rgba(245, 74, 69, 0.2);
+    }
   }
 }
 </style>

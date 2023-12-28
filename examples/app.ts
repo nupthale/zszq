@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './app.vue';
-import 'zsdesign/lib/style.css';
+import '@zsfe/zsui/lib/style.css';
 
 const app = createApp(App);
 

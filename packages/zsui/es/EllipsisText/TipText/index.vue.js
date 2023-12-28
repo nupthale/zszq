@@ -1,6 +1,6 @@
 import { defineComponent, ref, computed, onMounted, watch, nextTick, openBlock, createBlock, unref, withCtx, createElementVNode, normalizeStyle, renderSlot, createElementBlock } from "vue";
+import { Tooltip } from "ant-design-vue";
 import tipTextPropsDef from "./props.js";
-import Tooltip from "../../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/tooltip/index.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   props: tipTextPropsDef,
@@ -42,7 +42,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         default: withCtx(() => [
           createElementVNode("div", {
             style: normalizeStyle(containerStyle.value),
-            class: "zsui-ellipsis-text"
+            class: "zsui-ellipsis-text--tip"
           }, [
             renderSlot(_ctx.$slots, "default")
           ], 4)
@@ -53,7 +53,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         ref_key: "targetRef",
         ref: targetRef,
         style: normalizeStyle(containerStyle.value),
-        class: "zsui-ellipsis-text"
+        class: "zsui-ellipsis-text--tip"
       }, [
         renderSlot(_ctx.$slots, "default")
       ], 4));

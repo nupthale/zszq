@@ -12,8 +12,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   props: expandableTextPropsDef,
   setup(__props) {
     useCssVars((_ctx) => ({
-      "bbbe8a0e": beforeStyle.value,
-      "e38c4282": boxShadowStyle.value
+      "5dca648b": beforeStyle.value,
+      "1305f3ed": boxShadowStyle.value
     }));
     const lineHeightMap = {
       12: 20,
@@ -65,7 +65,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     );
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
-        class: "zsui-ellipsis-text",
+        class: "zsui-ellipsis-text--expandable",
         style: normalizeStyle(containerStyle.value)
       }, [
         hasOverflowChildren.value ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [

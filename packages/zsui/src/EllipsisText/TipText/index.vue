@@ -1,6 +1,6 @@
 <template>
   <Tooltip v-if="hasOverflowChildren" :title="title" destroy-tooltip-on-hide>
-    <div :style="containerStyle" class="zsui-ellipsis-text">
+    <div :style="containerStyle" class="zsui-ellipsis-text--tip">
       <slot />
     </div>
   </Tooltip>
@@ -9,7 +9,7 @@
     v-else
     ref="targetRef"
     :style="containerStyle"
-    class="zsui-ellipsis-text"
+    class="zsui-ellipsis-text--tip"
   >
     <slot />
   </div>

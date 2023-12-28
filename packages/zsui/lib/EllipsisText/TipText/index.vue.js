@@ -1,7 +1,7 @@
 "use strict";
 const vue = require("vue");
+const antDesignVue = require("ant-design-vue");
 const props = require("./props.js");
-const index = require("../../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/tooltip/index.js");
 const _sfc_main = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
   props,
@@ -35,7 +35,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
       }
     );
     return (_ctx, _cache) => {
-      return hasOverflowChildren.value ? (vue.openBlock(), vue.createBlock(vue.unref(index.default), {
+      return hasOverflowChildren.value ? (vue.openBlock(), vue.createBlock(vue.unref(antDesignVue.Tooltip), {
         key: 0,
         title: _ctx.title,
         "destroy-tooltip-on-hide": ""
@@ -43,7 +43,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
         default: vue.withCtx(() => [
           vue.createElementVNode("div", {
             style: vue.normalizeStyle(containerStyle.value),
-            class: "zsui-ellipsis-text"
+            class: "zsui-ellipsis-text--tip"
           }, [
             vue.renderSlot(_ctx.$slots, "default")
           ], 4)
@@ -54,7 +54,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
         ref_key: "targetRef",
         ref: targetRef,
         style: vue.normalizeStyle(containerStyle.value),
-        class: "zsui-ellipsis-text"
+        class: "zsui-ellipsis-text--tip"
       }, [
         vue.renderSlot(_ctx.$slots, "default")
       ], 4));

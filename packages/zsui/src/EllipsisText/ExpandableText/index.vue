@@ -1,5 +1,5 @@
 <template>
-  <div class="zsui-ellipsis-text" :style="containerStyle">
+  <div class="zsui-ellipsis-text--expandable" :style="containerStyle">
     <template v-if="hasOverflowChildren">
       <div v-if="isFold" class="zsui-ellipsis-text__fold" :style="foldStyle">
         <div class="zsui-ellipsis-text__foldWrap" :style="foldWrapStyle">
@@ -124,7 +124,7 @@ watch(
 </script>
 
 <style lang="scss">
-.zsui-ellipsis-text {
+.zsui-ellipsis-text--expandable {
   display: inline-flex;
   position: relative;
 }

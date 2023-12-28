@@ -1,9 +1,8 @@
 import { defineComponent, computed, openBlock, createElementBlock, createVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode } from "vue";
+import { Avatar } from "ant-design-vue";
 import { nameToColor } from "./util.js";
 import propsDef from "./props.js";
 import { SizeEnum } from "./interface.js";
-import "../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/avatar/index.js";
-import Avatar from "../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/avatar/Avatar.js";
 const _hoisted_1 = { class: "zsui-user" };
 const _hoisted_2 = { class: "zsui-user__name" };
 const _sfc_main = /* @__PURE__ */ defineComponent({

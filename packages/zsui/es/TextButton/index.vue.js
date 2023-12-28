@@ -1,7 +1,6 @@
 import { defineComponent, computed, openBlock, createBlock, unref, normalizeClass, withCtx, renderSlot } from "vue";
+import { Button } from "ant-design-vue";
 import propsDef from "./props.js";
-import "../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/button/index.js";
-import Button from "../node_modules/.pnpm/ant-design-vue@4.0.8_vue@3.3.13/node_modules/ant-design-vue/es/button/button.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   props: propsDef,
