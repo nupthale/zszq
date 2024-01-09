@@ -1,26 +1,3 @@
-
-.zsui-user {
-  display: inline-flex;
-  align-items: center;
-
-  height: 22px;
-}
-.zsui-user__avatar {
-  font-size: 12px !important;
-  display: inline-flex;
-  align-items: center;
-  color: #fff;
-}
-.zsui-user__namewrap {
-  display: flex;
-  margin-left: 4px;
-  max-width: 100px;
-}
-.zsui-user__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 .ant-btn.zsui-text-button {
   display: inline-flex;
   align-items: center;
@@ -63,6 +40,30 @@
 .zsui-text-button:disabled:active {
   color: #bbbfc4;
   background: none;
+}
+
+.zsui-user {
+  display: inline-flex;
+  align-items: center;
+
+  height: 22px;
+}
+.zsui-user__avatar {
+  font-size: 12px !important;
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  border: none;
+}
+.zsui-user__namewrap {
+  display: flex;
+  margin-left: 4px;
+  max-width: 100px;
+}
+.zsui-user__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .zsui-ellipsis-text--tip {
   overflow: hidden;
