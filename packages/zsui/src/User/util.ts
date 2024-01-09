@@ -16,44 +16,7 @@ function hex2rgb(hex: string) {
   ].join(',');
 }
 
-const colors = [
-  '#1e80ff',
-  '#f53f3f',
-  '#0fbf60',
-  '#ff8b07',
-  '#f54a45',
-  '#10C3A9',
-
-  '#1c4cba',
-  '#3370ff',
-
-  '#078372',
-  '#00d6b9',
-
-  '#237b19',
-  '#34c724',
-
-  '#667901',
-  '#b3d600',
-
-  '#aa7803',
-  '#ffc60a',
-
-  '#b26206',
-  '#ff8800',
-
-  '#ac2f28',
-  '#f54a45',
-
-  '#9e1361',
-  '#f01d94',
-
-  '#161fa2',
-  '#4954e6',
-
-  '#8c218c',
-  '#d136d1',
-];
+const colors = ['#1e80ff', '#0fbf60', '#ff8b07', '#10C3A9'];
 
 export const nameToColor = (name: string) => {
   // 根据名字生成一个0-colors.length范围的数字

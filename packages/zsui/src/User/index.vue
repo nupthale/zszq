@@ -55,6 +55,7 @@ const avatarStyle = computed(() => ({
   display: inline-flex;
   align-items: center;
   color: #fff;
+  border: none;
 }
 
 .zsui-user__namewrap {

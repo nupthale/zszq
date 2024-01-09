@@ -29,7 +29,7 @@ export const Base: Story = {
       return { args, style };
     },
     template:
-      '<div :style="style"><div><User v-bind="args" /></div><div><User username="吴方文" /></div><User username="Sergio Pedercini" /></div>',
+      '<div :style="style"><div><User v-bind="args" /></div><div><User username="吴方文" /></div><User username="Sergio Pedercini" /></div><div><User username="石鹏飞" /></div></div>',
   }),
   args: {
     username: '哈乐',
