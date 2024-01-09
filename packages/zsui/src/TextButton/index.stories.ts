@@ -72,3 +72,22 @@ export const Primary: Story = {
     type: 'default',
   },
 };
+
+export const Disabled: Story = {
+  render: args => ({
+    components: { TextButton },
+    setup() {
+      const style = {
+        display: 'inline-block',
+        width: '400px',
+      };
+
+      return { args, style };
+    },
+    template:
+      '<div :style="style"><TextButton disabled type="primary">测试</TextButton><TextButton disabled type="warning" size="small">测试</TextButton></div>',
+  }),
+  args: {
+    type: 'default',
+  },
+};

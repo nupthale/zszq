@@ -63,5 +63,16 @@ const className = computed(() => `zsui-text-button--${props.type}`);
       background-color: rgba(245, 74, 69, 0.2);
     }
   }
+
+  &:disabled {
+    color: #bbbfc4;
+    background: none;
+
+    &:hover,
+    &:active {
+      color: #bbbfc4;
+      background: none;
+    }
+  }
 }
 </style>
