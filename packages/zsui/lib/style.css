@@ -55,6 +55,15 @@
   color: #f54a45;
   background-color: rgba(245, 74, 69, 0.2);
 }
+.zsui-text-button:disabled {
+  color: #bbbfc4;
+  background: none;
+}
+.zsui-text-button:disabled:hover,
+.zsui-text-button:disabled:active {
+  color: #bbbfc4;
+  background: none;
+}
 .zsui-ellipsis-text--tip {
   overflow: hidden;
   text-overflow: ellipsis;

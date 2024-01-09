@@ -6,3 +6,4 @@ type Story = StoryObj<typeof TextButton>;
 export declare const Base: Story;
 export declare const Size: Story;
 export declare const Primary: Story;
+export declare const Disabled: Story;
