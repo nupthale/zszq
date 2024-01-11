@@ -39,12 +39,13 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
           ]),
           _: 1
         }, 8, ["size", "style"]),
-        vue.createElementVNode("span", {
+        _ctx.showText ? (vue.openBlock(), vue.createElementBlock("span", {
+          key: 0,
           class: "zsui-user__namewrap",
           style: vue.normalizeStyle(textStyle.value)
         }, [
           vue.createElementVNode("span", _hoisted_2, vue.toDisplayString(_ctx.username), 1)
-        ], 4)
+        ], 4)) : vue.createCommentVNode("", true)
       ]);
     };
   }

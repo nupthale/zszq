@@ -1,1 +1,1 @@
-export declare const nameToColor: (name: string) => string;
+export declare const nameToColor: (name?: string) => string;

@@ -1,4 +1,4 @@
-import { defineComponent, computed, openBlock, createElementBlock, createVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode } from "vue";
+import { defineComponent, computed, openBlock, createElementBlock, createVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode, createCommentVNode } from "vue";
 import { Avatar } from "ant-design-vue";
 import { nameToColor } from "./util.js";
 import propsDef from "./props.js";
@@ -38,12 +38,13 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           ]),
           _: 1
         }, 8, ["size", "style"]),
-        createElementVNode("span", {
+        _ctx.showText ? (openBlock(), createElementBlock("span", {
+          key: 0,
           class: "zsui-user__namewrap",
           style: normalizeStyle(textStyle.value)
         }, [
           createElementVNode("span", _hoisted_2, toDisplayString(_ctx.username), 1)
-        ], 4)
+        ], 4)) : createCommentVNode("", true)
       ]);
     };
   }

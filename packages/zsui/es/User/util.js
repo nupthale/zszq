@@ -12,7 +12,10 @@ function hex2rgb(hex) {
   ].join(",");
 }
 const colors = ["#1e80ff", "#0fbf60", "#ff8b07", "#10C3A9"];
-const nameToColor = (name) => {
+const nameToColor = (name = "") => {
+  if (!name) {
+    return "#333";
+  }
   const index = parseInt(String(name.charCodeAt(name.length - 1)), 10) % colors.length;
   const hexColor = colors[index];
   const rgbColor = hex2rgb(`${hexColor}`);
