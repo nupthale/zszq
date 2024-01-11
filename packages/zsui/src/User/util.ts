@@ -18,7 +18,11 @@ function hex2rgb(hex: string) {
 
 const colors = ['#1e80ff', '#0fbf60', '#ff8b07', '#10C3A9'];
 
-export const nameToColor = (name: string) => {
+export const nameToColor = (name: string = '') => {
+  if (!name) {
+    return '#333';
+  }
+
   // 根据名字生成一个0-colors.length范围的数字
   const index =
     parseInt(String(name.charCodeAt(name.length - 1)), 10) % colors.length;

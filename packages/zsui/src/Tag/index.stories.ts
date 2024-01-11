@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import User from './index.vue';
+import Tag from './index.vue';
 
-const meta: Meta<typeof User> = {
-  component: User,
+const meta: Meta<typeof Tag> = {
+  component: Tag,
 };
 
 // 👇 This default export determines where your story goes in the story list
 export default meta;
-type Story = StoryObj<typeof User>;
+type Story = StoryObj<typeof Tag>;
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
@@ -19,20 +19,18 @@ const containerStyle = 'display: inline-block; width: 100px;';
 
 export const Base: Story = {
   render: args => ({
-    components: { User },
+    components: { Tag },
     setup() {
       const style = {
         display: 'flex',
         gap: '12px',
-        flexDirection: 'column',
+        fontSize: '12px',
       };
 
       return { args, style };
     },
     template:
-      '<div :style="style"><User v-bind="args" /><User username="吴方文" /><User username="Sergio Pedercini" /><User username="石鹏飞" />',
+      '<div :style="style"><Tag color="blue">签订中</Tag><Tag>已撤回</Tag><Tag color="green">已归档</Tag><Tag color="blue">审批中</Tag><Tag color="red">已作废</Tag><Tag color="orange">变更中</Tag></div>',
   }),
-  args: {
-    username: '哈乐',
-  },
+  args: {},
 };

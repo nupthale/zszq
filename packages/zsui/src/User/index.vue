@@ -3,7 +3,7 @@
     <avatar :size="avatarSize" class="zsui-user__avatar" :style="avatarStyle">
       {{ slicedName }}
     </avatar>
-    <span class="zsui-user__namewrap" :style="textStyle">
+    <span v-if="showText" class="zsui-user__namewrap" :style="textStyle">
       <span class="zsui-user__name">{{ username }}</span>
     </span>
   </span>
@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import { Avatar } from 'ant-design-vue';
 
-import { stringToHslColor, nameToColor } from './util';
+import { nameToColor } from './util';
 
 import propsDef from './props';
 import { SizeEnum } from './interface';
@@ -46,6 +46,7 @@ const avatarStyle = computed(() => ({
 .zsui-user {
   display: inline-flex;
   align-items: center;
+  vertical-align: top;
 
   height: 22px;
 }
