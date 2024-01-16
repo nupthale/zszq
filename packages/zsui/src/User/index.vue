@@ -35,6 +35,7 @@ const slicedName = computed(() => props.username.slice(-2));
 const avatarSize = computed(() => avatarSizeMap[props.size]);
 const textStyle = computed(() => ({
   fontSize: `${fontSizeMap[props.size]}px`,
+  lineHeight: `${avatarSizeMap[props.size]}px`,
 }));
 
 const avatarStyle = computed(() => ({

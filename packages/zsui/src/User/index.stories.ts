@@ -25,6 +25,7 @@ export const Base: Story = {
         display: 'flex',
         gap: '12px',
         flexDirection: 'column',
+        lineHeight: '50px',
       };
 
       return { args, style };

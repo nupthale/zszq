@@ -46,6 +46,7 @@ const customStyle = computed(() => colorMap[props.color] || colorMap.neutral);
   align-items: center;
 
   height: 24px;
+  line-height: 24px;
   padding: 0 6px;
   border-radius: 4px;
 
