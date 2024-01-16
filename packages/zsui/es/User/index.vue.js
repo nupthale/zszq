@@ -21,7 +21,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     const slicedName = computed(() => props.username.slice(-2));
     const avatarSize = computed(() => avatarSizeMap[props.size]);
     const textStyle = computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`
+      fontSize: `${fontSizeMap[props.size]}px`,
+      lineHeight: `${avatarSizeMap[props.size]}px`
     }));
     const avatarStyle = computed(() => ({
       background: nameToColor(props.username)

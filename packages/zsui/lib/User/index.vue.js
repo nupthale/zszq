@@ -22,7 +22,8 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     const slicedName = vue.computed(() => props2.username.slice(-2));
     const avatarSize = vue.computed(() => avatarSizeMap[props2.size]);
     const textStyle = vue.computed(() => ({
-      fontSize: `${fontSizeMap[props2.size]}px`
+      fontSize: `${fontSizeMap[props2.size]}px`,
+      lineHeight: `${avatarSizeMap[props2.size]}px`
     }));
     const avatarStyle = vue.computed(() => ({
       background: util.nameToColor(props2.username)
