@@ -24,14 +24,16 @@ const props = defineProps(propsDef);
 const avatarSizeMap = {
   [SizeEnum.SMALL]: 20,
   [SizeEnum.DEFAULT]: 24,
+  [SizeEnum.XLARGE]: 80,
 };
 
 const fontSizeMap = {
   [SizeEnum.SMALL]: 12,
   [SizeEnum.DEFAULT]: 14,
+  [SizeEnum.XLARGE]: 24,
 };
 
-const slicedName = computed(() => props.username.slice(-2));
+const slicedName = computed(() => props.username?.slice(-2));
 const avatarSize = computed(() => avatarSizeMap[props.size]);
 const textStyle = computed(() => ({
   fontSize: `${fontSizeMap[props.size]}px`,
@@ -39,6 +41,7 @@ const textStyle = computed(() => ({
 }));
 
 const avatarStyle = computed(() => ({
+  fontSize: `${fontSizeMap[props.size]}px`,
   background: nameToColor(props.username),
 }));
 </script>
@@ -53,7 +56,6 @@ const avatarStyle = computed(() => ({
 }
 
 .zsui-user__avatar {
-  font-size: 12px !important;
   display: inline-flex;
   align-items: center;
   color: #fff;

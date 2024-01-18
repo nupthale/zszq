@@ -20,7 +20,7 @@ const colors = ['#1e80ff', '#0fbf60', '#ff8b07', '#10C3A9'];
 
 export const nameToColor = (name: string = '') => {
   if (!name) {
-    return '#333';
+    return 'rgb(208, 211, 214)';
   }
 
   // 根据名字生成一个0-colors.length范围的数字

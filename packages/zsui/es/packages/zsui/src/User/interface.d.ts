@@ -1,4 +1,5 @@
 export declare enum SizeEnum {
     SMALL = "small",
-    DEFAULT = "default"
+    DEFAULT = "default",
+    XLARGE = "xlarge"
 }

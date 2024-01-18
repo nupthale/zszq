@@ -13,19 +13,25 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     const props2 = __props;
     const avatarSizeMap = {
       [_interface.SizeEnum.SMALL]: 20,
-      [_interface.SizeEnum.DEFAULT]: 24
+      [_interface.SizeEnum.DEFAULT]: 24,
+      [_interface.SizeEnum.XLARGE]: 80
     };
     const fontSizeMap = {
       [_interface.SizeEnum.SMALL]: 12,
-      [_interface.SizeEnum.DEFAULT]: 14
+      [_interface.SizeEnum.DEFAULT]: 14,
+      [_interface.SizeEnum.XLARGE]: 24
     };
-    const slicedName = vue.computed(() => props2.username.slice(-2));
+    const slicedName = vue.computed(() => {
+      var _a;
+      return (_a = props2.username) == null ? void 0 : _a.slice(-2);
+    });
     const avatarSize = vue.computed(() => avatarSizeMap[props2.size]);
     const textStyle = vue.computed(() => ({
       fontSize: `${fontSizeMap[props2.size]}px`,
       lineHeight: `${avatarSizeMap[props2.size]}px`
     }));
     const avatarStyle = vue.computed(() => ({
+      fontSize: `${fontSizeMap[props2.size]}px`,
       background: util.nameToColor(props2.username)
     }));
     return (_ctx, _cache) => {

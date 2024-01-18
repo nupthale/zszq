@@ -12,19 +12,25 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     const props = __props;
     const avatarSizeMap = {
       [SizeEnum.SMALL]: 20,
-      [SizeEnum.DEFAULT]: 24
+      [SizeEnum.DEFAULT]: 24,
+      [SizeEnum.XLARGE]: 80
     };
     const fontSizeMap = {
       [SizeEnum.SMALL]: 12,
-      [SizeEnum.DEFAULT]: 14
+      [SizeEnum.DEFAULT]: 14,
+      [SizeEnum.XLARGE]: 24
     };
-    const slicedName = computed(() => props.username.slice(-2));
+    const slicedName = computed(() => {
+      var _a;
+      return (_a = props.username) == null ? void 0 : _a.slice(-2);
+    });
     const avatarSize = computed(() => avatarSizeMap[props.size]);
     const textStyle = computed(() => ({
       fontSize: `${fontSizeMap[props.size]}px`,
       lineHeight: `${avatarSizeMap[props.size]}px`
     }));
     const avatarStyle = computed(() => ({
+      fontSize: `${fontSizeMap[props.size]}px`,
       background: nameToColor(props.username)
     }));
     return (_ctx, _cache) => {

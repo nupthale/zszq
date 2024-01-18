@@ -14,7 +14,7 @@ function hex2rgb(hex) {
 const colors = ["#1e80ff", "#0fbf60", "#ff8b07", "#10C3A9"];
 const nameToColor = (name = "") => {
   if (!name) {
-    return "#333";
+    return "rgb(208, 211, 214)";
   }
   const index = parseInt(String(name.charCodeAt(name.length - 1)), 10) % colors.length;
   const hexColor = colors[index];
