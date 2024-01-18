@@ -2,24 +2,26 @@
 import { ref, computed } from 'vue';
 import { Popover } from 'ant-design-vue';
 import User from '../User/index.vue';
+import { SizeEnum } from '../User/interface';
 import propsDef from './props';
 
-const props = defineProps(propsDef);
+defineProps(propsDef);
 const isShrink = ref(false);
-const scrollRef = ref(null);
-const headerRef = ref(null);
-const bodyRef = ref(null);
+const scrollRef = ref<HTMLDivElement | null>(null);
+const headerRef = ref<HTMLDivElement | null>(null);
+const bodyRef = ref<HTMLDivElement | null>(null);
 
-const handleScroll = (e) => {
+const handleMouseWheel = (e: any) => {
+    if (!headerRef.value || !scrollRef.value) {
+        return;
+    }
+
     const headerHeight = headerRef.value.clientHeight;
-    console.info('#1', e.wheelDelta, headerHeight);
-
-
 
     // 向上滚动
     if (e.wheelDelta > 0) {
         if (isShrink.value) {
-            scrollRef.value.style.marginTop = 0;
+            scrollRef.value.style.marginTop = '0';
             isShrink.value = false;
         }
     } else {
@@ -39,15 +41,15 @@ const shrinkHeaderStyle = computed(() => ({
 </script>
 
 <template>
-    <Popover overlayClassName="zsui-profile-popover" :open="true">
+    <Popover overlayClassName="zsui-profile-popover">
         <template #content>
-            <div class="zsui-profile" @mousewheel="handleScroll">
+            <div class="zsui-profile" @mousewheel="handleMouseWheel">
                 <div ref="scrollRef" class="zsui-profile-scroll">
                     <div class="zsui-profile-header" ref="headerRef">
                         <div class="zsui-profile-headerBg"></div>
                         <div class="zsui-profile-base">
                             <div class="zsui-profile-avatar">
-                                <User :showText="false" :username="username" size="xlarge" />
+                                <User :showText="false" :username="username" :size="SizeEnum.XLARGE" />
                             </div>
                             <div class="zsui-profile-username">
                                 {{ username }}

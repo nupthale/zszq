@@ -1,3 +1,27 @@
+
+.zsui-user {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: top;
+
+  height: 22px;
+}
+.zsui-user__avatar {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  border: none;
+}
+.zsui-user__namewrap {
+  display: flex;
+  margin-left: 4px;
+  max-width: 100px;
+}
+.zsui-user__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .zsui-tag {
   display: inline-flex;
   -webkit-box-align: center;
@@ -50,30 +74,6 @@
 .zsui-text-button:disabled:active {
   color: #bbbfc4;
   background: none;
-}
-
-.zsui-user {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: top;
-
-  height: 22px;
-}
-.zsui-user__avatar {
-  display: inline-flex;
-  align-items: center;
-  color: #fff;
-  border: none;
-}
-.zsui-user__namewrap {
-  display: flex;
-  margin-left: 4px;
-  max-width: 100px;
-}
-.zsui-user__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* Popover override */

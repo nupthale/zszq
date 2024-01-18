@@ -28,7 +28,7 @@ export const Base: Story = {
 
       return { args, style };
     },
-    template: '<div :style="style"><UserProfile username="哈乐"><template #profile>123</template></div>',
+    template: '<div :style="style"><UserProfile username="哈乐"><template #profile>123</template><template #user>哈乐</template></div>',
   }),
   args: {
   },
@@ -45,7 +45,7 @@ export const Scroll: Story = {
 
       return { args, style };
     },
-    template: '<div :style="style"><UserProfile username="哈乐"><template #profile><div style="height: 800px;">2233</div></template></div>',
+    template: '<div :style="style"><UserProfile username="哈乐"><template #profile><div style="height: 800px;">2233</div></template><template #user>哈乐</template></div>',
   }),
   args: {
   },
