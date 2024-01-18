@@ -50,3 +50,21 @@ export const Scroll: Story = {
   args: {
   },
 };
+
+
+export const headerSlot: Story = {
+  render: args => ({
+    components: { UserProfile },
+    setup() {
+      const style = {
+        display: 'inline-block',
+        width: '400px',
+      };
+
+      return { args, style };
+    },
+    template: '<div :style="style"><UserProfile username="哈乐"><template #profile>23</template><template #user>哈乐</template><template #header>哈乐333</template></div>',
+  }),
+  args: {
+  },
+};

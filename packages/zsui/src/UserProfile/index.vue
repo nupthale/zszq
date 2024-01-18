@@ -51,7 +51,8 @@ const shrinkHeaderStyle = computed(() => ({
                             <div class="zsui-profile-avatar">
                                 <User :showText="false" :username="username" :size="SizeEnum.XLARGE" />
                             </div>
-                            <div class="zsui-profile-username">
+                            <slot name="header" />
+                            <div v-if="!$slots.header" class="zsui-profile-username">
                                 {{ username }}
                             </div>
                         </div>
@@ -86,6 +87,10 @@ const shrinkHeaderStyle = computed(() => ({
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 8px 24px 8px #1f23290a, 0 6px 12px #1f23290a, 0 4px 8px -8px #1f23290f;
+}
+
+.zsui-profile-popover .ant-popover-inner-content {
+    padding: 0;
 }
 
 .zsui-profile-popover .ant-popover-content {
