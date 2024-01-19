@@ -13,8 +13,8 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
   props,
   setup(__props) {
     vue.useCssVars((_ctx) => ({
-      "7206d37f": beforeStyle.value,
-      "108c9f0e": boxShadowStyle.value
+      "4ffb5711": beforeStyle.value,
+      "2114aba7": boxShadowStyle.value
     }));
     const lineHeightMap = {
       12: 20,
@@ -51,16 +51,19 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
       foldBtnLH: `${lineHeight.value - 4}px`
     });
     const update = () => {
-      hasOverflowChildren.value = Boolean(targetRef.value) && targetRef.value.offsetHeight / lineHeight.value > props2.lineClamp;
+      if (!targetRef.value)
+        return;
+      setTimeout(() => {
+        hasOverflowChildren.value = Boolean(targetRef.value) && targetRef.value.offsetHeight / lineHeight.value > props2.lineClamp;
+      }, 0);
     };
     vue.onMounted(() => {
       update();
     });
     vue.watch(
       () => [props2.lineClamp, props2.fontSize],
-      async () => {
+      () => {
         hasOverflowChildren.value = false;
-        await vue.nextTick();
         update();
       }
     );

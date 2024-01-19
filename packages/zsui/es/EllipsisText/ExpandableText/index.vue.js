@@ -1,4 +1,4 @@
-import { defineComponent, useCssVars, computed, ref, onMounted, watch, nextTick, openBlock, createElementBlock, normalizeStyle, Fragment, createElementVNode, createTextVNode, toDisplayString, createVNode, withCtx, renderSlot } from "vue";
+import { defineComponent, useCssVars, computed, ref, onMounted, watch, openBlock, createElementBlock, normalizeStyle, Fragment, createElementVNode, createTextVNode, toDisplayString, createVNode, withCtx, renderSlot } from "vue";
 import _sfc_main$1 from "../../TextButton/index.vue.js";
 import "../../TextButton/index.vue2.js";
 import expandableTextPropsDef from "./props.js";
@@ -12,8 +12,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   props: expandableTextPropsDef,
   setup(__props) {
     useCssVars((_ctx) => ({
-      "7206d37f": beforeStyle.value,
-      "108c9f0e": boxShadowStyle.value
+      "4ffb5711": beforeStyle.value,
+      "2114aba7": boxShadowStyle.value
     }));
     const lineHeightMap = {
       12: 20,
@@ -50,16 +50,19 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       foldBtnLH: `${lineHeight.value - 4}px`
     });
     const update = () => {
-      hasOverflowChildren.value = Boolean(targetRef.value) && targetRef.value.offsetHeight / lineHeight.value > props.lineClamp;
+      if (!targetRef.value)
+        return;
+      setTimeout(() => {
+        hasOverflowChildren.value = Boolean(targetRef.value) && targetRef.value.offsetHeight / lineHeight.value > props.lineClamp;
+      }, 0);
     };
     onMounted(() => {
       update();
     });
     watch(
       () => [props.lineClamp, props.fontSize],
-      async () => {
+      () => {
         hasOverflowChildren.value = false;
-        await nextTick();
         update();
       }
     );

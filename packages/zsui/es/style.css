@@ -1,20 +1,26 @@
-.zsui-tag {
+
+.zsui-user {
   display: inline-flex;
-  -webkit-box-align: center;
   align-items: center;
-  padding: 0 6px;
-  border-radius: 4px;
+  vertical-align: top;
+
+  height: 22px;
+}
+.zsui-user__avatar {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  border: none;
+}
+.zsui-user__namewrap {
+  display: flex;
+  margin-left: 4px;
+  max-width: 100px;
+}
+.zsui-user__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-}
-.zsui-tag--default {
-  height: 24px;
-  line-height: 24px;
-}
-.zsui-tag--small {
-  font-size: 12px;
-  font-weight: 400;
-  height: 20px;
-  line-height: 20px;
 }
 .ant-btn.zsui-text-button {
   display: inline-flex;
@@ -59,29 +65,23 @@
   color: #bbbfc4;
   background: none;
 }
-
-.zsui-user {
+.zsui-tag {
   display: inline-flex;
+  -webkit-box-align: center;
   align-items: center;
-  vertical-align: top;
-
-  height: 22px;
-}
-.zsui-user__avatar {
-  display: inline-flex;
-  align-items: center;
-  color: #fff;
-  border: none;
-}
-.zsui-user__namewrap {
-  display: flex;
-  margin-left: 4px;
-  max-width: 100px;
-}
-.zsui-user__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 0 6px;
+  border-radius: 4px;
   white-space: nowrap;
+}
+.zsui-tag--default {
+  height: 24px;
+  line-height: 24px;
+}
+.zsui-tag--small {
+  font-size: 12px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
 }
 
 /* Popover override */
@@ -198,15 +198,7 @@
     width: 100%;
     height: 100%;
 }
-.zsui-ellipsis-text--tip {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  display: -webkit-box;
-  display: -moz-box;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-}.zsui-ellipsis-text--expandable {
+.zsui-ellipsis-text--expandable {
   display: inline-flex;
   position: relative;
 }
@@ -224,7 +216,7 @@
 }
 .zsui-ellipsis-text__foldWrap:before {
   content: " ";
-  height: var(--7206d37f);
+  height: var(--4ffb5711);
   float: right;
 }
 .zsui-ellipsis-text__foldWrap:after {
@@ -232,7 +224,7 @@
   content: "";
   width: 999vw;
   height: 999vw;
-  box-shadow: var(--108c9f0e);
+  box-shadow: var(--2114aba7);
   margin-left: -100px;
   z-index: 2;
 }
@@ -253,4 +245,12 @@
   text-justify: inter-ideograph;
   word-break: break-all;
   line-break: anywhere;
+}.zsui-ellipsis-text--tip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
 }

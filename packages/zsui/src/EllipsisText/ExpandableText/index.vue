@@ -5,14 +5,8 @@
         <div class="zsui-ellipsis-text__foldWrap" :style="foldWrapStyle">
           <span class="zsui-ellipsis-text__foldAction">
             {{ ellipsisSymbol }}
-            <TextButton
-              size="small"
-              type="primary"
-              class="zsui-ellipsis-text__foldButton"
-              :style="foldButtonStyle"
-              @click="isFold = false"
-              >展开</TextButton
-            >
+            <TextButton size="small" type="primary" class="zsui-ellipsis-text__foldButton" :style="foldButtonStyle"
+              @click="isFold = false">展开</TextButton>
           </span>
           <slot />
         </div>
@@ -20,14 +14,8 @@
       <div v-else class="zsui-ellipsis-text__unfold">
         <slot />
 
-        <TextButton
-          size="small"
-          type="primary"
-          class="zsui-ellipsis-text__foldButton"
-          :style="foldButtonStyle"
-          @click="isFold = true"
-          >收起</TextButton
-        >
+        <TextButton size="small" type="primary" class="zsui-ellipsis-text__foldButton" :style="foldButtonStyle"
+          @click="isFold = true">收起</TextButton>
       </div>
     </template>
     <div v-else ref="targetRef">
@@ -100,14 +88,12 @@ const style = {
   foldBtnLH: `${lineHeight.value - 4}px`,
 };
 
-const update = async () => {
-  if (!targetRef.value) return;
-
+const update = () => {
+  if (!targetRef.value)
+    return;
+  
   setTimeout(() => {
-      // 组件挂载之后先根据实际高度计算是否有行溢出的情况
-    hasOverflowChildren.value =
-      Boolean(targetRef.value) &&
-      targetRef.value!.offsetHeight / lineHeight.value > props.lineClamp;
+    hasOverflowChildren.value = Boolean(targetRef.value) && targetRef.value.offsetHeight / lineHeight.value > props.lineClamp;
   }, 0);
 };
 
