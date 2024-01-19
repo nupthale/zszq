@@ -41,7 +41,7 @@ const shrinkHeaderStyle = computed(() => ({
 </script>
 
 <template>
-    <Popover overlayClassName="zsui-profile-popover">
+    <Popover overlayClassName="zsui-profile-popover" trigger="click">
         <template #content>
             <div class="zsui-profile" @mousewheel="handleMouseWheel">
                 <div ref="scrollRef" class="zsui-profile-scroll">
@@ -59,7 +59,7 @@ const shrinkHeaderStyle = computed(() => ({
                     </div>
                     <div class="zsui-profile-shrinkHeader" :style="shrinkHeaderStyle">
                         <div class="zsui-profile-shrinkHeaderBg">
-                            <img src="./background.png" width="100%" height="100%" />
+                            <img src="./background.png" />
                             <div class="zsui-profile-shrinkHeaderMask"></div>
                         </div>
                         <div class="zsui-profile-shrinkHeader-avatar">
@@ -83,7 +83,7 @@ const shrinkHeaderStyle = computed(() => ({
 .zsui-profile-popover {
     -webkit-font-smoothing: antialiased;
 
-    padding: 0;
+    padding: 0!important;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 8px 24px 8px #1f23290a, 0 6px 12px #1f23290a, 0 4px 8px -8px #1f23290f;
@@ -110,7 +110,11 @@ const shrinkHeaderStyle = computed(() => ({
 .zsui-profile {
     width: 320px;
     height: 520px;
-    overflow-y: auto;
+    overflow-y: overlay;
+}
+
+.zsui-profile::-webkit-scrollbar {
+    display: none;
 }
 
 .zsui-profile-scroll {
@@ -189,6 +193,8 @@ const shrinkHeaderStyle = computed(() => ({
 }
 
 .zsui-profile-shrinkHeaderBg img {
+    width: 320px;
+    height: 48px;
     object-fit: cover;
 }
 

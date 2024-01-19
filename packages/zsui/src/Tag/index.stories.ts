@@ -35,3 +35,22 @@ export const Base: Story = {
   }),
   args: {},
 };
+
+export const Small: Story = {
+  render: args => ({
+    components: { Tag },
+    setup() {
+      const style = {
+        display: 'flex',
+        gap: '12px',
+        fontSize: '12px',
+        lineHeight: '50px',
+      };
+
+      return { args, style };
+    },
+    template:
+      '<div :style="style"><Tag size="small" color="blue">签订中</Tag><Tag>已撤回</Tag><Tag size="small" color="green">已归档</Tag><Tag size="small" color="blue">审批中</Tag><Tag size="small" color="red">已作废</Tag><Tag size="small" color="orange">变更中</Tag></div>',
+  }),
+  args: {},
+};

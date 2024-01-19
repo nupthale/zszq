@@ -13,8 +13,8 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
   props,
   setup(__props) {
     vue.useCssVars((_ctx) => ({
-      "5dca648b": beforeStyle.value,
-      "1305f3ed": boxShadowStyle.value
+      "7206d37f": beforeStyle.value,
+      "108c9f0e": boxShadowStyle.value
     }));
     const lineHeightMap = {
       12: 20,
@@ -40,7 +40,7 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
       lineHeight: `${lineHeight.value}px`,
       height: `${lineHeight.value}px`
     }));
-    const beforeStyle = vue.computed(() => `calc(100% - ${lineHeight.value})`);
+    const beforeStyle = vue.computed(() => `calc(100% - ${lineHeight.value}px)`);
     const boxShadowStyle = vue.computed(
       () => `inset calc(100px - 999vw) calc(${lineHeight.value} - 999vw) 0 0 ${props2.overlayColor}`
     );

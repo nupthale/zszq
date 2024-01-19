@@ -86,7 +86,7 @@ const foldButtonStyle = computed(() => ({
   height: `${lineHeight.value}px`,
 }));
 
-const beforeStyle = computed(() => `calc(100% - ${lineHeight.value})`);
+const beforeStyle = computed(() => `calc(100% - ${lineHeight.value}px)`);
 
 const boxShadowStyle = computed(
   () =>

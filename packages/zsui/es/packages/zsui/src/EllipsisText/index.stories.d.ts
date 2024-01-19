@@ -5,3 +5,4 @@ export default meta;
 type Story = StoryObj<typeof EllipsisText>;
 export declare const Base: Story;
 export declare const Expandable: Story;
+export declare const Expandable2: Story;

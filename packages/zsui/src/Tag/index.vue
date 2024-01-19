@@ -1,13 +1,11 @@
 <template>
-  <div :class="['zsui-tag']" :style="customStyle">
+  <div :class="['zsui-tag', `zsui-tag--${size}`]" :style="customStyle">
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
-import { Button } from 'ant-design-vue';
 
 import propsDef from './props';
 
@@ -45,11 +43,21 @@ const customStyle = computed(() => colorMap[props.color] || colorMap.neutral);
   -webkit-box-align: center;
   align-items: center;
 
-  height: 24px;
-  line-height: 24px;
   padding: 0 6px;
   border-radius: 4px;
 
   white-space: nowrap;
+}
+
+.zsui-tag--default {
+  height: 24px;
+  line-height: 24px;
+}
+
+.zsui-tag--small {
+  font-size: 12px;
+  font-weight: 400;
+  height: 20px;
+  line-height: 20px;
 }
 </style>

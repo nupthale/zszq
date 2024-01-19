@@ -62,3 +62,28 @@ export const Expandable: Story = {
     ellipsisSymbol: 'abc',
   },
 };
+
+export const Expandable2: Story = {
+  render: args => ({
+    components: { EllipsisText },
+    setup() {
+      const style = {
+        display: 'inline-block',
+        width: '400px',
+      };
+
+      return { args, style };
+    },
+    template: `
+        <div :style="{display: 'flex'}">
+          <div :style="style"><EllipsisText expandable v-bind="args">Storybook isn’t opinionated about how you generate or load CSS. It renders whatever DOM elements you provide. But sometimes, things won’t “look right” out of the box.</EllipsisText></div>
+
+        </div>
+    `,
+  }),
+  args: {
+    lineClamp: 2,
+    fontSize: 12,
+    ellipsisSymbol: '...',
+  },
+};
