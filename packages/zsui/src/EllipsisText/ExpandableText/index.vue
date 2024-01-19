@@ -62,7 +62,7 @@ const lineHeight = computed(() => lineHeightMap[props.fontSize]);
  */
 const hasOverflowChildren = ref(false);
 const isFold = ref(true);
-const targetRef = ref(null);
+const targetRef = ref<HTMLDivElement | null>(null);
 
 /**
  * Styles
@@ -100,11 +100,15 @@ const style = {
   foldBtnLH: `${lineHeight.value - 4}px`,
 };
 
-const update = () => {
-  // 组件挂载之后先根据实际高度计算是否有行溢出的情况
-  hasOverflowChildren.value =
-    Boolean(targetRef.value) &&
-    targetRef.value.offsetHeight / lineHeight.value > props.lineClamp;
+const update = async () => {
+  if (!targetRef.value) return;
+
+  setTimeout(() => {
+      // 组件挂载之后先根据实际高度计算是否有行溢出的情况
+    hasOverflowChildren.value =
+      Boolean(targetRef.value) &&
+      targetRef.value!.offsetHeight / lineHeight.value > props.lineClamp;
+  }, 0);
 };
 
 onMounted(() => {
@@ -113,10 +117,8 @@ onMounted(() => {
 
 watch(
   () => [props.lineClamp, props.fontSize],
-  async () => {
+  () => {
     hasOverflowChildren.value = false;
-
-    await nextTick();
 
     update();
   },

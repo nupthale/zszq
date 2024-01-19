@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import UserProfile from './index.vue';
+import EllipsisText from '../EllipsisText/index.vue';
 
 const meta: Meta<typeof UserProfile> = {
   component: UserProfile,
@@ -38,7 +39,7 @@ const largeContent = '2233223322332233223322332233223322332233223322332233223322
 
 export const Scroll: Story = {
   render: args => ({
-    components: { UserProfile },
+    components: { UserProfile, EllipsisText },
     setup() {
       const style = {
         display: 'inline-block',
@@ -47,7 +48,7 @@ export const Scroll: Story = {
 
       return { args, style };
     },
-    template: `<div :style="style"><UserProfile username="哈乐"><template #profile><div style="height: 800px; word-break: break-all;">${largeContent}</div></template><template #user>哈乐</template></div>`,
+    template: `<div :style="style"><UserProfile username="哈乐"><template #profile><EllipsisText :expandable="true" :lineClamp="2" :fontSize="12"><div style="word-break: break-all;">${largeContent}</div></EllipsisText></template><template #user>哈乐</template></UserProfile></div>`,
   }),
   args: {
   },
