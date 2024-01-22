@@ -5,7 +5,7 @@ import User from '../User/index.vue';
 import { SizeEnum } from '../User/interface';
 import propsDef from './props';
 
-defineProps(propsDef);
+const props = defineProps(propsDef);
 const isShrink = ref(false);
 const scrollRef = ref<HTMLDivElement | null>(null);
 const headerRef = ref<HTMLDivElement | null>(null);
@@ -43,7 +43,7 @@ const shrinkHeaderStyle = computed(() => ({
 <template>
     <Popover overlayClassName="zsui-profile-popover" trigger="click">
         <template #content>
-            <div class="zsui-profile" @mousewheel="handleMouseWheel">
+            <div class="zsui-profile" @mousewheel="handleMouseWheel" :style="{ width: width, height: height }">
                 <div ref="scrollRef" class="zsui-profile-scroll">
                     <div class="zsui-profile-header" ref="headerRef">
                         <div class="zsui-profile-headerBg"></div>
@@ -59,7 +59,7 @@ const shrinkHeaderStyle = computed(() => ({
                     </div>
                     <div class="zsui-profile-shrinkHeader" :style="shrinkHeaderStyle">
                         <div class="zsui-profile-shrinkHeaderBg">
-                            <img src="./background.png" />
+                            <img src="./background.png" :style="{ width: width }" />
                             <div class="zsui-profile-shrinkHeaderMask"></div>
                         </div>
                         <div class="zsui-profile-shrinkHeader-avatar">
@@ -78,7 +78,7 @@ const shrinkHeaderStyle = computed(() => ({
     </Popover>
 </template>
 
-<style>
+<style lang="scss">
 /* Popover override */
 .zsui-profile-popover {
     -webkit-font-smoothing: antialiased;
@@ -108,8 +108,6 @@ const shrinkHeaderStyle = computed(() => ({
 
 /* Profile */
 .zsui-profile {
-    width: 320px;
-    height: 520px;
     overflow-y: overlay;
 }
 
@@ -174,6 +172,8 @@ const shrinkHeaderStyle = computed(() => ({
     display: flex;
     align-items: center;
     position: absolute;
+    z-index: 1;
+    background: #fff;
     top: 0;
     left: 0;
     width: 100%;
@@ -193,7 +193,6 @@ const shrinkHeaderStyle = computed(() => ({
 }
 
 .zsui-profile-shrinkHeaderBg img {
-    width: 320px;
     height: 48px;
     object-fit: cover;
 }

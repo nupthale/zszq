@@ -71,3 +71,20 @@ export const headerSlot: Story = {
   args: {
   },
 };
+
+export const size: Story = {
+  render: args => ({
+    components: { UserProfile },
+    setup() {
+      const style = {
+        display: 'inline-block',
+        width: '400px',
+      };
+
+      return { args, style };
+    },
+    template: '<div :style="style"><UserProfile width="900px" height="400px" username="哈乐"><template #profile>23</template><template #user>哈乐</template><template #header>哈乐333</template></div>',
+  }),
+  args: {
+  },
+};
