@@ -12,29 +12,29 @@ import { Alert } from 'ant-design-vue';
 </script>
 
 <style lang="less">
-.zsui-alert {
-  border-radius: 6px;
-  border: none;
-  color: #1f2329;
+.zsui-alert.ant-alert {
+  border-radius: 6px!important;
+  border: none!important;
+  color: #1f2329!important;
 }
 
 .zsui-alert.ant-alert-netrual {
-  background: #f5f6f7;
+  background-color: #f5f6f7!important;
 }
 
 .zsui-alert.ant-alert-success {
-  background: #d9f5d6;
+  background-color: #d9f5d6!important;
 }
 
 .zsui-alert.ant-alert-warning {
-  background: #feead2;
+  background-color: #feead2!important;
 }
 
 .zsui-alert.ant-alert-error {
-  background: #fde2e2;
+  background-color: #fde2e2!important;
 }
 
 .zsui-alert.ant-alert-info {
-  background: #e1eaff;
+  background-color: #e1eaff!important;
 }
 </style>
