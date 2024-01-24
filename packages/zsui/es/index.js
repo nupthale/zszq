@@ -7,7 +7,10 @@ import { default as default5 } from "./Tag/index.vue.js";
 import "./Tag/index.vue2.js";
 import { default as default6 } from "./UserProfile/index.vue.js";
 import "./UserProfile/index.vue2.js";
+import { default as default7 } from "./Alert/index.vue.js";
+import "./Alert/index.vue2.js";
 export {
+  default7 as Alert,
   default3 as EllipsisText,
   default5 as Tag,
   default2 as TextButton,
