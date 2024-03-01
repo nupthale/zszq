@@ -4,5 +4,6 @@ import User from './User/index.vue';
 import Tag from './Tag/index.vue';
 import UserProfile from './UserProfile/index.vue';
 import Alert from './Alert/index.vue';
+import Loading from './Loading/index.vue';
 
-export { TextButton, EllipsisText, User, Tag, UserProfile, Alert };
+export { TextButton, EllipsisText, User, Tag, UserProfile, Alert, Loading };
