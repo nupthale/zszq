@@ -32,7 +32,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.6.6",
-    "vue": "^3.2.33"
+    "vue": "^3.2.33",
+    "lottie-web-vue": "^2.0.7"
   },
   "peerDependencies": {
     "ant-design-vue": "^4.0.8",
