@@ -36,6 +36,19 @@ const className = computed(() => `zsui-text-button--${props.type}`);
 }
 
 .zsui-text-button {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+      color: rgba(0, 0, 0, 0.88);
+      background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  &:focus {
+      background-color: none!important;
+  }
+
   &.zsui-text-button--primary {
     color: #3370ff;
 
