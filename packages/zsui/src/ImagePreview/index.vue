@@ -54,6 +54,14 @@ const scaleReset = () => {
     translate3d.value = [0, 0];
 };
 
+const handleWheel = (e) => {
+    if (e.deltaY > 0) {
+        scaleDown();
+    } else {
+        scaleUp();
+    }
+}
+
 const handleRotate = () => rotate.value = (rotate.value - 90) % 360;
 
 const handleMouseDown = () => {
@@ -95,6 +103,8 @@ const handleMouseUp = () => {
                 @touchstart="handleMouseDown"
                 @touchend="handleMouseUp"
                 @touchmove="handleMouseMove"
+
+                @wheel="handleWheel"
 
                 @mousedown="handleMouseDown" 
                 @mousemove="handleMouseMove"
@@ -209,7 +219,8 @@ const handleMouseUp = () => {
     transform: translateX(-50%);
     height: 32px;
 
-    background: rgba(0, 0, 0, 0.85);
+    background: hsla(0,0%,4%,.9);
+    backdrop-filter: blur(24px) saturate(140%);
     opacity: 0.9;
     backdrop-filter: blur(28.995px);
     padding: 8px 12px;
