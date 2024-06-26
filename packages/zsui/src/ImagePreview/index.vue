@@ -87,7 +87,7 @@ const handleMouseUp = () => {
         <div class="zsui-imagePreview">
             <div class="zsui-imagePreviewHeader">
                 <div class="zsui-imagePreviewHeader__title">
-                    {{ filename }} {{ isMouseMove ? 1: 2 }}
+                    {{ filename }}
                 </div>
                 <div class="zsui-imagePreviewHeader__close" @click="emit('close')">
                     <Icon icon="close_outlined" />
@@ -166,7 +166,7 @@ const handleMouseUp = () => {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(31, 35, 41, 0.65);
+    background: #08090ac7;
 
     z-index: 1000;
 }
@@ -224,7 +224,8 @@ const handleMouseUp = () => {
     opacity: 0.9;
     backdrop-filter: blur(28.995px);
     padding: 8px 12px;
-    border-radius: 6px;
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px hsla(0,0%,100%,.08);
 
     color: #fff;
     font-size: 16px;
