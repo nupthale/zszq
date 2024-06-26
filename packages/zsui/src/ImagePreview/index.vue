@@ -166,7 +166,8 @@ const handleMouseUp = () => {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #08090ac7;
+    background: #08090aeb;
+    backdrop-filter: blur(6px) saturate(1.4);
 
     z-index: 1000;
 }
