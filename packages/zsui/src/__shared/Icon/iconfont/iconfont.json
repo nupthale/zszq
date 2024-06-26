@@ -1,0 +1,51 @@
+{
+  "id": "4599145",
+  "name": "zsui-component",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18372458",
+      "name": "icon_download_outlined",
+      "font_class": "icon_download_outlined",
+      "unicode": "e819",
+      "unicode_decimal": 59417
+    },
+    {
+      "icon_id": "18372481",
+      "name": "icon_original_outlined",
+      "font_class": "icon_original_outlined",
+      "unicode": "e830",
+      "unicode_decimal": 59440
+    },
+    {
+      "icon_id": "18372537",
+      "name": "icon_rotate_outlined",
+      "font_class": "icon_rotate_outlined",
+      "unicode": "e868",
+      "unicode_decimal": 59496
+    },
+    {
+      "icon_id": "18372844",
+      "name": "icon_zoom-out_outlined",
+      "font_class": "icon_zoom-out_outlined",
+      "unicode": "e98f",
+      "unicode_decimal": 59791
+    },
+    {
+      "icon_id": "18372845",
+      "name": "icon_zoom-in_outlined",
+      "font_class": "icon_zoom-in_outlined",
+      "unicode": "e990",
+      "unicode_decimal": 59792
+    },
+    {
+      "icon_id": "18372767",
+      "name": "icon_close_outlined",
+      "font_class": "icon_close_outlined",
+      "unicode": "e942",
+      "unicode_decimal": 59714
+    }
+  ]
+}
