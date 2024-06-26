@@ -195,14 +195,18 @@ const handleMouseUp = () => {
     align-items: center;
     justify-content: center;
 
-    font-size: 24px;
+    font-size: 20px;
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
 
-    background: rgba(31, 35, 41, 0.4);
+    background: hsla(0,0%,4%,.9);
+    backdrop-filter: blur(24px) saturate(140%);
+    opacity: 0.9;
+
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 16px;
+    z-index: 1000;
 }
 
 .zsui-imagePreviewHeader__close:hover {
