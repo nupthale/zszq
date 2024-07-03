@@ -7,4 +7,4 @@ import Alert from './Alert/index.vue';
 import Loading from './Loading/index.vue';
 import ImagePreview from './ImagePreview/index.vue';
 
-export { TextButton, EllipsisText, User, Tag, UserProfile, Alert, Loading };
+export { TextButton, EllipsisText, User, Tag, UserProfile, Alert, Loading, ImagePreview };

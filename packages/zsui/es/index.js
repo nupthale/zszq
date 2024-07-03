@@ -11,9 +11,12 @@ import { default as default7 } from "./Alert/index.vue.js";
 import "./Alert/index.vue2.js";
 import { default as default8 } from "./Loading/index.vue.js";
 import "./Loading/index.vue2.js";
+import { default as default9 } from "./ImagePreview/index.vue.js";
+import "./ImagePreview/index.vue2.js";
 export {
   default7 as Alert,
   default3 as EllipsisText,
+  default9 as ImagePreview,
   default8 as Loading,
   default5 as Tag,
   default2 as TextButton,
