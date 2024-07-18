@@ -1,11 +1,8 @@
 <script lang="tsx">
 import { defineComponent, ref, toRef, PropType } from 'vue';
-import { Form, Button, Space } from 'ant-design-vue';
+import { Form, Button } from 'ant-design-vue';
 
-import TextButton from '../../TextButton/index.vue';
-import Icon from '../../__shared/Icon/index.vue';
-
-import { componentMap } from '../componentMap';
+import { useFormComp } from '../useFormComp';
 
 import { QueryFormSchema } from '../interface';
 
@@ -23,29 +20,7 @@ export default defineComponent({
         const formState = ref<Record<string, any>>({});
         const schemaRef = toRef(props, 'schema');
 
-        const renderComponent = (item: QueryFormSchema) => {
-            const Comp = componentMap.get(item.component);
-            const FormComp = Comp?.component;
-            const valueText = Comp?.valueText;
-            const parseValue = Comp?.parseValue;
-
-            if (!FormComp) return <div></div>;
-
-            const baseProps: Record<string, any> = {
-                getPopupContainer: (node: HTMLElement) => node.parentNode,
-            };
-
-            return (
-                <FormComp
-                    value={formState.value[item.field]} 
-                    onChange={(value: any, ...rest: any[]) => {
-                        formState.value[item.field] = parseValue?.(value) ?? value;
-                    }}
-                    {...baseProps}
-                    {...item.componentProps} 
-                />
-            );
-        }
+        const { renderComponent } = useFormComp(formState);
 
         const handleSearch = () => {
             emit('search', formState.value);
@@ -60,7 +35,7 @@ export default defineComponent({
             <Form class="zsui-inlineQuery">
                 <div class="zsui-inlineQuery-wrap">
                     {schemaRef.value?.map((item) => (
-                        <div class="zsui-inlineQuery-item">
+                        <div class="zsui-inlineQuery-item" style={{ width: `${item.width}px`}}>
                             <div class="zsui-inlineQuery-itemLabel">{ item.label }</div>
                             <FormItem noStyle>
                                 { renderComponent(item) }
@@ -80,6 +55,7 @@ export default defineComponent({
 <style lang="less">
 .zsui-inlineQuery {
     .ant-input, .ant-picker, .ant-input-affix-wrapper {
+        width: 100%;
         border: none!important;
         box-shadow: none!important;
     }

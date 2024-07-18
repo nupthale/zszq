@@ -5,7 +5,7 @@ import { Drawer, Form, Button, Space } from 'ant-design-vue';
 import TextButton from '../../TextButton/index.vue';
 import Icon from '../../__shared/Icon/index.vue';
 
-import { componentMap } from '../componentMap';
+import { useFormComp } from '../useFormComp';
 
 import { QueryFormSchema, QueryTag } from '../interface';
 
@@ -27,35 +27,7 @@ export default defineComponent({
         const formState = ref<Record<string, any>>({});
         const schemaRef = toRef(props, 'schema');
 
-        const renderComponent = (item: QueryFormSchema) => {
-            const Comp = componentMap.get(item.component);
-            const FormComp = Comp?.component;
-            const valueText = Comp?.valueText;
-            const parseValue = Comp?.parseValue;
-
-            if (!FormComp) return <div></div>;
-
-            const baseProps: Record<string, any> = {
-                getPopupContainer: (node: HTMLElement) => node.parentNode,
-            };
-
-            return (
-                <FormComp
-                    value={formState.value[item.field]} 
-                    onChange={(value: any, ...rest: any[]) => {
-                        formState.value[item.field] = parseValue?.(value) ?? value;
-
-                        queryTags.value[item.field] = {
-                            field: item.field,
-                            label: item.label,
-                            valueText: valueText?.(value, ...rest) ?? value,
-                        };
-                    }}
-                    {...baseProps}
-                    {...item.componentProps} 
-                />
-            );
-        }
+        const { renderComponent } = useFormComp(formState, queryTags);
 
         const handleOpenDrawer = () => {
             drawerVisible.value = true;
@@ -119,7 +91,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="less">
 .zsui-sideQueryDrawer .ant-drawer-body {
     padding: 0!important;
 }
@@ -142,6 +114,10 @@ export default defineComponent({
 
 .zsui-sideQueryDrawer-body {
     padding: 16px 16px 72px;
+
+    .ant-picker {
+        width: 100%;
+    }
 }
 
 .zsui-sideQueryDrawer-footer {

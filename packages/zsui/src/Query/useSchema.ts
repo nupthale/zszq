@@ -1,30 +1,9 @@
 import { ref } from 'vue';
 
-export const useSchema = () => {
-    const schema = ref([
+export const useSchema = (inline: boolean) => {
+    let list: any[] = [
         {
-            width: 174,
-            field: 'noticeType',
-            label: '通知类型',
-            component: 'Select',
-            componentProps: {
-                placeholder: '请选择',
-                allowClear: false,
-            },
-        },
-        {
-            width: 174,
-            field: 'noticeStatusStr',
-            label: '通知状态',
-            component: 'Select',
-            componentProps: {
-                placeholder: '请选择',
-                mode: 'multiple',
-                maxTagCount: 'responsive',
-            },
-        },
-        {
-            width: 174,
+            width: 140,
             field: 'secuipoStatusStr',
             label: '缴款状态',
             component: 'Select',
@@ -35,29 +14,61 @@ export const useSchema = () => {
                     { label: '未缴款', value: '2' },
                 ],
                 mode: 'multiple',
+                maxTagCount: 'responsive',
             }
+        },
+        {
+            width: 240,
+            field: 'noticeType',
+            label: '银行流水号',
+            component: 'Input',
+            componentProps: {
+                placeholder: '请输入',
+            },
+        },
+        {
+            width: 174,
+            field: 'remindDaysStr',
+            label: '到期日',
+            component: 'DatePicker',
+            componentProps: {
+                placeholder: '请选择',
+                format: 'YYYY-MM-DD'
+            }
+        },   
+    ];
+
+    if (!inline) {
+        list = list.concat([{
+            width: 174,
+            field: 'noticeStatusStr',
+            label: '通知状态',
+            component: 'RadioGroup',
+            componentProps: {
+                placeholder: '请选择',
+                options: [
+                    { label: '已通知', value: '1' },
+                    { label: '未通知', value: '2' },
+                ],
+            },
         },
         {
             width: 174,
             field: 'remindDaysTypeStr',
             label: '到期日类型',
-            component: 'Select',
+            component: 'CheckboxGroup',
             componentProps: {
                 placeholder: '请选择',
-                mode: 'multiple',
+                options: [
+                    { label: 'T+1', value: '1' },
+                    { label: 'T+2', value: '2' },
+                ],
             }
-        },
-        {
-            width: 174,
-            field: 'remindDaysStr',
-            label: '到期日列表',
-            component: 'Input',
-            componentProps: {
-                placeholder: '请选择',
-                mode: 'multiple',
-            }
-        },    
-    ]);
+        }]);
+    }
+
+
+    const schema = ref(list);
 
     return {
         schema,

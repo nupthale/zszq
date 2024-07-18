@@ -29,7 +29,7 @@ export const Base: Story = {
     setup() {
       const sideRef = ref();
 
-      const { schema } = useSchema();
+      const { schema } = useSchema(false);
       const queryTags = ref({});
 
       const handleChange = (_values: unknown, tags: QueryTag[]) => {

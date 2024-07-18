@@ -1,4 +1,5 @@
 export interface QueryFormSchema {
+    width: number;
     field: string;
     label: string;
     component: string;

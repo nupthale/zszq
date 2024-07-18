@@ -7,4 +7,8 @@ import Alert from './Alert/index.vue';
 import Loading from './Loading/index.vue';
 import ImagePreview from './ImagePreview/index.vue';
 
-export { TextButton, EllipsisText, User, Tag, UserProfile, Alert, Loading, ImagePreview };
+import InlineQuery from './Query/InlineQuery/index.vue';
+import SideQuery from './Query/SideQuery/index.vue';
+import QueryTags from './Query/QueryTags/index.vue';
+
+export { TextButton, EllipsisText, User, Tag, UserProfile, Alert, Loading, ImagePreview, InlineQuery, SideQuery, QueryTags };

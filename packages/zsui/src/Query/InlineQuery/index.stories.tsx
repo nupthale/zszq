@@ -23,7 +23,7 @@ export const Base: Story = {
   render: () => ({
     components: { InlineQuery },
     setup() {
-      const { schema } = useSchema();
+      const { schema } = useSchema(true);
 
       const handleSearch = (values: unknown) => {
         console.info('newValues', values);
