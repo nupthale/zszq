@@ -50,8 +50,6 @@ export default defineComponent({
                             label: item.label,
                             valueText: valueText?.(value, ...rest) ?? value,
                         };
-
-                        console.info('queryTags.value', queryTags.value);
                     }}
                     {...baseProps}
                     {...item.componentProps} 
