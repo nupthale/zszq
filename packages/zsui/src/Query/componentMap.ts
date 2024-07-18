@@ -8,17 +8,8 @@ import {
   Select,
   Radio,
   Checkbox,
-  AutoComplete,
-  Cascader,
   DatePicker,
   InputNumber,
-  Switch,
-  TimePicker,
-  TreeSelect,
-  Slider,
-  Rate,
-  Divider,
-  Mentions,
   CheckboxOptionType,
 } from 'ant-design-vue';
 
@@ -94,11 +85,15 @@ componentMap.set('DatePicker', {
   },
 });
 
-// componentMap.set('MonthPicker', DatePicker.MonthPicker);
-// componentMap.set('RangePicker', DatePicker.RangePicker);
-// componentMap.set('TimeRangePicker', TimePicker.TimeRangePicker);
-// componentMap.set('WeekPicker', DatePicker.WeekPicker);
-// componentMap.set('TimePicker', TimePicker);
+componentMap.set('DateRangePicker', {
+  component: DatePicker.RangePicker,
+  parseValue: (value: Dayjs[]) => value,
+  valueText: (item: QueryFormSchema, value: Dayjs[]) => {
+      const { format } = item.componentProps || {};
+
+      return `[${value?.[0]?.format(format)}, ${value?.[1]?.format(format)}]`;
+  },
+});
 
 //注册自定义组件
 export function regsiter(compName: string, component: ComponentType) {

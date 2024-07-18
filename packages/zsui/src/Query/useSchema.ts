@@ -35,6 +35,16 @@ export const useSchema = (inline: boolean) => {
                 placeholder: '请选择',
                 format: 'YYYY-MM-DD'
             }
+        }, 
+        {
+            width: 174,
+            field: 'remindDaysRangeStr',
+            label: '到期范围',
+            component: 'DateRangePicker',
+            componentProps: {
+                placeholder: ['开始时间', '结束时间'],
+                format: 'YYYY-MM-DD'
+            }
         },   
     ];
 
