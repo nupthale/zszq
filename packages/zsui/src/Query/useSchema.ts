@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-export const useSchema = (inline: boolean) => {
+export const useSchema = (blockOnly: boolean) => {
     let list: any[] = [
         {
             width: 140,
@@ -45,10 +45,32 @@ export const useSchema = (inline: boolean) => {
                 placeholder: ['开始时间', '结束时间'],
                 format: 'YYYY-MM-DD'
             }
-        },   
+        },
+        {
+            width: 174,
+            field: 'noticeStatusStr3',
+            label: '操作状态',
+            component: 'Input',
+            componentProps: {
+                placeholder: '请选择',
+                options: [
+                    { label: '已通知', value: '1' },
+                    { label: '未通知', value: '2' },
+                ],
+            },
+        },
+        {
+            width: 174,
+            field: 'clientInfo',
+            label: '客户搜索',
+            component: 'Input',
+            componentProps: {
+                placeholder: '请输入',
+            }
+        } 
     ];
 
-    if (!inline) {
+    if (!blockOnly) {
         list = list.concat([{
             width: 174,
             field: 'noticeStatusStr',

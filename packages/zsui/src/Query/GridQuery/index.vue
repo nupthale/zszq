@@ -1,6 +1,6 @@
 <script lang="tsx">
-import { defineComponent, ref, toRef, PropType } from 'vue';
-import { Form, Button } from 'ant-design-vue';
+import { defineComponent, ref, toRef, PropType, computed } from 'vue';
+import { Form, Button, Space } from 'ant-design-vue';
 
 import { useFormComp } from '../useFormComp';
 
@@ -14,6 +14,10 @@ export default defineComponent({
             type: Array as PropType<QueryFormSchema[]>,
             default: () => [],
         },
+        gridColumns: {
+            type: Number,
+            default: 4,
+        },
     },
     emits: ['search'],
     setup(props, { emit }) {
@@ -21,6 +25,10 @@ export default defineComponent({
         const schemaRef = toRef(props, 'schema');
 
         const { renderComponent } = useFormComp(formState);
+
+        const gridTemplateColumns = computed(() => {
+            return `repeat(${props.gridColumns}, 1fr)`;
+        });
 
         const handleSearch = () => {
             emit('search', formState.value);
@@ -32,20 +40,21 @@ export default defineComponent({
         }
 
         return () => (
-            <Form class="zsui-inlineQuery zsui-queryCustom">
-                <div class="zsui-inlineQuery-wrap">
+            <Form class="zsui-gridQuery zsui-queryCustom">
+                <div class="zsui-gridQuery-wrap" style={{ gridTemplateColumns: gridTemplateColumns.value }}>
                     {schemaRef.value?.map((item) => (
-                        <div class="zsui-queryCustom-item" style={{ width: `${item.width}px`}}>
+                        <div class="zsui-queryCustom-item">
                             <div class="zsui-queryCustom-itemLabel">{ item.label }</div>
                             <FormItem noStyle>
                                 { renderComponent(item) }
                             </FormItem>
                         </div>
                     ))}
-                    <div>
-                        <Button onClick={handleSearch}>查询</Button>
-                    </div>
                 </div>
+                <Space class="zsui-gridQuery-actions">
+                    <Button onClick={handleSearch} type="primary">查询</Button>
+                    <Button onClick={handleReset}>重置</Button>
+                </Space>
             </Form>
         )
     }
@@ -55,8 +64,21 @@ export default defineComponent({
 <style src="../inline.less"></style>
 
 <style lang="less">
-.zsui-inlineQuery-wrap {
+.zsui-gridQuery {
     display: flex;
-    align-items: center;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.zsui-gridQuery-wrap {
+    display: grid;
+    grid-gap: 12px;
+
+    flex: 1;
+}
+
+.zsui-gridQuery-actions {
+    display: flex;
+    flex-wrap: nowrap;
 }
 </style>
