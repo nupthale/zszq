@@ -1,8 +1,8 @@
 import { defineComponent, openBlock, createBlock, normalizeProps, mergeProps, withCtx, renderSlot } from "vue";
 import _sfc_main$1 from "./ExpandableText/index.vue.js";
-import "./ExpandableText/index.vue2.js";
+/* empty css                          */
 import _sfc_main$2 from "./TipText/index.vue.js";
-import "./TipText/index.scss.js";
+/* empty css                   */
 import propsDef from "./props.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",

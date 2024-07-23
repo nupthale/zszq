@@ -1,7 +1,7 @@
 "use strict";
 const vue = require("vue");
-const index_vue_vue_type_script_setup_true_lang = require("../../TextButton/index.vue.js");
-require("../../TextButton/index.vue2.js");
+const index_vue_vue_type_script_setup_true_lang = ;/* empty css                          */
+;/* empty css                           */
 const props = require("./props.js");
 const _hoisted_1 = { class: "zsui-ellipsis-text__foldAction" };
 const _hoisted_2 = {

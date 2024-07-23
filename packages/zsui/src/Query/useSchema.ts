@@ -15,6 +15,7 @@ export const useSchema = (blockOnly: boolean) => {
                 ],
                 mode: 'multiple',
                 maxTagCount: 'responsive',
+                allowClear: true,
             }
         },
         {
