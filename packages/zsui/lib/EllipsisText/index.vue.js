@@ -1,9 +1,9 @@
 "use strict";
 const vue = require("vue");
 const index_vue_vue_type_script_setup_true_lang = require("./ExpandableText/index.vue.js");
-require("./ExpandableText/index.vue2.js");
+;/* empty css                           */
 const index_vue_vue_type_script_setup_true_lang$1 = require("./TipText/index.vue.js");
-require("./TipText/index.scss.js");
+;/* empty css                    */
 const props = require("./props.js");
 const _sfc_main = /* @__PURE__ */ vue.defineComponent({
   __name: "index",

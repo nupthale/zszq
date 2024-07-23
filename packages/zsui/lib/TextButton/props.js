@@ -1,8 +1,7 @@
 "use strict";
-const propsDef = {
-  type: {
-    type: String,
-    default: "default"
-  }
+require("../node_modules/.pnpm/ant-design-vue@4.2.3_vue@3.4.31/node_modules/ant-design-vue/es/button/button.js");
+const buttonTypes = require("../node_modules/.pnpm/ant-design-vue@4.2.3_vue@3.4.31/node_modules/ant-design-vue/es/button/buttonTypes.js");
+const propsDef = buttonTypes.buttonProps() && {
+  type: String
 };
 module.exports = propsDef;

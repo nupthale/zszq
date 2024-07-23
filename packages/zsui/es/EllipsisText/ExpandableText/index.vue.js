@@ -1,6 +1,6 @@
 import { defineComponent, useCssVars, computed, ref, onMounted, watch, openBlock, createElementBlock, normalizeStyle, Fragment, createElementVNode, createTextVNode, toDisplayString, createVNode, withCtx, renderSlot } from "vue";
 import _sfc_main$1 from "../../TextButton/index.vue.js";
-import "../../TextButton/index.vue2.js";
+/* empty css                          */
 import expandableTextPropsDef from "./props.js";
 const _hoisted_1 = { class: "zsui-ellipsis-text__foldAction" };
 const _hoisted_2 = {
