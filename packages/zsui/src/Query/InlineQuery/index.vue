@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, ref, toRef, PropType } from 'vue';
-import { Form, Button } from 'ant-design-vue';
+import { Form, Button, Space } from 'ant-design-vue';
 
 import { useFormComp } from '../useFormComp';
 
@@ -42,9 +42,10 @@ export default defineComponent({
                             </FormItem>
                         </div>
                     ))}
-                    <div>
-                        <Button onClick={handleSearch}>查询</Button>
-                    </div>
+                    <Space>
+                        <Button onClick={handleSearch} type="primary">查询</Button>
+                        <Button onClick={handleReset}>重置</Button>
+                    </Space>
                 </div>
             </Form>
         )

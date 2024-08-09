@@ -60,15 +60,6 @@ export const useSchema = (blockOnly: boolean) => {
                 ],
             },
         },
-        {
-            width: 174,
-            field: 'clientInfo',
-            label: '客户搜索',
-            component: 'Input',
-            componentProps: {
-                placeholder: '请输入',
-            }
-        } 
     ];
 
     if (!blockOnly) {
