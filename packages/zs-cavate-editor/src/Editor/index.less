@@ -1,0 +1,33 @@
+.zs-form-item {
+    position: relative;
+    display: inline-block;
+    min-width: 80px;
+    min-height: 22px;
+    line-height: 22px;
+    padding: 0 12px;
+    border-radius: 2px;
+    border: 1px solid rgb(222, 224, 227);
+    background: rgb(255, 255, 255);
+    cursor: text;
+    vertical-align: bottom;
+    overflow: hidden;
+}
+
+.zs-form-item--template {
+    color: rgb(143, 149, 158);
+}
+
+.zs-form-item::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: rgb(143, 149, 158);
+}
+
+.zs-form-item--error::after {
+    background-color: red;
+}
