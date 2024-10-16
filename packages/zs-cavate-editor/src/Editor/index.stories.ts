@@ -45,20 +45,6 @@ export const InputEditable: Story = {
   }),
   args: {
     mode: EditorModeEnum.INPUT_EDITABLE,
-    doc: {
-      "type": "doc",
-      "content": [{
-        "type": "paragraph",
-        "content":[{
-          "type": "text",
-          "text": "abc"
-        }, {
-          "type":"formItem",
-          "attrs": {
-            "error": false
-          }
-        }]
-      }]
-    },
+    doc: {"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"abc"},{"type":"formItem","attrs":{"id":"c8f1a81a-d27f-4e1b-9745-4adcbe33aa7a"}}]}]}
   },
 };

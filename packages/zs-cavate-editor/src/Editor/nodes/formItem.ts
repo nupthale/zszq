@@ -23,6 +23,10 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
             this.update(node);
         }
 
+        get id() {
+            return this.node.attrs.id;
+        } 
+
         createContentDOM = () => {
             const $span = document.createElement('span');
 
@@ -45,26 +49,26 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
                 return false;
             }
 
-            const attrs = node.attrs;
+            const value = contextRef.value?.values[this.id] || '';
 
             if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(attrs.value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : attrs.value;
+                this.contentDOM.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
             }
         }
         
         handleFocus = (e: Event) => {
-            const attrs = this.node.attrs;
+            const value = contextRef.value?.values[this.id] || '';
 
             if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(attrs.value) ? '' : attrs.value;
+                this.contentDOM.innerHTML = isEmpty(value) ? '' : value;
             }
         }
 
         handleBlur = (e: Event) => {
-            const attrs = this.node.attrs;
+            const value = contextRef.value?.values[this.id] || '';
 
             if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(attrs.value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : attrs.value;
+                this.contentDOM.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
             }
         }
 
@@ -74,15 +78,13 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
             }
 
             const value = this.contentDOM?.innerText || '';
+            const id = this.node.attrs.id as string;
 
-            // 获取当前节点的 DOM 元素的绝对位置
-            const pos = this.getPos();
+            if (!id) {
+                throw Error(`${this.node}的id 不存在`);
+            }
 
-            const node = this.view.state.doc.nodeAt(pos);
-
-            console.info('###node', node?.attrs, this.node.nodeSize, this.node.content.size);
-            
-            this.view.dispatch(this.view.state.tr.setNodeMarkup(pos, undefined, {...node?.attrs, value }));
+            contextRef.value.values[id] = value;
         }
     
         stopEvent() {
@@ -96,6 +98,8 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
         // 在节点销毁时解绑事件
         destroy() {
             this.contentDOM?.removeEventListener('input', this.handleInput);
+            this.contentDOM?.removeEventListener('focus', this.handleInput);
+            this.contentDOM?.removeEventListener('blur', this.handleInput);
         }
     };
 }
@@ -105,8 +109,7 @@ export const getFormItemSpec = (contextRef: Ref<ContextType>) => {
         inline: true,
         group: 'inline',
         attrs: {
-            value: { default: '' },
-            error: { default: false },
+            id: { default: '' },
         },
         parseDOM: [
             {

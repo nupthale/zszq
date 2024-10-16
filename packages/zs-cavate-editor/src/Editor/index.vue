@@ -33,7 +33,8 @@ const props = defineProps({
                 content: [],
             }],
         }),
-    }
+    },
+    values: Object as PropType<Record<string, string>>,
 });
 
 const mountNodeRef = ref();
@@ -44,6 +45,9 @@ let viewRef: Ref<EditorView | null> = ref(null);
 
 const contextRef = ref<ContextType>({
     mode: props.mode || EditorModeEnum.TEMPLATE,
+    values: props.values || {
+        'c8f1a81a-d27f-4e1b-9745-4adcbe33aa7a': '哈乐123'
+    },
 });
 
 const formItem = getFormItemSpec(contextRef);
@@ -75,7 +79,7 @@ onMounted(() => {
 
     viewRef.value = new EditorView(mountNodeRef.value, {
         state: stateRef.value,
-        // editable: () => props.mode === EditorModeEnum.TEMPLATE,
+        editable: () => props.mode === EditorModeEnum.TEMPLATE,
         nodeViews: {
             formItem: (node, view, getPos) => {
                 return new formItemNodeView(node, view, getPos); 
@@ -110,38 +114,7 @@ const handleNodes = () => {
 }
 
 const handleAddFormItem = () => {
-    const formItemType = schemaRef.value?.nodes.formItem;
-    const state: EditorState = viewRef.value?.state;
-
-    // 获取文档的最后一个位置
-    const endPosition = state.doc.content.size;
-
-    // viewRef.value?.dispatch(viewRef.value?.state.tr.insert(endPosition - 1, formItemType.create()));
-
-      // 检查节点是否存在
-    // const nodeAtPosition = state.doc.nodeAt(4);
-    // if (!nodeAtPosition) {
-    //     console.error("Node at position 4 does not exist.");
-    //     return;
-    // }
-
-     // 打印节点信息
-    //  console.log("Node at position 4:", nodeAtPosition, viewRef.value?.state.tr);
-
-    console.info('###state.doc.nodeAt(4)?.attrs', state.doc.nodeAt(4)?.attrs);
-
-    viewRef.value?.focus();
-    let transaction = viewRef.value?.state.tr;
-    transaction = transaction.setSelection(new AllSelection(viewRef.value?.state.doc));
-    transaction = transaction.setNodeMarkup(4, undefined, { 
-        ...state.doc.nodeAt(4)?.attrs, // 保留其他属性
-        value: 'value123' 
-    });
-
-    viewRef.value?.dispatch(
-        transaction,
-        // viewRef.value?.state.tr.setNodeAttribute(4, 'value', 'value123'),
-    );
+    console.info('###context', contextRef.value);
 }
 </script>
 
