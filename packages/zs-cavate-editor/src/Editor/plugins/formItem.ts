@@ -1,7 +1,7 @@
 import { Ref } from 'vue';
 import { v4 as uuid } from 'uuid';
 
-import { Plugin } from 'prosemirror-state';
+import { Plugin, TextSelection } from 'prosemirror-state';
 
 import { ContextType } from '../interface';
 
@@ -22,9 +22,9 @@ export const formItemPlugin = (_contextRef: Ref<ContextType>) => new Plugin({
 
       if (text === '_' && prevText === '__') {
         view.dispatch(
-            tr.replaceRangeWith(start, end, formItemType.create({
-              id: uuid(),
-            })),
+          tr.replaceRangeWith(start, end, formItemType.create({
+            id: uuid(),
+          })),
         );
 
         return true; // 返回 true 表示已处理该输入

@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { Ref, nextTick } from 'vue';
 import { isEmpty } from 'lodash-es';
 
 import { Node } from 'prosemirror-model';
@@ -10,15 +10,15 @@ import { EditorView, NodeView } from 'prosemirror-view';
 export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
     return class FormItemNodeView {
         private dom: HTMLSpanElement | null = null;
-        private contentDOM: HTMLSpanElement | null = null;
+        private customContent: HTMLSpanElement | null = null;
 
         constructor(private node: Node, private view: EditorView, private getPos: () => number) {
             const $span = document.createElement('span');
             $span.setAttribute('zsFormItem', 'true');
 
             this.dom = $span;
-            this.contentDOM = this.createContentDOM();
-            this.dom.appendChild(this.contentDOM);
+            this.customContent = this.createCustomDOM();
+            this.dom.appendChild(this.customContent);
         
             this.update(node);
         }
@@ -27,10 +27,11 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
             return this.node.attrs.id;
         } 
 
-        createContentDOM = () => {
+        createCustomDOM = () => {
             const $span = document.createElement('span');
 
             if (contextRef.value.mode === EditorModeEnum.TEMPLATE) {
+                $span.contentEditable = 'false';
                 $span.classList.add('zs-form-item', 'zs-form-item--template');
             } else {
                 $span.contentEditable = 'true';
@@ -51,33 +52,34 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
 
             const value = contextRef.value?.values[this.id] || '';
 
-            if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
+            if (this.customContent) {
+                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
             }
         }
         
         handleFocus = (e: Event) => {
             const value = contextRef.value?.values[this.id] || '';
 
-            if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(value) ? '' : value;
+            if (this.customContent) {
+                // 输入5个空格占位， 因为用的是inline，所以没法设置min-width
+                this.customContent.innerHTML = isEmpty(value) ? '&emsp;&emsp;&emsp;&emsp;&emsp;' : value;
             }
         }
 
         handleBlur = (e: Event) => {
             const value = contextRef.value?.values[this.id] || '';
 
-            if (this.contentDOM) {
-                this.contentDOM.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
+            if (this.customContent) {
+                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
             }
         }
 
         handleInput = (e: Event) => {
-            if (!this.contentDOM) {
+            if (!this.customContent) {
                 return;
             }
 
-            const value = this.contentDOM?.innerText || '';
+            const value = this.customContent?.innerText || '';
             const id = this.node.attrs.id as string;
 
             if (!id) {
@@ -97,9 +99,9 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
 
         // 在节点销毁时解绑事件
         destroy() {
-            this.contentDOM?.removeEventListener('input', this.handleInput);
-            this.contentDOM?.removeEventListener('focus', this.handleInput);
-            this.contentDOM?.removeEventListener('blur', this.handleInput);
+            this.customContent?.removeEventListener('input', this.handleInput);
+            this.customContent?.removeEventListener('focus', this.handleInput);
+            this.customContent?.removeEventListener('blur', this.handleInput);
         }
     };
 }
@@ -108,6 +110,7 @@ export const getFormItemSpec = (contextRef: Ref<ContextType>) => {
     return {
         inline: true,
         group: 'inline',
+        atom: true,
         attrs: {
             id: { default: '' },
         },
@@ -116,6 +119,6 @@ export const getFormItemSpec = (contextRef: Ref<ContextType>) => {
               tag: "span[zsFormItem]"
             }
         ],
-        toDOM: () => ["span", { zsFormItem: "true" }, 0],
+        toDOM: () => ["span", { zsFormItem: "true", contentEditable: "false" }, 0],
     };
 }
