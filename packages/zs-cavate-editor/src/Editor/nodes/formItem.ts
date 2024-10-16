@@ -53,7 +53,7 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
             const value = contextRef.value?.values[this.id] || '';
 
             if (this.customContent) {
-                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
+                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请填写内容</span>' : value;
             }
         }
         
@@ -62,7 +62,7 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
 
             if (this.customContent) {
                 // 输入5个空格占位， 因为用的是inline，所以没法设置min-width
-                this.customContent.innerHTML = isEmpty(value) ? '&emsp;&emsp;&emsp;&emsp;&emsp;' : value;
+                this.customContent.innerText = isEmpty(value) ? '' : value;
             }
         }
 
@@ -70,7 +70,7 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
             const value = contextRef.value?.values[this.id] || '';
 
             if (this.customContent) {
-                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请输入内容</span>' : value;
+                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请填写内容</span>' : value;
             }
         }
 

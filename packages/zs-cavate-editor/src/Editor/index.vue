@@ -36,6 +36,7 @@ const props = defineProps({
         }),
     },
     values: Object as PropType<Record<string, string>>,
+    placeholder: String,
 });
 
 const mountNodeRef = ref();
@@ -68,14 +69,13 @@ onMounted(() => {
         doc: customSchema?.nodeFromJSON(props.doc),
         plugins: [
             keymap(baseKeymap),
-            placeholderPlugin('请输入内容'),
+            placeholderPlugin(props.placeholder || '请填写内容'),
             formItemPlugin(contextRef),
         ],
     });
 
     const view = new EditorView(mountNodeRef.value, {
         state,
-        placeholder: '请输入内容',
         editable: () => props.mode === EditorModeEnum.TEMPLATE,
         nodeViews: {
             formItem: (node, view, getPos) => {
