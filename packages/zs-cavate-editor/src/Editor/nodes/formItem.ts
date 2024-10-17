@@ -60,10 +60,12 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
         handleFocus = (e: Event) => {
             const value = contextRef.value?.values[this.id] || '';
 
-            if (this.customContent) {
-                // 输入5个空格占位， 因为用的是inline，所以没法设置min-width
-                this.customContent.innerText = isEmpty(value) ? '' : value;
-            }
+            // 延迟设置内容, 否则直接设置innerText， 会自动blur
+            setTimeout(() => {
+                if (this.customContent) {
+                    this.customContent.innerText = isEmpty(value)? '' : value;
+                }
+            }, 10);
         }
 
         handleBlur = (e: Event) => {
