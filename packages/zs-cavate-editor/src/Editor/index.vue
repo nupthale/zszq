@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <div ref="mountNodeRef"></div>
-    </div>
+    <div ref="mountNodeRef"></div>
 </template>
   
 <script setup lang="ts">
@@ -19,7 +17,10 @@ import { getFormItemSpec, getFormItemNodeView } from './nodes/formItem';
 import { formItemPlugin } from './plugins/formItem';
 import { placeholderPlugin } from './plugins/placeholder';
 
-import { ContextType, EditorModeEnum } from './interface';
+import { errorMark } from './marks/error';
+import { useExposeApi } from './hooks/useExposeApi';
+
+import { ContextType, EditorModeEnum, CavateEditorExposeType } from './interface';
 
 import './theme.less';
 
@@ -40,10 +41,7 @@ const props = defineProps({
 });
 
 const mountNodeRef = ref();
-
-let schemaRef: Ref<Schema | null> = ref(null);
-let stateRef: Ref<EditorState | null> = ref(null);
-let viewRef: Ref<EditorView | null> = ref(null);
+let view: EditorView | null = null;
 
 const contextRef = ref<ContextType>({
     mode: props.mode || EditorModeEnum.TEMPLATE,
@@ -52,6 +50,9 @@ const contextRef = ref<ContextType>({
 
 const formItem = getFormItemSpec(contextRef);
 const formItemNodeView = getFormItemNodeView(contextRef);
+
+const exposeApi = useExposeApi(() => view, contextRef);
+defineExpose<CavateEditorExposeType>(exposeApi);
 
 onMounted(() => {
     if (!mountNodeRef.value) {
@@ -62,7 +63,9 @@ onMounted(() => {
         nodes: schema.spec.nodes.append({
             formItem,
         }),
-        marks: schema.spec.marks
+        marks: schema.spec.marks.append({
+            error: errorMark,
+        }),
     });
 
     const state = EditorState.create({
@@ -74,7 +77,7 @@ onMounted(() => {
         ],
     });
 
-    const view = new EditorView(mountNodeRef.value, {
+    view = new EditorView(mountNodeRef.value, {
         state,
         editable: () => props.mode === EditorModeEnum.TEMPLATE,
         nodeViews: {

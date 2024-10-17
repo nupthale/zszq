@@ -29,6 +29,14 @@
     background-color: rgb(51, 112, 255);
 }
 
+.zs-form-item-errorMark .zs-form-item {
+    border-color: #f54a45;
+}
+
+.zs-form-item-errorMark .zs-form-item::after {
+    background-color: #f54a45;
+}
+
 .zs-form-item::after {
     content: "";
     display: inline-block;
@@ -38,8 +46,4 @@
     bottom: 0;
     height: 2px;
     background-color: rgb(143, 149, 158);
-}
-
-.zs-form-item--error::after {
-    background-color: red;
 }
