@@ -7,10 +7,10 @@ import { Node } from 'prosemirror-model';
 import { ContextType } from '../interface';
 
 export const useExposeApi = (
-    getView: () => EditorView,
+    getView: () => EditorView | null,
     contextRef: Ref<ContextType>,
 ) => {
-    const getFormItemNodes = () => {
+    const getFieldNodes = () => {
         const view = getView();
 
         if (!view) return null;
@@ -18,7 +18,7 @@ export const useExposeApi = (
         const nodes: { node: Node, pos: number }[] = [];
 
         view.state.doc.nodesBetween(0, view.state.doc.content.size, (node, pos) => {
-            if (node.type.name === 'formItem') {
+            if (node.type.name === 'field') {
                 nodes.push({
                     node,
                     pos,
@@ -40,7 +40,7 @@ export const useExposeApi = (
             const errorMark = view.state.schema.marks.error;
 
             const values = contextRef.value.values;
-            const nodes = getFormItemNodes();
+            const nodes = getFieldNodes();
             let isValid = false;
 
             nodes?.forEach(({ node, pos }) => {

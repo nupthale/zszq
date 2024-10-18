@@ -1,20 +1,20 @@
-import { Ref, nextTick } from 'vue';
+import { Ref } from 'vue';
 import { isEmpty } from 'lodash-es';
 
-import { Node } from 'prosemirror-model';
+import { Node, NodeSpec } from 'prosemirror-model';
 
 import { EditorModeEnum, ContextType } from '../interface';
 
-import { EditorView, NodeView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 
-export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
-    return class FormItemNodeView {
-        private dom: HTMLSpanElement | null = null;
+export const getFieldNodeView= (contextRef: Ref<ContextType>) => {
+    return class FieldNodeView {
+        public dom: HTMLSpanElement;
         private customContent: HTMLSpanElement | null = null;
 
-        constructor(private node: Node, private view: EditorView, private getPos: () => number) {
+        constructor(private node: Node, private view: EditorView, private getPos: () => number | undefined) {
             const $span = document.createElement('span');
-            $span.setAttribute('zsFormItem', 'true');
+            $span.setAttribute('zsField', 'true');
 
             this.dom = $span;
             this.customContent = this.createCustomDOM();
@@ -32,10 +32,10 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
 
             if (contextRef.value.mode === EditorModeEnum.TEMPLATE) {
                 $span.contentEditable = 'false';
-                $span.classList.add('zs-form-item', 'zs-form-item--template');
+                $span.classList.add('zs-field', 'zs-field--template');
             } else {
                 $span.contentEditable = 'true';
-                $span.classList.add('zs-form-item');
+                $span.classList.add('zs-field');
                
                 $span.addEventListener('input', this.handleInput);
                 $span.addEventListener('focus', this.handleFocus);
@@ -46,15 +46,14 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
         }
 
         update(node: Node) {
-            if (!node.sameMarkup(this.node)) {
+            if (!node.sameMarkup(this.node) || !this.customContent) {
                 return false;
             }
 
             const value = contextRef.value?.values[this.id] || '';
 
-            if (this.customContent) {
-                this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请填写内容</span>' : value;
-            }
+            this.customContent.innerHTML = isEmpty(value) ? '<span style="color: rgb(143, 149, 158)">请填写内容</span>' : value;
+            return true;   
         }
         
         handleFocus = (e: Event) => {
@@ -108,7 +107,7 @@ export const getFormItemNodeView= (contextRef: Ref<ContextType>) => {
     };
 }
 
-export const getFormItemSpec = (contextRef: Ref<ContextType>) => {
+export const getFieldSpec = (contextRef: Ref<ContextType>) => {
     return {
         inline: true,
         group: 'inline',
@@ -118,9 +117,9 @@ export const getFormItemSpec = (contextRef: Ref<ContextType>) => {
         },
         parseDOM: [
             {
-              tag: "span[zsFormItem]"
+              tag: "span[zsField]"
             }
         ],
-        toDOM: () => ["span", { zsFormItem: "true", contentEditable: "false" }, 0],
-    };
+        toDOM: () => ["span", { zsField: "true", contentEditable: "false" }, 0],
+    } as NodeSpec;
 }

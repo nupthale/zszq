@@ -1,4 +1,4 @@
-.zs-form-item {
+.zs-field {
     position: relative;
     // 如果设置为inline， 光标不会显示， 设置成inline-block，文本长时，换行效果又没有inline好，暂时用inline-block;
     display: inline-block;
@@ -17,27 +17,27 @@
     outline: 1px solid transparent;
 }
 
-.zs-form-item--template {
+.zs-field--template {
     color: rgb(143, 149, 158);
 }
 
-.zs-form-item:focus {
+.zs-field:focus {
     border-color: rgb(51, 112, 255);
 }
 
-.zs-form-item:focus::after {
+.zs-field:focus::after {
     background-color: rgb(51, 112, 255);
 }
 
-.zs-form-item-errorMark .zs-form-item {
+.zs-field-errorMark .zs-field {
     border-color: #f54a45;
 }
 
-.zs-form-item-errorMark .zs-form-item::after {
+.zs-field-errorMark .zs-field::after {
     background-color: #f54a45;
 }
 
-.zs-form-item::after {
+.zs-field::after {
     content: "";
     display: inline-block;
     position: absolute;

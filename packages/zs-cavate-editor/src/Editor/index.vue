@@ -5,16 +5,16 @@
 <script setup lang="ts">
 import { ref, onMounted, PropType } from 'vue';
 
-import { Schema, DOMParser } from 'prosemirror-model';
-import { EditorState, AllSelection } from 'prosemirror-state';
+import { Schema } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { schema } from 'prosemirror-schema-basic';
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap } from "prosemirror-commands";
 
-import { getFormItemSpec, getFormItemNodeView } from './nodes/formItem';
-import { formItemPlugin } from './plugins/formItem';
+import { getFieldSpec, getFieldNodeView } from './nodes/field';
+import { fieldPlugin } from './plugins/field';
 import { placeholderPlugin } from './plugins/placeholder';
 
 import { errorMark } from './marks/error';
@@ -48,8 +48,8 @@ const contextRef = ref<ContextType>({
     values: props.values || {},
 });
 
-const formItem = getFormItemSpec(contextRef);
-const formItemNodeView = getFormItemNodeView(contextRef);
+const field = getFieldSpec(contextRef);
+const fieldNodeView = getFieldNodeView(contextRef);
 
 const exposeApi = useExposeApi(() => view, contextRef);
 defineExpose<CavateEditorExposeType>(exposeApi);
@@ -61,7 +61,7 @@ onMounted(() => {
 
     const customSchema = new Schema({
         nodes: schema.spec.nodes.append({
-            formItem,
+            field,
         }),
         marks: schema.spec.marks.append({
             error: errorMark,
@@ -73,7 +73,7 @@ onMounted(() => {
         plugins: [
             keymap(baseKeymap),
             placeholderPlugin(props.placeholder || '请填写内容'),
-            formItemPlugin(contextRef),
+            fieldPlugin(contextRef),
         ],
     });
 
@@ -81,8 +81,8 @@ onMounted(() => {
         state,
         editable: () => props.mode === EditorModeEnum.TEMPLATE,
         nodeViews: {
-            formItem: (node, view, getPos) => {
-                return new formItemNodeView(node, view, getPos); 
+            field: (node, view, getPos) => {
+                return new fieldNodeView(node, view, getPos); 
             }
         }
     });

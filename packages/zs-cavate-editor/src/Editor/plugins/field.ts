@@ -1,18 +1,18 @@
 import { Ref } from 'vue';
 import { v4 as uuid } from 'uuid';
 
-import { Plugin, TextSelection } from 'prosemirror-state';
+import { Plugin } from 'prosemirror-state';
 
 import { ContextType } from '../interface';
 
-export const formItemPlugin = (_contextRef: Ref<ContextType>) => new Plugin({
+export const fieldPlugin = (_contextRef: Ref<ContextType>) => new Plugin({
   props: {
     handleTextInput(view, from, to, text) {
       const state = view.state;
       const tr = state.tr;
       const doc = tr.doc;
       const schema = state.schema;
-      const formItemType = schema.nodes.formItem;
+      const fieldType = schema.nodes.field;
 
       const start = from - 2;
       const end = to;
@@ -22,7 +22,7 @@ export const formItemPlugin = (_contextRef: Ref<ContextType>) => new Plugin({
 
       if (text === '_' && prevText === '__') {
         view.dispatch(
-          tr.replaceRangeWith(start, end, formItemType.create({
+          tr.replaceRangeWith(start, end, fieldType.create({
             id: uuid(),
           })),
         );

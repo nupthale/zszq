@@ -10,12 +10,12 @@ export enum EditorModeEnum {
 
 export interface ContextType {
     mode: EditorModeEnum,
-    // 记录挖空输入的值， 无法直接记录到formItem类型的attrs里， 因为一直报错
+    // 记录挖空输入的值， 无法直接记录到field类型的attrs里， 因为一直报错
     values: Record<string, string>,
 }
 
 export interface CavateEditorExposeType {
     getValues: () => Record<string, string>,
-    getView: () => EditorView,
+    getView: () => EditorView | null,
     validate: () => boolean,
 }

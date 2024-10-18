@@ -1,6 +1,6 @@
-import { Mark } from 'prosemirror-model';
+import { Mark, MarkSpec } from 'prosemirror-model';
 
-export const errorMark = {
+export const errorMark: MarkSpec = {
     attrs: {
       error: { default: false },
     },
@@ -9,13 +9,12 @@ export const errorMark = {
       {
         tag: 'span',
         getAttrs: (dom: HTMLElement) => ({
-          error: dom.classList.contains('zs-form-item-errorMark'),
+          error: dom.classList.contains('zs-field-errorMark'),
         }),
       },
     ],
     toDOM: (mark: Mark) => {
       const { error } = mark.attrs;
-      debugger;
-      return ['span', { class: `${error ? 'zs-form-item-errorMark' : ''}` }, 0];
+      return ['span', { class: `${error ? 'zs-field-errorMark' : ''}` }, 0];
     },
 };
