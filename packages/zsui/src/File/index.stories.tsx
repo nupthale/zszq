@@ -138,3 +138,46 @@ export const SlotActions: Story = {
   args: {
   },
 };
+
+
+export const PercentBar: Story = {
+  render: args => {
+    return () => (
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+        <File fileName="很长.pdf" showPercentBar percent={30}>
+          {{
+            nameExtra: () => (
+              <Tag color="blue" size="small">测试标签</Tag>
+            ),
+            extra: () => (
+              <div style="color: rgb(143, 149, 158); font-size: 12px;">这是一段描述</div>
+            ),
+            actions: () => (
+              <div>
+                <TextButton type="primary" size="small">下载</TextButton>
+              </div>
+            )
+          }}
+        </File>
+
+        <File fileName="很长的名字很长的名字很长的名字很长的名字很长的名字很长的名字.pdf" showPercentBar percent={130}>
+          {{
+            nameExtra: () => (
+              <Tag color="blue" size="small">测试标签</Tag>
+            ),
+            extra: () => (
+              <div style="color: rgb(143, 149, 158); font-size: 12px;">这是一段描述</div>
+            ),
+            actions: () => (
+              <div>
+                <TextButton type="primary" size="small">下载</TextButton>
+              </div>
+            )
+          }}
+        </File>
+      </div>
+    );
+  },
+  args: {
+  },
+};

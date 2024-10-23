@@ -15,6 +15,10 @@
             </div>
         </div>
         <slot name="actions" class="zsui-file__actions"></slot>
+
+        <div v-if="showPercentBar" class="zsui-file__percentbar">
+            <div class="zsui-file__percent" :style="{ width: `${percent || 0}%` }"></div>
+        </div>
     </div>
 </template>
 
@@ -24,10 +28,10 @@
   import EllipsisText from '../EllipsisText/index.vue';
   import FileIcon from './FileIcon.vue';
 
-  import { getFileName, getFileSuffix } from './util';
-
-  const props = defineProps({
+  defineProps({
     fileName: String,
+    showPercentBar: Boolean,
+    percent: Number,
   });
 
   const fileType = computed(() => {
@@ -37,6 +41,7 @@
 
 <style>
 .zsui-file {
+    position: relative;
     box-sizing: border-box;
 
     display: flex;
@@ -49,6 +54,11 @@
     padding: 12px 16px 12px 12px;
 
     font-size: 14px;
+    overflow: hidden;
+}
+
+.zsui-file:hover {
+    border-color: rgb(51, 112, 255);
 }
 
 .zsui-file__main {
@@ -86,5 +96,21 @@
 
 .zsui-file__nameExtra {
     flex-shrink: 0;
+}
+
+.zsui-file__percentbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgb(222, 224, 227);
+}
+
+.zsui-file__percent {
+    width: 0%;
+    height: 3px;
+    transition: .3s linear;
+    background: rgb(51, 112, 255);
 }
 </style>
