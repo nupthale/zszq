@@ -1,0 +1,57 @@
+.ProseMirror p {
+  margin: 0;
+}
+.ProseMirror {
+  line-height: 1.5em;
+  min-height: 64px;
+  border: 1px solid #d0d3d6 !important;
+  border-radius: 6px;
+  outline: none;
+  padding: 8px;
+}
+.ProseMirror-placeholder {
+  color: #aaa;
+  pointer-events: none;
+  /* 确保用户无法与 placeholder 交互 */
+}
+.zs-field {
+  position: relative;
+  display: inline-block;
+  min-width: 80px;
+  min-height: 22px;
+  line-height: 22px;
+  padding: 0 12px;
+  border-radius: 2px;
+  border: 1px solid #dee0e3;
+  background: #ffffff;
+  cursor: text;
+  vertical-align: bottom;
+  overflow: hidden;
+  margin: 0 4px;
+  outline: 1px solid transparent;
+}
+.zs-field--template {
+  color: #8f959e;
+}
+.zs-field:focus {
+  border-color: #3370ff;
+}
+.zs-field:focus::after {
+  background-color: #3370ff;
+}
+.zs-field-errorMark .zs-field {
+  border-color: #f54a45;
+}
+.zs-field-errorMark .zs-field::after {
+  background-color: #f54a45;
+}
+.zs-field::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: #8f959e;
+}
