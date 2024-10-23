@@ -6,6 +6,7 @@ import UserProfile from './UserProfile/index.vue';
 import Alert from './Alert/index.vue';
 import Loading from './Loading/index.vue';
 import ImagePreview from './ImagePreview/index.vue';
+import File from './File/index.vue';
 
 import { InlineQuery, SideQuery, GridQuery, QueryTags, queryComponent } from './Query/index';
 
@@ -18,6 +19,7 @@ export {
     Alert, 
     Loading, 
     ImagePreview, 
+    File,
     InlineQuery, 
     SideQuery, 
     GridQuery, 

@@ -15,6 +15,8 @@ const index_vue_vue_type_script_setup_true_lang$6 = ;/* empty css               
 ;/* empty css                    */
 const index_vue_vue_type_script_setup_true_lang$7 = ;/* empty css                        */
 ;/* empty css                         */
+const index_vue_vue_type_script_setup_true_lang$8 = ;/* empty css                */
+;/* empty css                 */
 const index = require("./Query/index.js");
 const index_vue_vue_type_script_lang = ;/* empty css                             */
 ;/* empty css                   */
@@ -33,6 +35,7 @@ exports.UserProfile = index_vue_vue_type_script_setup_true_lang$4;
 exports.Alert = index_vue_vue_type_script_setup_true_lang$5;
 exports.Loading = index_vue_vue_type_script_setup_true_lang$6;
 exports.ImagePreview = index_vue_vue_type_script_setup_true_lang$7;
+exports.File = index_vue_vue_type_script_setup_true_lang$8;
 exports.queryComponent = index.queryComponent;
 exports.InlineQuery = index_vue_vue_type_script_lang;
 exports.SideQuery = index_vue_vue_type_script_lang$1;
