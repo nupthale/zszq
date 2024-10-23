@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4599145 */
-  src: url('iconfont.woff2?t=1721283583938') format('woff2'),
-       url('iconfont.woff?t=1721283583938') format('woff'),
-       url('iconfont.ttf?t=1721283583938') format('truetype');
+  src: url('iconfont.woff2?t=1729664319568') format('woff2'),
+       url('iconfont.woff?t=1729664319568') format('woff'),
+       url('iconfont.ttf?t=1729664319568') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon_file-zip_colorful1:before {
+  content: "\e645";
+}
+
+.icon-icon_file-pdf_colorful1:before {
+  content: "\e63c";
+}
+
+.icon-icon_file-video_colorful1:before {
+  content: "\e63d";
+}
+
+.icon-icon_file-text_colorful1:before {
+  content: "\e63e";
+}
+
+.icon-icon_file-image_colorful1:before {
+  content: "\e640";
+}
+
+.icon-icon_file-word_colorful1:before {
+  content: "\e644";
+}
+
+.icon-icon_file-ps_colorful1:before {
+  content: "\e647";
+}
+
+.icon-icon_file-audio_colorful1:before {
+  content: "\e648";
+}
+
+.icon-icon_file-csv_colorful1:before {
+  content: "\e649";
+}
+
+.icon-icon_file-sheet_colorful1:before {
+  content: "\e64e";
+}
+
+.icon-icon_file-unknow_colorful1:before {
+  content: "\e650";
+}
+
+.icon-icon_file-ppt_colorful1:before {
+  content: "\e652";
 }
 
 .icon-icon_delete-trash_outlined:before {

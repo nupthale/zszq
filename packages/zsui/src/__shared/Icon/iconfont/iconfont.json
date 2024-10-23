@@ -6,6 +6,90 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "25503976",
+      "name": "icon_file-zip_colorful",
+      "font_class": "icon_file-zip_colorful1",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "25495771",
+      "name": "icon_file-pdf_colorful",
+      "font_class": "icon_file-pdf_colorful1",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "25503968",
+      "name": "icon_file-video_colorful",
+      "font_class": "icon_file-video_colorful1",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "25503969",
+      "name": "icon_file-text_colorful",
+      "font_class": "icon_file-text_colorful1",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "25503971",
+      "name": "icon_file-image_colorful",
+      "font_class": "icon_file-image_colorful1",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "25503975",
+      "name": "icon_file-word_colorful",
+      "font_class": "icon_file-word_colorful1",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "25503978",
+      "name": "icon_file-ps_colorful",
+      "font_class": "icon_file-ps_colorful1",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "25504059",
+      "name": "icon_file-audio_colorful",
+      "font_class": "icon_file-audio_colorful1",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "25504060",
+      "name": "icon_file-csv_colorful",
+      "font_class": "icon_file-csv_colorful1",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "25504066",
+      "name": "icon_file-sheet_colorful",
+      "font_class": "icon_file-sheet_colorful1",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "25504299",
+      "name": "icon_file-unknow_colorful",
+      "font_class": "icon_file-unknow_colorful1",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "25504344",
+      "name": "icon_file-ppt_colorful",
+      "font_class": "icon_file-ppt_colorful1",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
       "icon_id": "18372581",
       "name": "icon_delete-trash_outlined",
       "font_class": "icon_delete-trash_outlined",
