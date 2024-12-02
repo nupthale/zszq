@@ -35,13 +35,13 @@ export const useExposeApi = (
         validate: () => {
             const view = getView();
 
-            if (!view) return false;
+            if (!view) return true;
 
             const errorMark = view.state.schema.marks.error;
 
             const values = contextRef.value.values;
             const nodes = getFieldNodes();
-            let isValid = false;
+            let isValid = true;
 
             nodes?.forEach(({ node, pos }) => {
                 const id = node.attrs.id;
