@@ -17,6 +17,7 @@
 .zs-field {
   position: relative;
   display: inline-block;
+  box-sizing: content-box;
   min-width: 80px;
   min-height: 22px;
   line-height: 22px;
