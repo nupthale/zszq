@@ -91,7 +91,6 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
             ...formModel.value,
             [name]: value
         };
-        console.info('###', formModel.value);
     }
 
     const { validate, errors } = useValidate(schemaMap, formModel);
