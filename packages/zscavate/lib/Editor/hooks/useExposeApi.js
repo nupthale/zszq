@@ -21,11 +21,11 @@ const useExposeApi = (getView, contextRef) => {
     getValues: () => contextRef.value.values,
     validate: () => {
       const view = getView();
-      if (!view) return false;
+      if (!view) return true;
       const errorMark = view.state.schema.marks.error;
       const values = contextRef.value.values;
       const nodes = getFieldNodes();
-      let isValid = false;
+      let isValid = true;
       nodes == null ? void 0 : nodes.forEach(({ node, pos }) => {
         var _a;
         const id = node.attrs.id;
