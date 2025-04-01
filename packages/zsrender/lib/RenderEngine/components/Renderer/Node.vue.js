@@ -21,10 +21,12 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
             class: vue.normalizeClass(__props.node.titleClass)
           }, vue.toDisplayString(__props.node.title), 3)) : vue.createCommentVNode("", true),
           (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(__props.node.content, (item, index) => {
-            return vue.openBlock(), vue.createBlock(_component_NodeRender, {
-              key: index,
-              node: item
-            }, null, 8, ["node"]);
+            return vue.openBlock(), vue.createElementBlock("div", {
+              class: vue.normalizeClass(__props.node.contentClass),
+              key: index
+            }, [
+              vue.createVNode(_component_NodeRender, { node: item }, null, 8, ["node"])
+            ], 2);
           }), 128))
         ], 64)) : vue.createCommentVNode("", true),
         vue.unref(util.isField)(__props.node) ? (vue.openBlock(), vue.createBlock(Field_vue_vue_type_script_setup_true_lang, {

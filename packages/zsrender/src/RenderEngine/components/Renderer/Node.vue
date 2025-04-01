@@ -1,12 +1,6 @@
 <template>
     <div>
-        <template v-if="isModule(node)">
-            <div v-if="node.title" :class="node.titleClass">{{ node.title }}</div>
-            <template v-for="(item, index) in node.content" :key="index">
-                <NodeRender :node="item" />
-            </template>
-        </template>
-
+        <Module :node="node" v-if="isModule(node)" />
         <Field :node="node" v-if="isField(node)" />
         <CustomComponent :node="node" v-if="isComponent(node)" />
     </div>
@@ -17,6 +11,7 @@ import { PropType } from 'vue';
 
 import Field from './Field.vue';
 import CustomComponent from './Component.vue';
+import Module from './Module.vue';
 
 import { NodeType } from '../../interface';
 import { isModule, isField, isComponent } from '../../util';

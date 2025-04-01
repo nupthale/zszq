@@ -20,6 +20,7 @@ const useContentSchema = (schema) => {
   vue.watchEffect(() => {
     schemaMap.value = {};
     updateSchemaMap(schema.value);
+    debugger;
   });
   vue.provide("schemaMap", schemaMap);
 };

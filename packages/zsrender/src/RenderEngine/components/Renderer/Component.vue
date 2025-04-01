@@ -3,7 +3,9 @@
         <component 
             :is="component" 
             v-bind="node.componentProps"
-        />
+        >
+            <Node v-for="subNode in node.content" :node="subNode"></Node>
+        </component>
     </div>
 </template>
   
@@ -13,6 +15,7 @@ import { PropType, computed } from 'vue';
 import { NodeType } from '../../interface';
 import { isComponent } from '../../util';
 
+import Node from './Node.vue';
 import { context } from '../../../context';
 
 const props = defineProps({

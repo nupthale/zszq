@@ -1,7 +1,7 @@
 import { ref, watchEffect, Ref, provide } from 'vue';
 
 import { SchemaType, NodeType } from '../interface';
-import { isModule } from '../util';
+import { isComponent, isModule } from '../util';
 
 // 内部使用map格式的schema， 更新也更新map，不更新tree；
 export const useContentSchema = (schema: Ref<SchemaType>) => {
@@ -15,7 +15,7 @@ export const useContentSchema = (schema: Ref<SchemaType>) => {
                 schemaMap.value[node.name] = node;
             }
 
-            if (isModule(node)) {
+            if (isModule(node) || isComponent(node)) {
                 node.content?.forEach(traverse);
             }
         }

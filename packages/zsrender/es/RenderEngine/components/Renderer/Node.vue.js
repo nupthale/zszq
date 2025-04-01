@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent, openBlock, createElementBlock, unref, Fragment, normalizeClass, toDisplayString, createCommentVNode, renderList, createBlock } from "vue";
+import { defineComponent, resolveComponent, openBlock, createElementBlock, unref, Fragment, normalizeClass, toDisplayString, createCommentVNode, renderList, createVNode, createBlock } from "vue";
 import _sfc_main$1 from "./Field.vue2.js";
 import _sfc_main$2 from "./Component.vue2.js";
 import { isModule, isField, isComponent } from "../../util.js";
@@ -20,10 +20,12 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             class: normalizeClass(__props.node.titleClass)
           }, toDisplayString(__props.node.title), 3)) : createCommentVNode("", true),
           (openBlock(true), createElementBlock(Fragment, null, renderList(__props.node.content, (item, index) => {
-            return openBlock(), createBlock(_component_NodeRender, {
-              key: index,
-              node: item
-            }, null, 8, ["node"]);
+            return openBlock(), createElementBlock("div", {
+              class: normalizeClass(__props.node.contentClass),
+              key: index
+            }, [
+              createVNode(_component_NodeRender, { node: item }, null, 8, ["node"])
+            ], 2);
           }), 128))
         ], 64)) : createCommentVNode("", true),
         unref(isField)(__props.node) ? (openBlock(), createBlock(_sfc_main$1, {

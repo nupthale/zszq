@@ -6,7 +6,8 @@ export interface ModuleNode extends BaseNode {
     type: 'module';
     title: string;
     name?: string;
-    titleClass: string;
+    titleClass?: string;
+    contentClass?: string;
     content: NodeType[];
 }
 export interface FieldNode extends BaseNode {
@@ -25,6 +26,7 @@ export interface ComponentNode extends BaseNode {
     name: string;
     componentType: string;
     componentProps: Record<string, any>;
+    content?: NodeType[];
 }
 export interface SchemaType {
     content: NodeType[];
