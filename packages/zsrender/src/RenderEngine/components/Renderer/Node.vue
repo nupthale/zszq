@@ -1,8 +1,8 @@
 <template>
     <div>
-        <Module :node="node" v-if="isModule(node)" />
-        <Field :node="node" v-if="isField(node)" />
-        <CustomComponent :node="node" v-if="isComponent(node)" />
+        <Module :node="node" v-if="isModule(node) && isVisible(node)" />
+        <Field :node="node" v-if="isField(node) && isVisible(node)" />
+        <CustomComponent :node="node" v-if="isComponent(node) && isVisible(node)" />
     </div>
 </template>
   
@@ -14,7 +14,7 @@ import CustomComponent from './Component.vue';
 import Module from './Module.vue';
 
 import { NodeType } from '../../interface';
-import { isModule, isField, isComponent } from '../../util';
+import { isModule, isField, isComponent, isVisible, isEditable } from '../../util';
 
 defineOptions({
     name: 'NodeRender'

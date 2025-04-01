@@ -11,3 +11,11 @@ export const isField = (node?: NodeType): node is FieldNode => {
 export const isComponent = (node?: NodeType): node is ComponentNode => {
     return node?.type === 'component';
 }
+
+export const isVisible = (node?: NodeType) => {
+    return node?.visible !== false;
+}
+
+export const isEditable = (node?: NodeType) => {
+    return node?.editable !== false;
+}

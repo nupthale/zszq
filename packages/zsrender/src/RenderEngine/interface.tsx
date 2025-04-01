@@ -1,7 +1,35 @@
+import { Ref } from 'vue';
+import type { Rule } from 'async-validator';
+
+export interface ContextType {
+    schema: Ref<SchemaType>;
+    schemaMap: Ref<Record<string, NodeType>>;
+    formModel: Ref<Record<string, any>>;
+    errors: Ref<ErrorType | null>;
+    validate: () => Promise<boolean>;
+    updateNodeSchema: (name: string, propName: string, propValue: any) => void;
+    updateFieldProps: (name: string, propName: string, propValue: any) => void;
+    updateComponentProps: (name: string, propName: string, propValue: any) => void;
+    updateFieldValue: (name: string, value: any) => void;
+}
+
+export interface ErrorType {
+    errors: Array<{
+        field: string,
+        message: string,
+    }>,
+    fields: Record<string, Array<{
+        field: string,
+        message: string,
+    }>>,
+};
+
 export type NodeType = ModuleNode | FieldNode | ComponentNode;
 
 export interface BaseNode {
     type: string,
+    visible?: boolean,
+    editable?: boolean,
 } 
 
 export interface ModuleNode extends BaseNode {
@@ -25,6 +53,7 @@ export interface FieldNode extends BaseNode {
         required: boolean;
     };
     componentProps: Record<string, any>;
+    rules: Rule,
 }
 
 export interface ComponentNode extends BaseNode {
@@ -43,15 +72,12 @@ export interface SchemaType {
     apiEffects?: ApiEffectType[];
 }
 
-enum LifeCycleEnum {
+export enum LifeCycleEnum {
   FORM_MOUNT = 'onFormMount',
-  FORM_CHANGE = 'onFormChange',
-  FORM_SUBMIT = 'onFormSubmit',
   FORM_UNMOUNT = 'onFormUnmount',
+  FORM_CHANGE = 'onFormChange',
   FIELD_MOUNT = 'onFieldMount',
   FIELD_UNMOUNT = 'onFieldUnmount',
-  FIELD_CHANGE = 'onFieldChange',
-  FIELD_BLUR = 'onFieldBlur',
   COMPONENT_MOUNT = 'onComponetMount',
   COMPONENT_UNMOUNT = 'onComponentUnmount',
 }

@@ -2,18 +2,18 @@ import { Component } from 'vue';
 
 import RenderEngine from './RenderEngine/index.vue';
 
-import { context } from './context';
+import { components } from './components';
 
 const addComponent = (name: string, component: Component) => {
-    context.componentsMap[name] = component;
+    components.componentsMap[name] = component;
 }
 
 const deleteComponent = (name: string) => {
-    delete context.componentsMap[name];
+    delete components.componentsMap[name];
 }
 
 const setFieldComponent = (component: Component) => {
-    context.fieldComponent = component;
+    components.fieldComponent = component;
 }
 
 export {

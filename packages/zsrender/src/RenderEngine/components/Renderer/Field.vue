@@ -1,27 +1,37 @@
 <template>
-    <div v-if="isField(node)">
-        <component :is="field" v-bind="fieldProps">
+    <div>
+        <component :is="field" v-bind="fieldBindingProps">
             <component 
                 :is="component" 
-                v-bind="node.componentProps"
+                v-bind="componentBindingProps"
             /> 
         </component>  
     </div>
 </template>
   
 <script setup lang="ts">
-import { PropType, computed, inject, Ref } from 'vue';
+import { PropType, computed, inject, toRef, watchEffect, ref } from 'vue';
 
-import { FieldNode, NodeType } from '../../interface';
-import { isField } from '../../util';
+import { ContextType, FieldNode, LifeCycleEnum, NodeType } from '../../interface';
 
-import { context } from '../../../context';
+import { useLifeCycleEffect } from '../../hooks/useLifeCycleEffect';
+import { components } from '../../../components';
 
 const props = defineProps({
-    node: Object as PropType<NodeType>,
+    node: Object as PropType<FieldNode>,
 });
 
-const schemaMapRef = inject('schemaMap') as Ref<Record<string, NodeType>>;
+const componentBindingProps = ref({});
+const fieldBindingProps = ref({});
+
+const context = inject('context') as ContextType;
+const schemaMapRef = toRef(() => context.schemaMap.value);
+const formModelRef = toRef(() => {
+    return context.formModel.value || {};
+});
+const formErrorRef = toRef(() => {
+    return context.errors.value;
+});
 
 const fieldProps = computed(() => {
     const node = props.node as FieldNode;
@@ -37,17 +47,52 @@ const fieldProps = computed(() => {
 
 
 const component = computed(() => {
-    const componentsMap = context.componentsMap;
+    const componentsMap = components.componentsMap;
 
-    if (isField(props.node)) {
-        const node = props.node as FieldNode;
+    const node = props.node as FieldNode;
 
-        const schemaMap = schemaMapRef.value;
-        const schema = (schemaMap[node.name] || {}) as FieldNode;
+    const schemaMap = schemaMapRef.value;
+    const schema = (schemaMap[node.name] || {}) as FieldNode;
 
-        return componentsMap[schema.fieldType];
-    }
+    return componentsMap[schema.fieldType];
 });
 
-const field = context.fieldComponent;
+const field = components.fieldComponent;
+
+useLifeCycleEffect(
+    context,
+    [LifeCycleEnum.FIELD_MOUNT, LifeCycleEnum.FIELD_UNMOUNT],
+);
+
+watchEffect(() => {
+    const valueBindingProps = {
+        value: formModelRef.value?.[fieldProps.value?.name!],
+        'onUpdate:value': (value: any) => {
+            context.updateFieldValue(fieldProps.value?.name, value)
+        },
+        // wot-design-uni
+        modelValue: formModelRef.value?.[fieldProps.value?.name!],
+        'onUpdate:modelValue': (value: any) => {
+            context.updateFieldValue(fieldProps.value?.name, value)
+        },
+    };
+
+   
+
+    componentBindingProps.value = {
+        ...props.node?.componentProps,
+        ...valueBindingProps,
+    };
+});
+
+watchEffect(() => {
+    const validateProps = {
+        error: formErrorRef.value?.fields?.[fieldProps.value?.name]?.[0]?.message || undefined,
+    };
+
+    fieldBindingProps.value = {
+        ...fieldProps.value,
+       ...validateProps,
+    };
+});
 </script>

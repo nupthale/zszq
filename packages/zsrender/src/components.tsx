@@ -2,7 +2,7 @@ import { Component } from 'vue';
 
 const componentsMap: Record<string, Component> = {};
 
-export const context = {
+export const components = {
     componentsMap,  
     fieldComponent: null as Component | null,
 };
