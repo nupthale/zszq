@@ -22,3 +22,5 @@ export {
     deleteComponent,
     setFieldComponent,
 };
+
+export * from './RenderEngine/interface';
