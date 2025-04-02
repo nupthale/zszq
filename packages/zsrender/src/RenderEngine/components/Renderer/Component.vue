@@ -3,6 +3,7 @@
         <component 
             :is="component" 
             v-bind="node?.componentProps"
+            :node="node"
         >
             <Node v-for="subNode in node?.content" :node="subNode"></Node>
         </component>

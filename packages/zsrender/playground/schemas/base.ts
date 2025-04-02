@@ -57,6 +57,46 @@ export const schema: SchemaType = {
                     round: true,
                     text: '标签1',
                 },
+            }, {
+                type: 'component',
+                name: 'customers',
+                componentType: 'Table',
+                componentProps: {
+                    editable: true,
+                    style: 'margin: 40rpx 0',
+                    fields: [{
+                        type: 'field',
+                        fieldType: 'Text',
+                        name: 'username',
+                        fieldProps: {
+                            label: '用户名',
+                            required: true,
+                            renderType: 'user',
+                        },
+                        componentProps: {},
+                    }, {
+                        type: 'field',
+                        fieldType: 'Select',
+                        name: 'gender',
+                        fieldProps: {
+                          label: '性别',
+                          required: true,
+                          renderType: 'amount',
+                        },
+                        componentProps: {
+                            placeholder: '请选择性别',
+                            options: [
+                                { label: '男', value: 'male' },
+                                { label: '女', value: 'female' },
+                            ]
+                        },
+                        rules: {
+                            type: 'string',
+                            required: true,
+                            message: '性别必填',
+                        },
+                    }]
+                },
             }]
         }],
     }],

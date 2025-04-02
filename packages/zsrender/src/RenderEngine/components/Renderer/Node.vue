@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <Module :node="node" v-if="isModule(node) && isVisible(node)" />
-        <Field :node="node" v-if="isField(node) && isVisible(node)" />
-        <CustomComponent :node="node" v-if="isComponent(node) && isVisible(node)" />
-    </div>
+    <Module :node="node" v-if="isModule(node) && isVisible(node)" />
+    <Field :node="node" v-else-if="isField(node) && isVisible(node)" />
+    <CustomComponent :node="node" v-else-if="isComponent(node) && isVisible(node)" />
 </template>
   
 <script setup lang="ts">

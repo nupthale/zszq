@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <component :is="field" v-bind="fieldBindingProps">
-            <component 
-                :is="component" 
-                v-bind="componentBindingProps"
-            /> 
-        </component>  
-    </div>
+    <component :is="field" v-bind="fieldBindingProps">
+        <component 
+            :is="component" 
+            v-bind="componentBindingProps"
+        /> 
+    </component>  
 </template>
   
 <script setup lang="ts">
@@ -89,6 +87,7 @@ watchEffect(() => {
     const validateProps = {
         error: formErrorRef.value?.fields?.[fieldProps.value?.name]?.[0]?.message || undefined,
     };
+
 
     fieldBindingProps.value = {
         ...fieldProps.value,
