@@ -88,7 +88,9 @@ export const schema: SchemaType = {
                             options: [
                                 { label: '男', value: 'male' },
                                 { label: '女', value: 'female' },
-                            ]
+                            ],
+                            type: 'radio',
+                            alignRight: true,
                         },
                         rules: {
                             type: 'string',

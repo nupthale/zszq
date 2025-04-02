@@ -13,7 +13,7 @@ export const useValidate = (
         const rules: Record<string, Rule> = {};
         Object.keys(schemaMap.value)?.forEach((key) => {
             const node = schemaMap.value[key];
-            if (isField(node)) {
+            if (isField(node) && node.rules) {
                 rules[node.name] = node.rules;
             }
         });
@@ -35,6 +35,7 @@ export const useValidate = (
     const validate = async () => {
         const validator = new Schema(rulesRef.value || {});
 
+        debugger;
         try {
             await validator.validate(formModel.value || {});
             errors.value = null;

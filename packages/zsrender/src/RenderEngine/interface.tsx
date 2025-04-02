@@ -7,6 +7,7 @@ export interface ContextType {
     formModel: Ref<Record<string, any>>;
     errors: Ref<ErrorType | null>;
     validate: () => Promise<boolean>;
+    getValues: () => Record<string, any>;
     updateNodeSchema: (name: string, propName: string, propValue: any) => void;
     updateFieldProps: (name: string, propName: string, propValue: any) => void;
     updateComponentProps: (name: string, propName: string, propValue: any) => void;

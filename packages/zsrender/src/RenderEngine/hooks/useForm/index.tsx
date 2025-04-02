@@ -93,6 +93,10 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
         };
     }
 
+    const getValues = () => {
+        return formModel.value;
+    }
+
     const { validate, errors } = useValidate(schemaMap, formModel);
 
     const context = {
@@ -101,6 +105,7 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
         formModel,
         errors,
         validate,
+        getValues,
         updateNodeSchema,
         updateFieldProps,
         updateComponentProps,
