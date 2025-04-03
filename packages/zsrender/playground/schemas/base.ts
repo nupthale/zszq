@@ -1,6 +1,18 @@
 import { SchemaType } from '../../src/RenderEngine/interface';
 
 export const schema: SchemaType = {
+    rules: {
+        incomeType: {
+            type: 'string',
+            required: true,
+            message: '收支类型1必填',
+        },
+        incomeType2: {
+            type: 'string',
+            required: true,
+            message: '收支类型2必填',
+        },
+    },
     content: [{
         type: 'module',
         title: '基础信息',
@@ -24,11 +36,7 @@ export const schema: SchemaType = {
                     // 小程序
                     noBorder: false,
                 },
-                rules: {
-                    type: 'string',
-                    required: true,
-                    message: '收支类型1必填',
-                },
+                
             }, {
                 type: 'field',
                 fieldType: 'Input',
@@ -42,12 +50,7 @@ export const schema: SchemaType = {
                     placeholder: '请输入收支类型2',
                     // 小程序
                     noBorder: true,
-                },
-                rules: {
-                    type: 'string',
-                    required: true,
-                    message: '收支类型2必填',
-                },
+                }
             }, {
                 type: 'component',
                 name: 'tag',
@@ -64,6 +67,13 @@ export const schema: SchemaType = {
                 componentProps: {
                     editable: true,
                     style: 'margin: 40rpx 0',
+                    rules: {
+                        gender: {
+                            type: 'string',
+                            required: true,
+                            message: '性别必填',
+                        },
+                    },
                     fields: [{
                         type: 'field',
                         fieldType: 'Text',
@@ -73,7 +83,9 @@ export const schema: SchemaType = {
                             required: true,
                             renderType: 'user',
                         },
-                        componentProps: {},
+                        componentProps: {
+                            align: 'right',
+                        },
                     }, {
                         type: 'field',
                         fieldType: 'Select',
@@ -91,11 +103,6 @@ export const schema: SchemaType = {
                             ],
                             type: 'radio',
                             alignRight: true,
-                        },
-                        rules: {
-                            type: 'string',
-                            required: true,
-                            message: '性别必填',
                         },
                     }]
                 },

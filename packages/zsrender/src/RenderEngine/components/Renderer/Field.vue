@@ -9,6 +9,7 @@
   
 <script setup lang="ts">
 import { PropType, computed, inject, toRef, watchEffect, ref } from 'vue';
+import { get } from 'lodash-es';
 
 import { ContextType, FieldNode, LifeCycleEnum, NodeType } from '../../interface';
 
@@ -63,19 +64,20 @@ useLifeCycleEffect(
 );
 
 watchEffect(() => {
+    const name = fieldProps.value?.name;
+    const value = get(formModelRef.value, name, undefined);
+
     const valueBindingProps = {
-        value: formModelRef.value?.[fieldProps.value?.name!],
+        value,
         'onUpdate:value': (value: any) => {
             context.updateFieldValue(fieldProps.value?.name, value)
         },
         // wot-design-uni
-        modelValue: formModelRef.value?.[fieldProps.value?.name!],
+        modelValue: value,
         'onUpdate:modelValue': (value: any) => {
             context.updateFieldValue(fieldProps.value?.name, value)
         },
     };
-
-   
 
     componentBindingProps.value = {
         ...props.node?.componentProps,

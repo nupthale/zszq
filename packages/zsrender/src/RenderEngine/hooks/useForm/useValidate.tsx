@@ -3,22 +3,14 @@ import type { Rule } from 'async-validator';
 
 import Schema from 'async-validator';
 import { isField } from '../../util';
-import { NodeType } from '../../interface';
+import { NodeType, SchemaType } from '../../interface';
 
 export const useValidate = (
-    schemaMap: Ref<Record<string, NodeType>>, 
+    schema: Ref<SchemaType>, 
     formModel: Ref<Record<string, any>>
 ) => {
     const rulesRef = computed(() => {
-        const rules: Record<string, Rule> = {};
-        Object.keys(schemaMap.value)?.forEach((key) => {
-            const node = schemaMap.value[key];
-            if (isField(node) && node.rules) {
-                rules[node.name] = node.rules;
-            }
-        });
-
-        return rules;
+        return schema.value?.rules || {};
     });
 
     const errors = ref<{
@@ -35,7 +27,6 @@ export const useValidate = (
     const validate = async () => {
         const validator = new Schema(rulesRef.value || {});
 
-        debugger;
         try {
             await validator.validate(formModel.value || {});
             errors.value = null;

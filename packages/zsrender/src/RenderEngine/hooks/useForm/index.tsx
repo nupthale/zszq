@@ -1,9 +1,11 @@
 import { ref, watchEffect, Ref, provide, onMounted, onUnmounted } from 'vue';
+import { set } from 'lodash-es';
 
 import { SchemaType, NodeType, LifeCycleEnum } from '../../interface';
 import { isComponent, isField, isModule } from '../../util';
 import { useLifeCycleEffect } from '../useLifeCycleEffect';
 import { useValidate } from './useValidate';
+import { isArray } from 'lodash-es';
 
 // 内部使用map格式的schema， 更新也更新map，不更新tree；
 export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any> | undefined>) => {
@@ -16,7 +18,9 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
     const updateSchemaMap = (schema: SchemaType) => {
         const traverse = (node: NodeType) => {
             if (node?.name) {
-                schemaMap.value[node.name] = node;
+                let nameStr: string = isArray(node.name) ? node.name.join('.') : node.name;
+
+                schemaMap.value[nameStr] = node;
             }
 
             if (isModule(node) || isComponent(node)) {
@@ -38,22 +42,26 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
         };
     });
 
-    const updateNodeSchema = (name: string, propName: string, propValue: any) => {
-        const node = schemaMap.value[name];
+    const updateNodeSchema = (name: string | string[], propName: string, propValue: any) => {
+        let nameStr: string = isArray(name) ? name.join('.') : name;
+
+        const node = schemaMap.value[nameStr];
 
         if (!node) return;
 
         schemaMap.value = {
             ...schemaMap.value,
-            [name]: {
-                ...schemaMap.value[name],
+            [nameStr]: {
+                ...schemaMap.value[nameStr],
                 [propName]: propValue
             }
         };
     }
 
-    const updateFieldProps = (name: string, propName: string, propValue: any) => {
-        const node = schemaMap.value[name];
+    const updateFieldProps = (name: string | string[], propName: string, propValue: any) => {
+        let nameStr: string = isArray(name) ? name.join('.') : name;
+
+        const node = schemaMap.value[nameStr];
 
         if (!node || !isField(node)) return;
 
@@ -80,24 +88,25 @@ export const useForm = (schema: Ref<SchemaType>, values: Ref<Record<string, any>
         });
     }
 
-    const updateFieldValue = (name: string, value: any) => {
+    const updateFieldValue = (name: string | string[], value: any) => {
         schema.value?.lifeCycleEffects?.forEach(effect => {
             if (effect.triggerOn === LifeCycleEnum.FORM_CHANGE) {
                 effect.tap(context, name, value);
             }
         });
         
-        formModel.value = {
+        const newFormModel = set({
             ...formModel.value,
-            [name]: value
-        };
+        }, name, value);
+
+        formModel.value = newFormModel;
     }
 
     const getValues = () => {
         return formModel.value;
     }
 
-    const { validate, errors } = useValidate(schemaMap, formModel);
+    const { validate, errors } = useValidate(schema, formModel);
 
     const context = {
         schema,

@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import type { Rule } from 'async-validator';
+import type { Rules } from 'async-validator';
 
 export interface ContextType {
     schema: Ref<SchemaType>;
@@ -8,10 +8,10 @@ export interface ContextType {
     errors: Ref<ErrorType | null>;
     validate: () => Promise<boolean>;
     getValues: () => Record<string, any>;
-    updateNodeSchema: (name: string, propName: string, propValue: any) => void;
-    updateFieldProps: (name: string, propName: string, propValue: any) => void;
+    updateNodeSchema: (name: string | string[], propName: string, propValue: any) => void;
+    updateFieldProps: (name: string | string[], propName: string, propValue: any) => void;
     updateComponentProps: (name: string, propName: string, propValue: any) => void;
-    updateFieldValue: (name: string, value: any) => void;
+    updateFieldValue: (name: string | string[], value: any) => void;
 }
 
 export interface ErrorType {
@@ -46,15 +46,13 @@ export interface ModuleNode extends BaseNode {
 export interface FieldNode extends BaseNode {
     type: 'field',
     fieldType: string;
-    // name不支持string[]， 因为如果是list或者table， 直接通过组件， 内部去使用Form、Field组件， 来完成model和rule的绑定。
-    name: string;
+    name: string | string[];
     fieldProps: {
         label: string;
         layout: 'vertical' | 'horizontal';
         required: boolean;
     };
     componentProps: Record<string, any>;
-    rules: Rule,
 }
 
 export interface ComponentNode extends BaseNode {
@@ -68,6 +66,7 @@ export interface ComponentNode extends BaseNode {
 
 export interface SchemaType {
     content: NodeType[];
+    rules?: Rules;
     lifeCycleEffects?: LifeCycleEffectType[];
     propEffects?: PropEffectType[];
     apiEffects?: ApiEffectType[];
