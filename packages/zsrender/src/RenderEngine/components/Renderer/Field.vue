@@ -36,7 +36,7 @@ const fieldProps = computed(() => {
     const node = props.node as FieldNode;
 
     const schemaMap = schemaMapRef.value;
-    const schema = (schemaMap[node.name] || {}) as FieldNode;
+    const schema = get(schemaMap, node.name, {}) as FieldNode;
 
     return {
         ...(schema.fieldProps || {}),
@@ -51,7 +51,7 @@ const component = computed(() => {
     const node = props.node as FieldNode;
 
     const schemaMap = schemaMapRef.value;
-    const schema = (schemaMap[node.name] || {}) as FieldNode;
+    const schema = get(schemaMap, node.name, {}) as FieldNode;
 
     return componentsMap[schema.fieldType];
 });
@@ -86,8 +86,10 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
+    const errors = get(formErrorRef.value?.fields, fieldProps.value?.name, []);
+
     const validateProps = {
-        error: formErrorRef.value?.fields?.[fieldProps.value?.name]?.[0]?.message || undefined,
+        error: errors?.[0]?.message || undefined,
     };
 
 

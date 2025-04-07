@@ -88,6 +88,18 @@ export const schema: SchemaType = {
                         },
                     }, {
                         type: 'field',
+                        fieldType: 'Text',
+                        name: 'username',
+                        fieldProps: {
+                            label: '用户名',
+                            required: true,
+                            renderType: 'user',
+                        },
+                        componentProps: {
+                            align: 'right',
+                        },
+                    }, {
+                        type: 'field',
                         fieldType: 'Select',
                         name: 'gender',
                         fieldProps: {
