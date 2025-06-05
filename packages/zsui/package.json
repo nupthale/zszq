@@ -1,6 +1,6 @@
 {
   "name": "@zsfe/zsui",
-  "version": "1.0.1-alpha.28",
+  "version": "1.0.1-alpha.29",
   "description": "",
   "main": "lib/index.js",
   "module": "es/index.js",
