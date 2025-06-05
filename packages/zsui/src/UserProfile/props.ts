@@ -1,11 +1,11 @@
 export default {
   username: String,
   width: {
-    type: Number,
+    type: String,
     default: '320px',
   },
   height: {
-    type: Number,
+    type: String,
     default: '520px',
   },
 };

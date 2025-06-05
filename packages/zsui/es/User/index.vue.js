@@ -1,8 +1,11 @@
-import { defineComponent, computed, openBlock, createElementBlock, createVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode, createCommentVNode } from "vue";
+import "../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
 import { Avatar } from "ant-design-vue";
 import { nameToColor } from "./util.js";
 import propsDef from "./props.js";
 import { SizeEnum } from "./interface.js";
+import { defineComponent, computed, openBlock, createElementBlock, createVNode, withCtx, createElementVNode as createBaseVNode, createCommentVNode, createTextVNode } from "../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
+import { normalizeStyle, toDisplayString } from "../node_modules/.pnpm/@vue_shared@3.4.31/node_modules/@vue/shared/dist/shared.esm-bundler.js";
+import { unref } from "../node_modules/.pnpm/@vue_reactivity@3.4.31/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js";
 const _hoisted_1 = { class: "zsui-user" };
 const _hoisted_2 = { class: "zsui-user__name" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
@@ -50,7 +53,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           class: "zsui-user__namewrap",
           style: normalizeStyle(textStyle.value)
         }, [
-          createElementVNode("span", _hoisted_2, toDisplayString(_ctx.username), 1)
+          createBaseVNode("span", _hoisted_2, toDisplayString(_ctx.username), 1)
         ], 4)) : createCommentVNode("", true)
       ]);
     };

@@ -1,6 +1,9 @@
-import { defineComponent, ref, computed, onMounted, watch, nextTick, openBlock, createBlock, unref, withCtx, createElementVNode, normalizeStyle, renderSlot, createElementBlock } from "vue";
+import "../../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
 import { Tooltip } from "ant-design-vue";
 import tipTextPropsDef from "./props.js";
+import { defineComponent, computed, onMounted, watch, openBlock, createBlock, withCtx, createElementBlock, renderSlot, nextTick, createElementVNode as createBaseVNode } from "../../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
+import { ref, unref } from "../../node_modules/.pnpm/@vue_reactivity@3.4.31/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js";
+import { normalizeStyle } from "../../node_modules/.pnpm/@vue_shared@3.4.31/node_modules/@vue/shared/dist/shared.esm-bundler.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   props: tipTextPropsDef,
@@ -40,7 +43,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         "destroy-tooltip-on-hide": ""
       }, {
         default: withCtx(() => [
-          createElementVNode("div", {
+          createBaseVNode("div", {
             style: normalizeStyle(containerStyle.value),
             class: "zsui-ellipsis-text--tip"
           }, [

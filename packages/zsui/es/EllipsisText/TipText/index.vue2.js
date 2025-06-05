@@ -1,5 +1,5 @@
 import _sfc_main from "./index.vue.js";
-/* empty css           */
+import "./index.scss.js";
 export {
   _sfc_main as default
 };

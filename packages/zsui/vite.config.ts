@@ -13,8 +13,8 @@ export default defineConfig({
     // css分离
     // cssCodeSplit: true,
     rollupOptions: {
-      // 忽略打包vue文件
-      external: ['vue', 'ant-design-vue', 'lottie-web-vue', 'lodash-es'],
+      // 只排除不需要打包的依赖
+      external: ['ant-design-vue', 'lottie-web-vue', 'lodash-es'],
       input: ['src/index.ts'],
       output: [
         {
@@ -30,16 +30,15 @@ export default defineConfig({
         {
           format: 'cjs',
           entryFileNames: '[name].js',
-          // 让打包目录和我们目录对应
-          preserveModules: true,
-          // 配置打包根目录
+          // 禁用 preserveModules，让 Vue 组件能够被正确编译和打包
+          preserveModules: false,
           dir: 'lib',
           preserveModulesRoot: 'src',
         },
       ],
     },
     lib: {
-      entry: './index.ts',
+      entry: './src/index.ts',
       formats: ['es', 'cjs'],
     },
   },
@@ -47,13 +46,13 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts({
-      // 指定使用的tsconfig.json为我们整个项目根目录下掉,如果不配置,你也可以在components下新建tsconfig.json
-      tsConfigFilePath: './tsconfig.json',
+      // 使用正确的属性名
+      tsconfigPath: './tsconfig.json',
     }),
-    // 因为这个插件默认打包到es下，我们想让lib目录下也生成声明文件需要再配置一个
+    // 使用正确的属性名
     dts({
-      outputDir: 'lib',
-      tsConfigFilePath: './tsconfig.json',
+      outDir: 'lib',
+      tsconfigPath: './tsconfig.json',
     }),
   ],
 });
