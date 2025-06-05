@@ -1,9 +1,6 @@
-import "../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
+import { defineComponent, computed, openBlock, createBlock, unref, normalizeClass, withCtx, renderSlot } from "vue";
 import { Button } from "ant-design-vue";
 import propsDef from "./props.js";
-import { defineComponent, computed, openBlock, createBlock, withCtx, renderSlot } from "../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
-import { normalizeClass } from "../node_modules/.pnpm/@vue_shared@3.4.31/node_modules/@vue/shared/dist/shared.esm-bundler.js";
-import { unref } from "../node_modules/.pnpm/@vue_reactivity@3.4.31/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   props: propsDef,

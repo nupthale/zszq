@@ -14,23 +14,20 @@ export default defineConfig({
     // cssCodeSplit: true,
     rollupOptions: {
       // 只排除不需要打包的依赖
-      external: ['ant-design-vue', 'lottie-web-vue', 'lodash'],
+      external: ['vue', 'ant-design-vue', 'lottie-web-vue', 'lodash'],
       input: ['src/index.ts'],
       output: [
         {
           format: 'es',
-          // 不用打包成.es.js,这里我们想把它打包成.js
           entryFileNames: '[name].js',
-          // 让打包目录和我们目录对应
+          // 移除 preserveModules，确保组件被正确编译
           preserveModules: true,
-          // 配置打包根目录
           dir: 'es',
           preserveModulesRoot: 'src',
         },
         {
           format: 'cjs',
           entryFileNames: '[name].js',
-          // 禁用 preserveModules，让 Vue 组件能够被正确编译和打包
           preserveModules: false,
           dir: 'lib',
           preserveModulesRoot: 'src',

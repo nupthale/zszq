@@ -1,11 +1,9 @@
-import "../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
+import { defineComponent, openBlock, createBlock, normalizeProps, mergeProps, withCtx, renderSlot } from "vue";
 import _sfc_main$1 from "./ExpandableText/index.vue.js";
 /* empty css                          */
 import _sfc_main$2 from "./TipText/index.vue.js";
 /* empty css                   */
 import propsDef from "./props.js";
-import { normalizeProps } from "../node_modules/.pnpm/@vue_shared@3.4.31/node_modules/@vue/shared/dist/shared.esm-bundler.js";
-import { defineComponent, openBlock, createBlock, withCtx, mergeProps, renderSlot } from "../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
   props: propsDef,

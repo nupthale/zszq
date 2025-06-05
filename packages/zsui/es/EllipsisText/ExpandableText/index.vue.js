@@ -1,11 +1,7 @@
-import "../../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
+import { defineComponent, useCssVars, computed, ref, onMounted, watch, openBlock, createElementBlock, normalizeStyle, Fragment, createElementVNode, createTextVNode, toDisplayString, createVNode, withCtx, renderSlot } from "vue";
 import _sfc_main$1 from "../../TextButton/index.vue.js";
 /* empty css                          */
 import expandableTextPropsDef from "./props.js";
-import { useCssVars } from "../../node_modules/.pnpm/@vue_runtime-dom@3.4.31/node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js";
-import { defineComponent, computed, onMounted, watch, openBlock, createElementBlock, Fragment, createElementVNode as createBaseVNode, createTextVNode, createVNode, withCtx, renderSlot } from "../../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
-import { normalizeStyle, toDisplayString } from "../../node_modules/.pnpm/@vue_shared@3.4.31/node_modules/@vue/shared/dist/shared.esm-bundler.js";
-import { ref } from "../../node_modules/.pnpm/@vue_reactivity@3.4.31/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js";
 const _hoisted_1 = { class: "zsui-ellipsis-text__foldAction" };
 const _hoisted_2 = {
   key: 1,
@@ -81,11 +77,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
             class: "zsui-ellipsis-text__fold",
             style: normalizeStyle(foldStyle.value)
           }, [
-            createBaseVNode("div", {
+            createElementVNode("div", {
               class: "zsui-ellipsis-text__foldWrap",
               style: normalizeStyle(foldWrapStyle.value)
             }, [
-              createBaseVNode("span", _hoisted_1, [
+              createElementVNode("span", _hoisted_1, [
                 createTextVNode(toDisplayString(_ctx.ellipsisSymbol) + " ", 1),
                 createVNode(_sfc_main$1, {
                   size: "small",
