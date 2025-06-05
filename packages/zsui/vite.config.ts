@@ -14,7 +14,7 @@ export default defineConfig({
     // cssCodeSplit: true,
     rollupOptions: {
       // 只排除不需要打包的依赖
-      external: ['ant-design-vue', 'lottie-web-vue', 'lodash-es'],
+      external: ['ant-design-vue', 'lottie-web-vue', 'lodash'],
       input: ['src/index.ts'],
       output: [
         {

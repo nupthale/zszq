@@ -450,7 +450,7 @@ importers:
 
   packages/zsui:
     dependencies:
-      lodash-es:
+      lodash:
         specifier: ^4.17.21
         version: 4.17.21
       sass:
@@ -17043,7 +17043,7 @@ snapshots:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
-      tslib: 2.6.3
+      tslib: 2.8.1
     optionalDependencies:
       errno: 0.1.8
       graceful-fs: 4.2.11
@@ -19112,7 +19112,7 @@ snapshots:
   terser@5.39.0:
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.12.1
+      acorn: 8.14.1
       commander: 2.20.3
       source-map-support: 0.5.21
 

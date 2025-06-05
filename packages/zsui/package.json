@@ -1,6 +1,6 @@
 {
   "name": "@zsfe/zsui",
-  "version": "1.0.1-alpha.27",
+  "version": "1.0.1-alpha.28",
   "description": "",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -18,7 +18,7 @@
   "license": "ISC",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "sass": "^1.69.5"
   },
   "devDependencies": {
