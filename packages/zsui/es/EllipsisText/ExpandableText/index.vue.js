@@ -1,6 +1,6 @@
 import "../../node_modules/.pnpm/vue@3.4.31_typescript@5.8.2/node_modules/vue/dist/vue.runtime.esm-bundler.js";
 import _sfc_main$1 from "../../TextButton/index.vue.js";
-import "../../TextButton/index.vue2.js";
+/* empty css                          */
 import expandableTextPropsDef from "./props.js";
 import { useCssVars } from "../../node_modules/.pnpm/@vue_runtime-dom@3.4.31/node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js";
 import { defineComponent, computed, onMounted, watch, openBlock, createElementBlock, Fragment, createElementVNode as createBaseVNode, createTextVNode, createVNode, withCtx, renderSlot } from "../../node_modules/.pnpm/@vue_runtime-core@3.4.31/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js";
