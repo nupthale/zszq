@@ -1,4 +1,4 @@
-import { defineComponent, computed, openBlock, createElementBlock, createVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode, createCommentVNode } from "vue";
+import { defineComponent, computed, createElementBlock, openBlock, createVNode, createCommentVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode } from "vue";
 import { Avatar } from "ant-design-vue";
 import { nameToColor } from "./util.js";
 import propsDef from "./props.js";

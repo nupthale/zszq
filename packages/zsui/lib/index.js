@@ -15,7 +15,7 @@ function toPrimitive(t2, r2) {
   if ("object" != _typeof(t2) || !t2) return t2;
   var e2 = t2[Symbol.toPrimitive];
   if (void 0 !== e2) {
-    var i2 = e2.call(t2, r2 || "default");
+    var i2 = e2.call(t2, r2);
     if ("object" != _typeof(i2)) return i2;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
@@ -1099,6 +1099,7 @@ var COMMENT = "comm";
 var RULESET = "rule";
 var DECLARATION = "decl";
 var IMPORT = "@import";
+var NAMESPACE = "@namespace";
 var KEYFRAMES = "@keyframes";
 var LAYER = "@layer";
 var abs = Math.abs;
@@ -1294,6 +1295,7 @@ function parse(value, root2, parent, rule, rules, rulesets, pseudo, points, decl
           case 42:
           case 47:
             append(comment(commenter(next(), caret()), root2, parent, declarations), declarations);
+            if ((token(previous || 1) == 5 || token(peek() || 1) == 5) && strlen(characters2) && substr(characters2, -1, void 0) !== " ") characters2 += " ";
             break;
           default:
             characters2 += "/";
@@ -1310,7 +1312,7 @@ function parse(value, root2, parent, rule, rules, rulesets, pseudo, points, decl
             scanning = 0;
           case 59 + offset:
             if (ampersand == -1) characters2 = replace(characters2, /\f/g, "");
-            if (property > 0 && strlen(characters2) - length2)
+            if (property > 0 && (strlen(characters2) - length2 || variable === 0 && previous === 47))
               append(property > 32 ? declaration(characters2 + ";", rule, parent, length2 - 1, declarations) : declaration(replace(characters2, " ", "") + ";", rule, parent, length2 - 2, declarations), declarations);
             break;
           case 59:
@@ -1320,17 +1322,21 @@ function parse(value, root2, parent, rule, rules, rulesets, pseudo, points, decl
             if (character2 === 123)
               if (offset === 0)
                 parse(characters2, root2, reference, reference, props, rulesets, length2, points, children);
-              else
-                switch (atrule === 99 && charat(characters2, 3) === 110 ? 100 : atrule) {
-                  case 100:
+              else {
+                switch (atrule) {
+                  case 99:
+                    if (charat(characters2, 3) === 110) break;
                   case 108:
+                    if (charat(characters2, 2) === 97) break;
+                  default:
+                    offset = 0;
+                  case 100:
                   case 109:
                   case 115:
-                    parse(value, reference, reference, rule && append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length2, children), children), rules, children, length2, points, rule ? props : children);
-                    break;
-                  default:
-                    parse(characters2, reference, reference, reference, [""], children, 0, points, children);
                 }
+                if (offset) parse(value, reference, reference, rule && append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length2, children), children), rules, children, length2, points, rule ? props : children);
+                else parse(characters2, reference, reference, reference, [""], children, 0, points, children);
+              }
         }
         index = offset = property = 0, variable = ampersand = 1, type = characters2 = "", length2 = pseudo;
         break;
@@ -1389,6 +1395,7 @@ function stringify(element, index, children, callback) {
     case LAYER:
       if (element.children.length) break;
     case IMPORT:
+    case NAMESPACE:
     case DECLARATION:
       return element.return = element.return || element.value;
     case COMMENT:
@@ -1719,7 +1726,7 @@ function useStyleRegister(info, styleFn) {
     return node2;
   };
 }
-const version = "4.2.3";
+const version = "4.2.6";
 function bound01(n2, max) {
   if (isOnePointZero(n2)) {
     n2 = "100%";
@@ -3764,8 +3771,6 @@ var __rest = function(s2, e2) {
   }
   return t2;
 };
-const defaultEmptyImg = vue.createVNode(Empty$2, null, null);
-const simpleEmptyImg = vue.createVNode(Simple, null, null);
 const emptyProps = () => ({
   prefixCls: String,
   imageStyle: objectType(),
@@ -3793,11 +3798,13 @@ const Empty = vue.defineComponent({
       var _a, _b;
       const prefixCls = prefixClsRef.value;
       const _c = _extends(_extends({}, props), attrs), {
-        image = ((_a = slots.image) === null || _a === void 0 ? void 0 : _a.call(slots)) || defaultEmptyImg,
+        image: mergedImage = ((_a = slots.image) === null || _a === void 0 ? void 0 : _a.call(slots)) || vue.h(Empty$2),
         description = ((_b = slots.description) === null || _b === void 0 ? void 0 : _b.call(slots)) || void 0,
         imageStyle,
         class: className = ""
       } = _c, restProps = __rest(_c, ["image", "description", "imageStyle", "class"]);
+      const image = typeof mergedImage === "function" ? mergedImage() : mergedImage;
+      const isNormal = typeof image === "object" && "type" in image && image.type.PRESENTED_IMAGE_SIMPLE;
       return wrapSSR(vue.createVNode(LocaleReceiver, {
         "componentName": "Empty",
         "children": (locale2) => {
@@ -3814,7 +3821,7 @@ const Empty = vue.defineComponent({
           }
           return vue.createVNode("div", _objectSpread2({
             "class": classNames(prefixCls, className, hashId.value, {
-              [`${prefixCls}-normal`]: image === simpleEmptyImg,
+              [`${prefixCls}-normal`]: isNormal,
               [`${prefixCls}-rtl`]: direction.value === "rtl"
             })
           }, restProps), [vue.createVNode("div", {
@@ -3830,8 +3837,8 @@ const Empty = vue.defineComponent({
     };
   }
 });
-Empty.PRESENTED_IMAGE_DEFAULT = defaultEmptyImg;
-Empty.PRESENTED_IMAGE_SIMPLE = simpleEmptyImg;
+Empty.PRESENTED_IMAGE_DEFAULT = () => vue.h(Empty$2);
+Empty.PRESENTED_IMAGE_SIMPLE = () => vue.h(Simple);
 const Empty$1 = withInstall(Empty);
 const DefaultRenderEmpty = (props) => {
   const {
@@ -4189,16 +4196,28 @@ function showWaveEffect(node2, className) {
     "target": node2,
     "className": className
   }, null), holder);
+  return () => {
+    vue.render(null, holder);
+    if (holder.parentElement) {
+      holder.parentElement.removeChild(holder);
+    }
+  };
 }
-function useWave(instance, className, wave) {
+function useWave(className, wave) {
+  const instance = vue.getCurrentInstance();
+  let stopWave;
   function showWave() {
     var _a;
     const node2 = findDOMNode(instance);
+    stopWave === null || stopWave === void 0 ? void 0 : stopWave();
     if (((_a = wave === null || wave === void 0 ? void 0 : wave.value) === null || _a === void 0 ? void 0 : _a.disabled) || !node2) {
       return;
     }
-    showWaveEffect(node2, className.value);
+    stopWave = showWaveEffect(node2, className.value);
   }
+  vue.onBeforeUnmount(() => {
+    stopWave === null || stopWave === void 0 ? void 0 : stopWave();
+  });
   return showWave;
 }
 const Wave = vue.defineComponent({
@@ -4219,7 +4238,7 @@ const Wave = vue.defineComponent({
       wave
     } = useConfigInject("wave", props);
     const [, hashId] = useStyle$2(prefixCls);
-    const showWave = useWave(instance, vue.computed(() => classNames(prefixCls.value, hashId.value)), wave);
+    const showWave = useWave(vue.computed(() => classNames(prefixCls.value, hashId.value)), wave);
     let onClick;
     const clear = () => {
       const node2 = findDOMNode(instance);
@@ -4330,7 +4349,6 @@ function j(e2, t2) {
 }
 function _(e2, t2, n2) {
   var r2;
-  void 0 === n2 && (n2 = false);
   var i2 = true, o2 = "";
   r2 = s(e2) ? e2 : { type: e2 };
   var u2 = g(r2) ? r2._vueTypes_name + " - " : "";
@@ -4338,7 +4356,7 @@ function _(e2, t2, n2) {
     if (void 0 === r2.type || true === r2.type) return i2;
     if (!r2.required && void 0 === t2) return i2;
     b(r2.type) ? (i2 = r2.type.some(function(e3) {
-      return true === _(e3, t2, true);
+      return true === _(e3, t2);
     }), o2 = r2.type.map(function(e3) {
       return l(e3);
     }).join(" or ")) : i2 = "Array" === (o2 = l(r2)) ? b(t2) : "Object" === o2 ? s(t2) : "String" === o2 || "Number" === o2 || "Boolean" === o2 || "Function" === o2 ? function(e3) {
@@ -4349,7 +4367,7 @@ function _(e2, t2, n2) {
   }
   if (!i2) {
     var a2 = u2 + 'value "' + t2 + '" should be of type "' + o2 + '"';
-    return false === n2 ? (y(a2), false) : a2;
+    return a2;
   }
   if (d(r2, "validator") && O(r2.validator)) {
     var f2 = y, v2 = [];
@@ -4357,7 +4375,7 @@ function _(e2, t2, n2) {
       v2.push(e3);
     }, i2 = r2.validator(t2), y = f2, !i2) {
       var p = (v2.length > 1 ? "* " : "") + v2.join("\n* ");
-      return v2.length = 0, false === n2 ? (y(p), i2) : p;
+      return v2.length = 0, p;
     }
   }
   return i2;
@@ -4366,7 +4384,7 @@ function T(e2, t2) {
   var n2 = Object.defineProperties(t2, { _vueTypes_name: { value: e2, writable: true }, isRequired: { get: function() {
     return this.required = true, this;
   } }, def: { value: function(e3) {
-    return void 0 !== e3 || this.default ? O(e3) || true === _(this, e3, true) ? (this.default = b(e3) ? function() {
+    return void 0 !== e3 || this.default ? O(e3) || true === _(this, e3) ? (this.default = b(e3) ? function() {
       return [].concat(e3);
     } : s(e3) ? function() {
       return Object.assign({}, e3);
@@ -4461,7 +4479,7 @@ function B(e2) {
     return n2.indexOf(e3) === t3;
   }), T("oneOfType", t2 ? { type: n2, validator: function(t3) {
     var n3 = [], r3 = e2.some(function(e3) {
-      var r4 = _(g(e3) && "oneOf" === e3._vueTypes_name ? e3.type || null : e3, t3, true);
+      var r4 = _(g(e3) && "oneOf" === e3._vueTypes_name ? e3.type || null : e3, t3);
       return "string" == typeof r4 && n3.push(r4), true === r4;
     });
     return r3 || y("oneOfType - provided value does not match any of the " + n3.length + " passed-in validators:\n" + P(n3.join("\n"))), r3;
@@ -4470,7 +4488,7 @@ function B(e2) {
 function I(e2) {
   return T("arrayOf", { type: Array, validator: function(t2) {
     var n2, r2 = t2.every(function(t3) {
-      return true === (n2 = _(e2, t3, true));
+      return true === (n2 = _(e2, t3));
     });
     return r2 || y("arrayOf - value validation error:\n" + P(n2)), r2;
   } });
@@ -4481,7 +4499,7 @@ function J(e2) {
 function M(e2) {
   return T("objectOf", { type: Object, validator: function(t2) {
     var n2, r2 = Object.keys(t2).every(function(r3) {
-      return true === (n2 = _(e2, t2[r3], true));
+      return true === (n2 = _(e2, t2[r3]));
     });
     return r2 || y("objectOf - value validation error:\n" + P(n2)), r2;
   } });
@@ -4504,7 +4522,7 @@ function R(e2) {
     }
     return o2.every(function(n3) {
       if (-1 === t2.indexOf(n3)) return true === i2._vueTypes_isLoose || (y('shape - shape definition does not include a "' + n3 + '" property. Allowed keys: "' + t2.join('", "') + '".'), false);
-      var o3 = _(e2[n3], r3[n3], true);
+      var o3 = _(e2[n3], r3[n3]);
       return "string" == typeof o3 && y('shape - "' + n3 + '" property validation error:\n ' + P(o3)), true === o3;
     });
   } });
@@ -4574,7 +4592,7 @@ function z(e2) {
   }($)).defaults = n({}, e2), i2;
 }
 $.defaults = {}, $.custom = L, $.oneOf = Y, $.instanceOf = J, $.oneOfType = B, $.arrayOf = I, $.objectOf = M, $.shape = R, $.utils = { validate: function(e2, t2) {
-  return true === _(t2, e2, true);
+  return true === _(t2, e2);
 }, toType: function(e2, t2, n2) {
   return void 0 === n2 && (n2 = false), n2 ? w$1(e2, t2) : T(e2, t2);
 } };
@@ -5196,7 +5214,6 @@ var LoadingOutlined = function LoadingOutlined2(props, context) {
 };
 LoadingOutlined.displayName = "LoadingOutlined";
 LoadingOutlined.inheritAttrs = false;
-tuple("bottomLeft", "bottomRight", "topLeft", "topRight");
 const getCollapsedWidth = (node2) => {
   if (node2) {
     node2.style.width = "0px";
@@ -6467,12 +6484,12 @@ vue.defineComponent({
     };
   }
 });
-const propsDef$4 = buttonProps() && {
+const propsDef$5 = buttonProps() && {
   type: String
 };
-const _sfc_main$g = /* @__PURE__ */ vue.defineComponent({
+const _sfc_main$h = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
-  props: propsDef$4,
+  props: propsDef$5,
   setup(__props) {
     const props = __props;
     const className = vue.computed(() => `zsui-text-button--${props.type}`);
@@ -6507,12 +6524,12 @@ const expandableTextPropsDef = {
     default: "#fff"
   }
 };
-const _hoisted_1$6 = { class: "zsui-ellipsis-text__foldAction" };
-const _hoisted_2$4 = {
+const _hoisted_1$7 = { class: "zsui-ellipsis-text__foldAction" };
+const _hoisted_2$5 = {
   key: 1,
   class: "zsui-ellipsis-text__unfold"
 };
-const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
+const _sfc_main$g = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
   props: expandableTextPropsDef,
   setup(__props) {
@@ -6586,9 +6603,9 @@ const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
               class: "zsui-ellipsis-text__foldWrap",
               style: vue.normalizeStyle(foldWrapStyle.value)
             }, [
-              vue.createElementVNode("span", _hoisted_1$6, [
+              vue.createElementVNode("span", _hoisted_1$7, [
                 vue.createTextVNode(vue.toDisplayString(_ctx.ellipsisSymbol) + " ", 1),
-                vue.createVNode(_sfc_main$g, {
+                vue.createVNode(_sfc_main$h, {
                   size: "small",
                   type: "primary",
                   class: "zsui-ellipsis-text__foldButton",
@@ -6603,9 +6620,9 @@ const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
               ]),
               vue.renderSlot(_ctx.$slots, "default")
             ], 4)
-          ], 4)) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$4, [
+          ], 4)) : (vue.openBlock(), vue.createElementBlock("div", _hoisted_2$5, [
             vue.renderSlot(_ctx.$slots, "default"),
-            vue.createVNode(_sfc_main$g, {
+            vue.createVNode(_sfc_main$h, {
               size: "small",
               type: "primary",
               class: "zsui-ellipsis-text__foldButton",
@@ -6637,7 +6654,7 @@ const tipTextPropsDef = {
   title: String,
   disabled: Boolean
 };
-const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
+const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
   props: tipTextPropsDef,
   setup(__props) {
@@ -6696,27 +6713,122 @@ const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
     };
   }
 });
-const propsDef$3 = {
+const propsDef$4 = {
   ...expandableTextPropsDef,
   ...tipTextPropsDef,
   expandable: Boolean
 };
-const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
+const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
-  props: propsDef$3,
+  props: propsDef$4,
   setup(__props) {
     return (_ctx, _cache) => {
-      return _ctx.expandable ? (vue.openBlock(), vue.createBlock(_sfc_main$f, vue.normalizeProps(vue.mergeProps({ key: 0 }, _ctx.$props)), {
+      return _ctx.expandable ? (vue.openBlock(), vue.createBlock(_sfc_main$g, vue.normalizeProps(vue.mergeProps({ key: 0 }, _ctx.$props)), {
         default: vue.withCtx(() => [
           vue.renderSlot(_ctx.$slots, "default")
         ]),
         _: 3
-      }, 16)) : (vue.openBlock(), vue.createBlock(_sfc_main$e, vue.normalizeProps(vue.mergeProps({ key: 1 }, _ctx.$props)), {
+      }, 16)) : (vue.openBlock(), vue.createBlock(_sfc_main$f, vue.normalizeProps(vue.mergeProps({ key: 1 }, _ctx.$props)), {
         default: vue.withCtx(() => [
           vue.renderSlot(_ctx.$slots, "default")
         ]),
         _: 3
       }, 16));
+    };
+  }
+});
+function hex2rgb$1(hex) {
+  let color = hex;
+  color = color.replace(/ |#/g, "");
+  if (color.length === 3) {
+    color = color.replace(/(.)/g, "$1$1");
+  }
+  color = color.match(/../g) || [];
+  return [
+    parseInt(color[0], 16),
+    parseInt(color[1], 16),
+    parseInt(color[2], 16)
+  ].join(",");
+}
+const colors$1 = ["#1e80ff", "#0fbf60", "#ff8b07", "#10C3A9"];
+const nameToColor$1 = (name = "") => {
+  if (!name) {
+    return "rgb(208, 211, 214)";
+  }
+  const index = parseInt(String(name.charCodeAt(name.length - 1)), 10) % colors$1.length;
+  const hexColor = colors$1[index];
+  const rgbColor = hex2rgb$1(`${hexColor}`);
+  const startColor = `rgba(${rgbColor}, 0.6)`;
+  const endColor = `rgba(${rgbColor}, 1)`;
+  return `radial-gradient(circle at 18.7% 37.8%, ${startColor} 0%, ${endColor} 90%)`;
+};
+var SizeEnum$1 = /* @__PURE__ */ ((SizeEnum2) => {
+  SizeEnum2["SMALL"] = "small";
+  SizeEnum2["DEFAULT"] = "default";
+  SizeEnum2["XLARGE"] = "xlarge";
+  return SizeEnum2;
+})(SizeEnum$1 || {});
+const propsDef$3 = {
+  username: String,
+  showText: {
+    type: Boolean,
+    default: true
+  },
+  size: {
+    type: String,
+    default: SizeEnum$1.DEFAULT
+  }
+};
+const _hoisted_1$6 = { class: "zsui-user" };
+const _hoisted_2$4 = { class: "zsui-user__name" };
+const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
+  __name: "index",
+  props: propsDef$3,
+  setup(__props) {
+    const props = __props;
+    const avatarSizeMap = {
+      [SizeEnum$1.SMALL]: 20,
+      [SizeEnum$1.DEFAULT]: 24,
+      [SizeEnum$1.XLARGE]: 80
+    };
+    const fontSizeMap = {
+      [SizeEnum$1.SMALL]: 12,
+      [SizeEnum$1.DEFAULT]: 14,
+      [SizeEnum$1.XLARGE]: 24
+    };
+    const slicedName = vue.computed(() => {
+      var _a;
+      return (_a = props.username) == null ? void 0 : _a.slice(-2);
+    });
+    const avatarSize = vue.computed(() => avatarSizeMap[props.size]);
+    const textStyle = vue.computed(() => ({
+      fontSize: `${fontSizeMap[props.size]}px`,
+      lineHeight: `${avatarSizeMap[props.size]}px`
+    }));
+    const avatarStyle = vue.computed(() => ({
+      fontSize: `${fontSizeMap[props.size]}px`,
+      background: nameToColor$1(props.username)
+    }));
+    return (_ctx, _cache) => {
+      return vue.openBlock(), vue.createElementBlock("span", _hoisted_1$6, [
+        vue.createVNode(vue.unref(antDesignVue.Avatar), {
+          size: avatarSize.value,
+          class: "zsui-user__avatar",
+          style: vue.normalizeStyle(avatarStyle.value)
+        }, {
+          default: vue.withCtx(() => [
+            vue.createTextVNode(vue.toDisplayString(slicedName.value), 1)
+          ]),
+          _: 1
+        }, 8, ["size", "style"]),
+        _ctx.showText ? (vue.openBlock(), vue.createElementBlock("span", {
+          key: 0,
+          class: "zsui-user__namewrap",
+          style: vue.normalizeStyle(textStyle.value)
+        }, [
+          vue.createElementVNode("span", _hoisted_2$4, vue.toDisplayString(_ctx.username), 1)
+        ], 4)) : vue.createCommentVNode("", true)
+      ]);
     };
   }
 });
@@ -6733,7 +6845,7 @@ function hex2rgb(hex) {
     parseInt(color[2], 16)
   ].join(",");
 }
-const colors = ["#1e80ff", "#0fbf60", "#ff8b07", "#10C3A9"];
+const colors = ["#1e80ff", "#0fbf60", "#ff8b07", "#10C3A9", "#FFCD2A", "#9747FF", "#13AD5C", "#F34821"];
 const nameToColor = (name = "") => {
   if (!name) {
     return "rgb(208, 211, 214)";
@@ -6742,8 +6854,362 @@ const nameToColor = (name = "") => {
   const hexColor = colors[index];
   const rgbColor = hex2rgb(`${hexColor}`);
   const startColor = `rgba(${rgbColor}, 0.6)`;
+  const midColor = `rgba(${rgbColor}, 0.8)`;
   const endColor = `rgba(${rgbColor}, 1)`;
-  return `radial-gradient(circle at 18.7% 37.8%, ${startColor} 0%, ${endColor} 90%)`;
+  return `conic-gradient(from 210deg, ${startColor} 0deg, ${midColor} 180deg, ${endColor} 360deg)`;
+};
+const pinyinMap = {
+  // A
+  "阿": "A",
+  "艾": "A",
+  "安": "A",
+  "敖": "A",
+  // B  
+  "白": "B",
+  "包": "B",
+  "鲍": "B",
+  "毕": "B",
+  "边": "B",
+  "卞": "B",
+  "班": "B",
+  "贝": "B",
+  "薄": "B",
+  "卜": "B",
+  // C
+  "蔡": "C",
+  "曹": "C",
+  "陈": "C",
+  "程": "C",
+  "崔": "C",
+  "常": "C",
+  "车": "C",
+  "成": "C",
+  "池": "C",
+  "仇": "C",
+  "褚": "C",
+  // D
+  "戴": "D",
+  "邓": "D",
+  "丁": "D",
+  "董": "D",
+  "杜": "D",
+  "段": "D",
+  "窦": "D",
+  "狄": "D",
+  "刁": "D",
+  "东": "D",
+  // E
+  "鄂": "E",
+  // F
+  "范": "F",
+  "方": "F",
+  "费": "F",
+  "冯": "F",
+  "符": "F",
+  "傅": "F",
+  "樊": "F",
+  "房": "F",
+  "封": "F",
+  "丰": "F",
+  // G
+  "高": "G",
+  "葛": "G",
+  "龚": "G",
+  "古": "G",
+  "关": "G",
+  "郭": "G",
+  "顾": "G",
+  "谷": "G",
+  "管": "G",
+  "国": "G",
+  // H
+  "韩": "H",
+  "何": "H",
+  "贺": "H",
+  "洪": "H",
+  "侯": "H",
+  "胡": "H",
+  "华": "H",
+  "黄": "H",
+  "霍": "H",
+  "花": "H",
+  "惠": "H",
+  "和": "H",
+  "桓": "H",
+  "扈": "H",
+  "哈": "H",
+  // I
+  // J
+  "贾": "J",
+  "江": "J",
+  "姜": "J",
+  "蒋": "J",
+  "金": "J",
+  "纪": "J",
+  "季": "J",
+  "计": "J",
+  "简": "J",
+  "焦": "J",
+  "解": "J",
+  "井": "J",
+  "景": "J",
+  "鞠": "J",
+  // K
+  "康": "K",
+  "柯": "K",
+  "孔": "K",
+  "空": "K",
+  "寇": "K",
+  // L
+  "赖": "L",
+  "李": "L",
+  "梁": "L",
+  "廖": "L",
+  "林": "L",
+  "刘": "L",
+  "龙": "L",
+  "卢": "L",
+  "陆": "L",
+  "罗": "L",
+  "路": "L",
+  "骆": "L",
+  "蓝": "L",
+  "雷": "L",
+  "黎": "L",
+  "厉": "L",
+  "连": "L",
+  "廉": "L",
+  "凌": "L",
+  "柳": "L",
+  "娄": "L",
+  "鲁": "L",
+  "栾": "L",
+  "乐": "L",
+  "吕": "L",
+  // M
+  "马": "M",
+  "毛": "M",
+  "梅": "M",
+  "孟": "M",
+  "莫": "M",
+  "米": "M",
+  "闵": "M",
+  "明": "M",
+  "缪": "M",
+  "苗": "M",
+  "牧": "M",
+  "慕": "M",
+  // N
+  "倪": "N",
+  "聂": "N",
+  "牛": "N",
+  "年": "N",
+  "宁": "N",
+  "钮": "N",
+  // O
+  "欧": "O",
+  "欧阳": "O",
+  // P
+  "潘": "P",
+  "彭": "P",
+  "蒲": "P",
+  "皮": "P",
+  "平": "P",
+  "浦": "P",
+  // Q
+  "齐": "Q",
+  "钱": "Q",
+  "强": "Q",
+  "秦": "Q",
+  "邱": "Q",
+  "戚": "Q",
+  "祁": "Q",
+  "屈": "Q",
+  "全": "Q",
+  "权": "Q",
+  // R
+  "饶": "R",
+  "任": "R",
+  "冉": "R",
+  "戎": "R",
+  "容": "R",
+  "茹": "R",
+  "阮": "R",
+  // S
+  "沈": "S",
+  "盛": "S",
+  "石": "S",
+  "宋": "S",
+  "苏": "S",
+  "孙": "S",
+  "司": "S",
+  "松": "S",
+  "索": "S",
+  "沙": "S",
+  "山": "S",
+  "商": "S",
+  "尚": "S",
+  "韶": "S",
+  "申": "S",
+  "慎": "S",
+  "师": "S",
+  "时": "S",
+  "史": "S",
+  "舒": "S",
+  "水": "S",
+  "宿": "S",
+  "施": "S",
+  // T
+  "谭": "T",
+  "汤": "T",
+  "唐": "T",
+  "陶": "T",
+  "田": "T",
+  "童": "T",
+  "涂": "T",
+  "谈": "T",
+  "滕": "T",
+  "铁": "T",
+  "通": "T",
+  "佟": "T",
+  // U
+  // V
+  // W
+  "王": "W",
+  "魏": "W",
+  "吴": "W",
+  "伍": "W",
+  "武": "W",
+  "万": "W",
+  "汪": "W",
+  "韦": "W",
+  "卫": "W",
+  "文": "W",
+  "闻": "W",
+  "翁": "W",
+  "巫": "W",
+  "乌": "W",
+  "邬": "W",
+  "毋": "W",
+  // X
+  "夏": "X",
+  "萧": "X",
+  "谢": "X",
+  "徐": "X",
+  "许": "X",
+  "薛": "X",
+  "席": "X",
+  "习": "X",
+  "奚": "X",
+  "郗": "X",
+  "郤": "X",
+  "咸": "X",
+  "相": "X",
+  "向": "X",
+  "项": "X",
+  "肖": "X",
+  "辛": "X",
+  "邢": "X",
+  "幸": "X",
+  "熊": "X",
+  "修": "X",
+  "须": "X",
+  "宣": "X",
+  "荀": "X",
+  // Y
+  "杨": "Y",
+  "姚": "Y",
+  "叶": "Y",
+  "易": "Y",
+  "尹": "Y",
+  "余": "Y",
+  "袁": "Y",
+  "岳": "Y",
+  "严": "Y",
+  "颜": "Y",
+  "燕": "Y",
+  "羊": "Y",
+  "阳": "Y",
+  "养": "Y",
+  "要": "Y",
+  "伊": "Y",
+  "衣": "Y",
+  "依": "Y",
+  "仪": "Y",
+  "夷": "Y",
+  "宜": "Y",
+  "乙": "Y",
+  "义": "Y",
+  "益": "Y",
+  "阴": "Y",
+  "殷": "Y",
+  "印": "Y",
+  "应": "Y",
+  "英": "Y",
+  "营": "Y",
+  "雍": "Y",
+  "永": "Y",
+  "尤": "Y",
+  "游": "Y",
+  "於": "Y",
+  "于": "Y",
+  "鱼": "Y",
+  "俞": "Y",
+  "虞": "Y",
+  "禹": "Y",
+  "玉": "Y",
+  "郁": "Y",
+  "元": "Y",
+  "原": "Y",
+  "云": "Y",
+  // Z
+  "曾": "Z",
+  "詹": "Z",
+  "张": "Z",
+  "章": "Z",
+  "赵": "Z",
+  "郑": "Z",
+  "钟": "Z",
+  "周": "Z",
+  "朱": "Z",
+  "祝": "Z",
+  "邹": "Z",
+  "左": "Z",
+  "臧": "Z",
+  "湛": "Z",
+  "长孙": "Z",
+  "甄": "Z",
+  "支": "Z",
+  "知": "Z",
+  "直": "Z",
+  "植": "Z",
+  "止": "Z",
+  "只": "Z",
+  "志": "Z",
+  "制": "Z",
+  "治": "Z",
+  "智": "Z",
+  "中": "Z",
+  "仲": "Z",
+  "重": "Z",
+  "诸": "Z",
+  "庄": "Z",
+  "卓": "Z",
+  "宗": "Z",
+  "祖": "Z",
+  "佐": "Z",
+  "作": "Z"
+};
+const getChineseNameInitial = (name = "") => {
+  if (!name) return "";
+  const firstChar = name.charAt(0);
+  if (/[a-zA-Z]/.test(firstChar)) {
+    return firstChar.toUpperCase();
+  }
+  if (pinyinMap[firstChar]) {
+    return pinyinMap[firstChar];
+  }
+  return firstChar;
 };
 var SizeEnum = /* @__PURE__ */ ((SizeEnum2) => {
   SizeEnum2["SMALL"] = "small";
@@ -6779,17 +7245,14 @@ const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
       [SizeEnum.DEFAULT]: 14,
       [SizeEnum.XLARGE]: 24
     };
-    const slicedName = vue.computed(() => {
-      var _a;
-      return (_a = props.username) == null ? void 0 : _a.slice(-2);
-    });
+    const slicedName = vue.computed(() => getChineseNameInitial(props.username));
     const avatarSize = vue.computed(() => avatarSizeMap[props.size]);
     const textStyle = vue.computed(() => ({
       fontSize: `${fontSizeMap[props.size]}px`,
       lineHeight: `${avatarSizeMap[props.size]}px`
     }));
     const avatarStyle = vue.computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
+      fontSize: `12px`,
       background: nameToColor(props.username)
     }));
     return (_ctx, _cache) => {
@@ -6938,10 +7401,10 @@ const _sfc_main$a = /* @__PURE__ */ vue.defineComponent({
                 _hoisted_1$4,
                 vue.createElementVNode("div", _hoisted_2$2, [
                   vue.createElementVNode("div", _hoisted_3$2, [
-                    vue.createVNode(_sfc_main$c, {
+                    vue.createVNode(_sfc_main$d, {
                       showText: false,
                       username: _ctx.username,
-                      size: vue.unref(SizeEnum).XLARGE
+                      size: vue.unref(SizeEnum$1).XLARGE
                     }, null, 8, ["username", "size"])
                   ]),
                   vue.renderSlot(_ctx.$slots, "header"),
@@ -6960,7 +7423,7 @@ const _sfc_main$a = /* @__PURE__ */ vue.defineComponent({
                   _hoisted_6$2
                 ]),
                 vue.createElementVNode("div", _hoisted_7$1, [
-                  vue.createVNode(_sfc_main$c, { username: _ctx.username }, null, 8, ["username"])
+                  vue.createVNode(_sfc_main$d, { username: _ctx.username }, null, 8, ["username"])
                 ])
               ], 4),
               vue.createElementVNode("div", {
@@ -7943,8 +8406,7 @@ const FileMimeSuffix = {
   PPT: ["ppt", "pptx"],
   Audio: ["mp3"],
   Video: ["mp4", "mov", "avi"],
-  Zip: ["zip", "rar"],
-  Dwg: ["dwg"]
+  Zip: ["zip", "rar"]
 };
 const getFileSuffix = (fileName) => {
   if (!fileName) {
@@ -8047,7 +8509,7 @@ const _sfc_main$4 = /* @__PURE__ */ vue.defineComponent({
           vue.createElementVNode("div", _hoisted_3, [
             vue.createElementVNode("div", _hoisted_4, [
               vue.createElementVNode("div", _hoisted_5, [
-                vue.createVNode(_sfc_main$d, {
+                vue.createVNode(_sfc_main$e, {
                   title: __props.fileName,
                   lineClamp: 1
                 }, {
@@ -8298,7 +8760,7 @@ const _sfc_main$2 = /* @__PURE__ */ vue.defineComponent({
       }, {
         default: () => [vue.createVNode("div", {
           "class": "zsui-sideQueryDrawer-header"
-        }, [vue.createVNode("div", null, [vue.createTextVNode("筛选条件")]), vue.createVNode(_sfc_main$g, {
+        }, [vue.createVNode("div", null, [vue.createTextVNode("筛选条件")]), vue.createVNode(_sfc_main$h, {
           "size": "large",
           "onClick": () => drawerVisible.value = false
         }, {
@@ -8375,7 +8837,7 @@ const _sfc_main$1 = /* @__PURE__ */ vue.defineComponent({
         default: () => [vue.createVNode("div", {
           "class": "zsui-queryTags-tag"
         }, [tag.label, vue.createTextVNode(":  "), tag.valueText])]
-      })), vue.createVNode(_sfc_main$g, {
+      })), vue.createVNode(_sfc_main$h, {
         "class": "zsui-queryTags__clearBtn",
         "size": "small",
         "onClick": handleClearAll
@@ -8467,7 +8929,7 @@ const queryComponent = {
   unregister
 };
 exports.Alert = _sfc_main$9;
-exports.EllipsisText = _sfc_main$d;
+exports.EllipsisText = _sfc_main$e;
 exports.File = _sfc_main$4;
 exports.GridQuery = _sfc_main;
 exports.ImagePreview = _sfc_main$6;
@@ -8476,7 +8938,8 @@ exports.Loading = _sfc_main$8;
 exports.QueryTags = _sfc_main$1;
 exports.SideQuery = _sfc_main$2;
 exports.Tag = _sfc_main$b;
-exports.TextButton = _sfc_main$g;
-exports.User = _sfc_main$c;
+exports.TextButton = _sfc_main$h;
+exports.User = _sfc_main$d;
+exports.UserAvatar = _sfc_main$c;
 exports.UserProfile = _sfc_main$a;
 exports.queryComponent = queryComponent;

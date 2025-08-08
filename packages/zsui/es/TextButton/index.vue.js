@@ -1,4 +1,4 @@
-import { defineComponent, computed, openBlock, createBlock, unref, normalizeClass, withCtx, renderSlot } from "vue";
+import { defineComponent, computed, createBlock, openBlock, unref, normalizeClass, withCtx, renderSlot } from "vue";
 import { Button } from "ant-design-vue";
 import propsDef from "./props.js";
 const _sfc_main = /* @__PURE__ */ defineComponent({
