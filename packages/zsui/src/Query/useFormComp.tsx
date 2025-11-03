@@ -23,6 +23,8 @@ export const useFormComp = (formState: Ref<Record<string, any>>, queryTags?: Ref
                 onChange={(value: any, ...rest: any[]) => {
                     formState.value[item.field] = parseValue?.(value) ?? value;
 
+                    formState.value['_isReset'] = false;
+
                     if (queryTags) {
                         queryTags.value[item.field] = {
                             field: item.field,

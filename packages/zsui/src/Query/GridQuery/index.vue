@@ -18,10 +18,18 @@ export default defineComponent({
             type: Number,
             default: 4,
         },
+        initialValue: {
+            type: Object as PropType<Record<string, any>>,
+            default: {},
+        },
+        values: {
+            type: Object as PropType<Record<string, any>>,
+            default: {},
+        },
     },
     emits: ['search'],
     setup(props, { emit }) {
-        const formState = ref<Record<string, any>>({});
+        const formState = ref<Record<string, any>>({ ...(props.values || {}) });
         const schemaRef = toRef(props, 'schema');
 
         const { renderComponent } = useFormComp(formState);
@@ -35,8 +43,10 @@ export default defineComponent({
         }
 
         const handleReset = () => {
-            formState.value = {};
-            emit('search', {});
+            const value = { ...props.initialValue, _isReset: true };
+
+            formState.value = value;
+            emit('search', { ...value });
         }
 
         return () => (

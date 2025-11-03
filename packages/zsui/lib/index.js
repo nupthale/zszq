@@ -8620,6 +8620,7 @@ const useFormComp = (formState, queryTags) => {
       "value": formState.value[item.field],
       "onChange": (value, ...rest) => {
         formState.value[item.field] = (parseValue == null ? void 0 : parseValue(value)) ?? value;
+        formState.value["_isReset"] = false;
         if (queryTags) {
           queryTags.value[item.field] = {
             field: item.field,
@@ -8643,13 +8644,23 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
     schema: {
       type: Array,
       default: () => []
+    },
+    initialValue: {
+      type: Object,
+      default: {}
+    },
+    values: {
+      type: Object,
+      default: {}
     }
   },
   emits: ["search"],
   setup(props, {
     emit
   }) {
-    const formState = vue.ref({});
+    const formState = vue.ref({
+      ...props.values || {}
+    });
     const schemaRef = vue.toRef(props, "schema");
     const {
       renderComponent
@@ -8658,8 +8669,14 @@ const _sfc_main$3 = /* @__PURE__ */ vue.defineComponent({
       emit("search", formState.value);
     };
     const handleReset = () => {
-      formState.value = {};
-      emit("search", {});
+      const value = {
+        ...props.initialValue,
+        _isReset: true
+      };
+      formState.value = value;
+      emit("search", {
+        ...value
+      });
     };
     return () => vue.createVNode(antDesignVue.Form, {
       "class": "zsui-inlineQuery zsui-queryCustom"
@@ -8863,13 +8880,23 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
     gridColumns: {
       type: Number,
       default: 4
+    },
+    initialValue: {
+      type: Object,
+      default: {}
+    },
+    values: {
+      type: Object,
+      default: {}
     }
   },
   emits: ["search"],
   setup(props, {
     emit
   }) {
-    const formState = vue.ref({});
+    const formState = vue.ref({
+      ...props.values || {}
+    });
     const schemaRef = vue.toRef(props, "schema");
     const {
       renderComponent
@@ -8881,8 +8908,14 @@ const _sfc_main = /* @__PURE__ */ vue.defineComponent({
       emit("search", formState.value);
     };
     const handleReset = () => {
-      formState.value = {};
-      emit("search", {});
+      const value = {
+        ...props.initialValue,
+        _isReset: true
+      };
+      formState.value = value;
+      emit("search", {
+        ...value
+      });
     };
     return () => vue.createVNode(antDesignVue.Form, {
       "class": "zsui-gridQuery zsui-queryCustom"
