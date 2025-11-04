@@ -10,16 +10,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
 
 import { Avatar } from 'ant-design-vue';
 
 import { nameToColor } from './util';
 
-import propsDef from './props';
 import { SizeEnum } from './interface';
 
-const props = defineProps(propsDef);
+const props = defineProps({
+  username: String,
+  showText: {
+    type: Boolean,
+    default: true,
+  },
+  size: {
+    type: String,
+  },
+});
 
 const avatarSizeMap = {
   [SizeEnum.SMALL]: 20,
@@ -33,15 +41,16 @@ const fontSizeMap = {
   [SizeEnum.XLARGE]: 24,
 };
 
+const sizeRef = computed(() => (props.size as SizeEnum) || SizeEnum.DEFAULT);
 const slicedName = computed(() => props.username?.slice(-2));
-const avatarSize = computed(() => avatarSizeMap[props.size]);
+const avatarSize = computed(() => avatarSizeMap[sizeRef.value]);
 const textStyle = computed(() => ({
-  fontSize: `${fontSizeMap[props.size]}px`,
-  lineHeight: `${avatarSizeMap[props.size]}px`,
+  fontSize: `${fontSizeMap[sizeRef.value]}px`,
+  lineHeight: `${avatarSizeMap[sizeRef.value]}px`,
 }));
 
 const avatarStyle = computed(() => ({
-  fontSize: `${fontSizeMap[props.size]}px`,
+  fontSize: `${fontSizeMap[sizeRef.value]}px`,
   background: nameToColor(props.username),
 }));
 </script>

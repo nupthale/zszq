@@ -131,14 +131,14 @@
   white-space: nowrap;
 }
 
-.zsui-user {
+.zsui-userAvatar {
   display: inline-flex;
   align-items: center;
   vertical-align: top;
 
   height: 22px;
 }
-.zsui-user__avatar {
+.zsui-userAvatar__avatar {
   display: inline-flex;
   align-items: center;
   color: #000000e5!important;
@@ -148,12 +148,12 @@
   font-family: "Styrene Display", sans-serif -apple-system,BlinkMacSystemFont,Helvetica Neue,Tahoma,PingFang SC,Microsoft Yahei,Arial,Hiragino Sans GB,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
   -webkit-font-smoothing: antialiased;
 }
-.zsui-user__namewrap {
+.zsui-userAvatar__namewrap {
   display: flex;
   margin-left: 4px;
   max-width: 100px;
 }
-.zsui-user__name {
+.zsui-userAvatar__name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

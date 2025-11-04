@@ -8,7 +8,6 @@ export default {
     default: true,
   },
   size: {
-    type: String as PropType<SizeEnum>,
-    default: SizeEnum.DEFAULT,
+    type: String,
   },
 };

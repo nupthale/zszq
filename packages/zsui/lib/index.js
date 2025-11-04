@@ -6484,12 +6484,12 @@ vue.defineComponent({
     };
   }
 });
-const propsDef$5 = buttonProps() && {
+const propsDef$4 = buttonProps() && {
   type: String
 };
 const _sfc_main$h = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
-  props: propsDef$5,
+  props: propsDef$4,
   setup(__props) {
     const props = __props;
     const className = vue.computed(() => `zsui-text-button--${props.type}`);
@@ -6713,14 +6713,14 @@ const _sfc_main$f = /* @__PURE__ */ vue.defineComponent({
     };
   }
 });
-const propsDef$4 = {
+const propsDef$3 = {
   ...expandableTextPropsDef,
   ...tipTextPropsDef,
   expandable: Boolean
 };
 const _sfc_main$e = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
-  props: propsDef$4,
+  props: propsDef$3,
   setup(__props) {
     return (_ctx, _cache) => {
       return _ctx.expandable ? (vue.openBlock(), vue.createBlock(_sfc_main$g, vue.normalizeProps(vue.mergeProps({ key: 0 }, _ctx.$props)), {
@@ -6768,22 +6768,20 @@ var SizeEnum$1 = /* @__PURE__ */ ((SizeEnum2) => {
   SizeEnum2["XLARGE"] = "xlarge";
   return SizeEnum2;
 })(SizeEnum$1 || {});
-const propsDef$3 = {
-  username: String,
-  showText: {
-    type: Boolean,
-    default: true
-  },
-  size: {
-    type: String,
-    default: SizeEnum$1.DEFAULT
-  }
-};
 const _hoisted_1$6 = { class: "zsui-user" };
 const _hoisted_2$4 = { class: "zsui-user__name" };
 const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
-  props: propsDef$3,
+  props: {
+    username: String,
+    showText: {
+      type: Boolean,
+      default: true
+    },
+    size: {
+      type: String
+    }
+  },
   setup(__props) {
     const props = __props;
     const avatarSizeMap = {
@@ -6796,17 +6794,18 @@ const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
       [SizeEnum$1.DEFAULT]: 14,
       [SizeEnum$1.XLARGE]: 24
     };
+    const sizeRef = vue.computed(() => props.size || SizeEnum$1.DEFAULT);
     const slicedName = vue.computed(() => {
       var _a;
       return (_a = props.username) == null ? void 0 : _a.slice(-2);
     });
-    const avatarSize = vue.computed(() => avatarSizeMap[props.size]);
+    const avatarSize = vue.computed(() => avatarSizeMap[sizeRef.value]);
     const textStyle = vue.computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
-      lineHeight: `${avatarSizeMap[props.size]}px`
+      fontSize: `${fontSizeMap[sizeRef.value]}px`,
+      lineHeight: `${avatarSizeMap[sizeRef.value]}px`
     }));
     const avatarStyle = vue.computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
+      fontSize: `${fontSizeMap[sizeRef.value]}px`,
       background: nameToColor$1(props.username)
     }));
     return (_ctx, _cache) => {
@@ -6821,12 +6820,12 @@ const _sfc_main$d = /* @__PURE__ */ vue.defineComponent({
           ]),
           _: 1
         }, 8, ["size", "style"]),
-        _ctx.showText ? (vue.openBlock(), vue.createElementBlock("span", {
+        __props.showText ? (vue.openBlock(), vue.createElementBlock("span", {
           key: 0,
           class: "zsui-user__namewrap",
           style: vue.normalizeStyle(textStyle.value)
         }, [
-          vue.createElementVNode("span", _hoisted_2$4, vue.toDisplayString(_ctx.username), 1)
+          vue.createElementVNode("span", _hoisted_2$4, vue.toDisplayString(__props.username), 1)
         ], 4)) : vue.createCommentVNode("", true)
       ]);
     };
@@ -7211,12 +7210,6 @@ const getChineseNameInitial = (name = "") => {
   }
   return firstChar;
 };
-var SizeEnum = /* @__PURE__ */ ((SizeEnum2) => {
-  SizeEnum2["SMALL"] = "small";
-  SizeEnum2["DEFAULT"] = "default";
-  SizeEnum2["XLARGE"] = "xlarge";
-  return SizeEnum2;
-})(SizeEnum || {});
 const propsDef$2 = {
   username: String,
   showText: {
@@ -7224,12 +7217,17 @@ const propsDef$2 = {
     default: true
   },
   size: {
-    type: String,
-    default: SizeEnum.DEFAULT
+    type: String
   }
 };
-const _hoisted_1$5 = { class: "zsui-user" };
-const _hoisted_2$3 = { class: "zsui-user__name" };
+var SizeEnum = /* @__PURE__ */ ((SizeEnum2) => {
+  SizeEnum2["SMALL"] = "small";
+  SizeEnum2["DEFAULT"] = "default";
+  SizeEnum2["XLARGE"] = "xlarge";
+  return SizeEnum2;
+})(SizeEnum || {});
+const _hoisted_1$5 = { class: "zsui-userAvatar" };
+const _hoisted_2$3 = { class: "zsui-userAvatar__name" };
 const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
   __name: "index",
   props: propsDef$2,
@@ -7245,11 +7243,12 @@ const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
       [SizeEnum.DEFAULT]: 14,
       [SizeEnum.XLARGE]: 24
     };
+    const sizeRef = vue.computed(() => props.size || SizeEnum.DEFAULT);
     const slicedName = vue.computed(() => getChineseNameInitial(props.username));
-    const avatarSize = vue.computed(() => avatarSizeMap[props.size]);
+    const avatarSize = vue.computed(() => avatarSizeMap[sizeRef.value]);
     const textStyle = vue.computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
-      lineHeight: `${avatarSizeMap[props.size]}px`
+      fontSize: `${fontSizeMap[sizeRef.value]}px`,
+      lineHeight: `${avatarSizeMap[sizeRef.value]}px`
     }));
     const avatarStyle = vue.computed(() => ({
       fontSize: `12px`,
@@ -7259,7 +7258,7 @@ const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
       return vue.openBlock(), vue.createElementBlock("span", _hoisted_1$5, [
         vue.createVNode(vue.unref(antDesignVue.Avatar), {
           size: avatarSize.value,
-          class: "zsui-user__avatar",
+          class: "zsui-userAvatar__avatar",
           style: vue.normalizeStyle(avatarStyle.value)
         }, {
           default: vue.withCtx(() => [
@@ -7269,7 +7268,7 @@ const _sfc_main$c = /* @__PURE__ */ vue.defineComponent({
         }, 8, ["size", "style"]),
         _ctx.showText ? (vue.openBlock(), vue.createElementBlock("span", {
           key: 0,
-          class: "zsui-user__namewrap",
+          class: "zsui-userAvatar__namewrap",
           style: vue.normalizeStyle(textStyle.value)
         }, [
           vue.createElementVNode("span", _hoisted_2$3, vue.toDisplayString(_ctx.username), 1)

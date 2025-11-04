@@ -1,10 +1,10 @@
 <template>
-  <span class="zsui-user">
-    <avatar :size="avatarSize" class="zsui-user__avatar" :style="avatarStyle">
+  <span class="zsui-userAvatar">
+    <avatar :size="avatarSize" class="zsui-userAvatar__avatar" :style="avatarStyle">
       {{ slicedName }}
     </avatar>
-    <span v-if="showText" class="zsui-user__namewrap" :style="textStyle">
-      <span class="zsui-user__name">{{ username }}</span>
+    <span v-if="showText" class="zsui-userAvatar__namewrap" :style="textStyle">
+      <span class="zsui-userAvatar__name">{{ username }}</span>
     </span>
   </span>
 </template>
@@ -33,11 +33,12 @@ const fontSizeMap = {
   [SizeEnum.XLARGE]: 24,
 };
 
+const sizeRef = computed(() => (props.size as SizeEnum) || SizeEnum.DEFAULT);
 const slicedName = computed(() => getChineseNameInitial(props.username));
-const avatarSize = computed(() => avatarSizeMap[props.size]);
+const avatarSize = computed(() => avatarSizeMap[sizeRef.value]);
 const textStyle = computed(() => ({
-  fontSize: `${fontSizeMap[props.size]}px`,
-  lineHeight: `${avatarSizeMap[props.size]}px`,
+  fontSize: `${fontSizeMap[sizeRef.value]}px`,
+  lineHeight: `${avatarSizeMap[sizeRef.value]}px`,
 }));
 
 const avatarStyle = computed(() => ({
@@ -47,7 +48,7 @@ const avatarStyle = computed(() => ({
 </script>
 
 <style>
-.zsui-user {
+.zsui-userAvatar {
   display: inline-flex;
   align-items: center;
   vertical-align: top;
@@ -55,7 +56,7 @@ const avatarStyle = computed(() => ({
   height: 22px;
 }
 
-.zsui-user__avatar {
+.zsui-userAvatar__avatar {
   display: inline-flex;
   align-items: center;
   color: #000000e5!important;
@@ -66,13 +67,13 @@ const avatarStyle = computed(() => ({
   -webkit-font-smoothing: antialiased;
 }
 
-.zsui-user__namewrap {
+.zsui-userAvatar__namewrap {
   display: flex;
   margin-left: 4px;
   max-width: 100px;
 }
 
-.zsui-user__name {
+.zsui-userAvatar__name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

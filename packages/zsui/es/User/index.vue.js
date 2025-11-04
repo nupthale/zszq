@@ -1,13 +1,21 @@
 import { defineComponent, computed, createElementBlock, openBlock, createVNode, createCommentVNode, unref, normalizeStyle, withCtx, createTextVNode, toDisplayString, createElementVNode } from "vue";
 import { Avatar } from "ant-design-vue";
 import { nameToColor } from "./util.js";
-import propsDef from "./props.js";
 import { SizeEnum } from "./interface.js";
 const _hoisted_1 = { class: "zsui-user" };
 const _hoisted_2 = { class: "zsui-user__name" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "index",
-  props: propsDef,
+  props: {
+    username: String,
+    showText: {
+      type: Boolean,
+      default: true
+    },
+    size: {
+      type: String
+    }
+  },
   setup(__props) {
     const props = __props;
     const avatarSizeMap = {
@@ -20,17 +28,18 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       [SizeEnum.DEFAULT]: 14,
       [SizeEnum.XLARGE]: 24
     };
+    const sizeRef = computed(() => props.size || SizeEnum.DEFAULT);
     const slicedName = computed(() => {
       var _a;
       return (_a = props.username) == null ? void 0 : _a.slice(-2);
     });
-    const avatarSize = computed(() => avatarSizeMap[props.size]);
+    const avatarSize = computed(() => avatarSizeMap[sizeRef.value]);
     const textStyle = computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
-      lineHeight: `${avatarSizeMap[props.size]}px`
+      fontSize: `${fontSizeMap[sizeRef.value]}px`,
+      lineHeight: `${avatarSizeMap[sizeRef.value]}px`
     }));
     const avatarStyle = computed(() => ({
-      fontSize: `${fontSizeMap[props.size]}px`,
+      fontSize: `${fontSizeMap[sizeRef.value]}px`,
       background: nameToColor(props.username)
     }));
     return (_ctx, _cache) => {
@@ -45,12 +54,12 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
           ]),
           _: 1
         }, 8, ["size", "style"]),
-        _ctx.showText ? (openBlock(), createElementBlock("span", {
+        __props.showText ? (openBlock(), createElementBlock("span", {
           key: 0,
           class: "zsui-user__namewrap",
           style: normalizeStyle(textStyle.value)
         }, [
-          createElementVNode("span", _hoisted_2, toDisplayString(_ctx.username), 1)
+          createElementVNode("span", _hoisted_2, toDisplayString(__props.username), 1)
         ], 4)) : createCommentVNode("", true)
       ]);
     };
